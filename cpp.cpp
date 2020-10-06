@@ -40,6 +40,9 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 
 int main() {
     LL(n, k);
+    rep(i,n){
+        cout << i << endl;
+    }
 
     
 	return 0;
