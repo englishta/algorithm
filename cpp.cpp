@@ -43,7 +43,7 @@ int main() {
     rep(i,n){
         cout << i << endl;
         while(1){
-            
+            /*処理を行う*/
         }
     }
 
