@@ -43,6 +43,7 @@ int main() {
     rep(i,n){
         cout << i << endl;
         cout << "aaaa" << endl;
+        cout << "nandnayo!!" << endl;
     }
 
     
