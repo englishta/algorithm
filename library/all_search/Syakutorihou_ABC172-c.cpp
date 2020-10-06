@@ -11,6 +11,8 @@ constexpr int INF  = 0x3f3f3f3f;
 const long long mod=1e9+7;
 const long double PI = acos(-1);
 // }}} End Header
+
+//ABC172_Shakutorihou
 int main() {
 	int n, m, k;
 	cin >> n >> m >> k;
@@ -19,7 +21,7 @@ int main() {
 	rep(i,n) cin >> a[i];
 	rep(i,m) cin >> b[i];
 	ll t = 0;
-	rep(i,m) t+=b[i];//t�́AB�̖{�I�̖{��S�ēǂނ̂ɂ����鎞��
+	rep(i,m) t+=b[i];//tは、Bの本棚の本を全て読むのにかかる時間
 	int j = m;
 	int ans = 0;
 	rep(i, n+1){
@@ -27,11 +29,11 @@ int main() {
 			--j;
 			t-=b[j];
 		}
-		if(t>k) break;//b[i]�̗v�f���[���ł����Ԃ����𒴂��Ă��܂��ꍇ�A
+		if(t>k) break;//b[i]の要素がゼロでも時間がｋを超えてしまう場合、
 		if(ans < i+j) ans = i+j;
 		//ans = max(ans, i+j);
-		if(i >= n) break;//a[n]�ɒB������I���A
-		t+=a[i];//�{�IA�̓ǂޖ{������₷�A���Ԃ����̕�����
+		if(i >= n) break;//a[n]に達したら終わり、
+		t+=a[i];//本棚Aの読む本を一つ増やす、時間もその分足す
 	}
 	cout << ans << endl;
  	return 0;
