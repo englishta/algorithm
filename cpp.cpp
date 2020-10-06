@@ -41,8 +41,6 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 int main() {
     LL(n, k);
     cout << "endl;" << endl;
-
     puts("AAA");
-    
 	return 0;
 }
