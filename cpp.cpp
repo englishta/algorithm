@@ -42,6 +42,7 @@ int main() {
     LL(n, k);
     rep(i,n){
         cout << i << endl;
+        cout << "aaaa" << endl;
     }
 
     
