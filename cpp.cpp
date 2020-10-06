@@ -40,8 +40,9 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 
 int main() {
     LL(n, k);
-    cout << "git_kannzennni_rikaisita" << endl;
+    cout << "endl;" << endl;
 
+    puts("AAA");
     
 	return 0;
 }
