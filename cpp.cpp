@@ -42,6 +42,9 @@ int main() {
     LL(n, k);
     rep(i,n){
         cout << i << endl;
+        while(1){
+            
+        }
     }
 
     
