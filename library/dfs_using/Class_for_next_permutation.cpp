@@ -44,14 +44,13 @@ class Permu_tation{
     vector<long long> array;
     vector<bool> used;
 
-    //コンストラクタ
+    //next_permutation?dfs???????
     Permu_tation(long long N){
         array_size = N;
         array = vector<long long>(N);
         used = vector<bool>(N, false);
     }
 
-    //入力の関数,昇順ソートの関数
     void input(){
         for(ll i=0; i<array_size; ++i) cin >> array[i];
         sort(array.begin(), array.end());
@@ -78,7 +77,6 @@ class Permu_tation{
 };
 
 void Main(){
-    //配列の要素数を入力
     LL(N);
     Permu_tation pt(N);
     pt.input();
@@ -92,7 +90,7 @@ int main(int argc, char **argv)
     Main();
 	return 0;
 }
-//入力
+//??
 /*
 N
 a_0, a_1, ....a_n-1
