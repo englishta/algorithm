@@ -57,10 +57,10 @@ void permutation(ll pos, ll n, vector<bool>& used, vector<ll>& perm, vector<ll>&
 }
 
 void Main(){
-    //a_1, a_2, ....a_(N-1), a_N の要素数Nの整数列を辞書順に並び替えて列挙するプログラム、next_permutation
+    
     ll N;
     cin >> N;
-    vector<ll> array(N);    //要素数Nの整数列
+    vector<ll> array(N);
 
     vector<bool> used(N);
     vector<ll> perm;
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
     Main();
 	return 0;
 }
-//入力
+//input
 /*
 N
 a_0, a_1, ....a_n-1
@@ -87,7 +87,7 @@ a_0, a_1, ....a_n-1
 3
 7 5 3
 
-出力
+output
 3 5 7 
 3 7 5 
 5 3 7 
