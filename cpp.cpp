@@ -37,8 +37,6 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 // }}} End Header
 
 
-
 int main() {
-    
 	return 0;
 }
