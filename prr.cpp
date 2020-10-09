@@ -35,43 +35,18 @@ template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
 // }}} End Header
-class Eratos{
-    public:
-
-    //1～Nまでの整数で素数判定、素因数分解が出来るプログラム
-    //メンバ変数
-
-    long long N;
-    vector<ll> array;
-
-    //コンストラクタ
-    Eratos(long long size){
-        N = size;
-        array = vector<ll>(size+1, 1);
-    }
-
-    //篩を作成する、計算量O(NlogN)
-    void make_sieve(){
-        for(long long i=2; i<=N; i++){
-            for(long long j=i; j<=N; j+=i){
-                array[j]++;
-            }
-        }
-    }
-
-    template<class T> bool p_judge(T number){
-        if(array[number] == 2) return true;//1とその数字の2つの約数だけ持つためtrue
-        else return false;//false
-    }
-};
 
 void Main(){
-    LL(n, k);
-    Eratos t(n);
-    t.make_sieve();
-    if(t.p_judge(k)) cout << k << " is Prime_number!!" << endl;
-    else cout << "No" << endl;
-    
+    bool ok = false;
+    ll ans = 1;
+    LL(n, h);
+    rep(i,n){
+        LL(a);
+        ans*=a;
+        ans%=h;
+    }
+    if(ans%h == 0) puts("YES");
+    else puts("NO");
 }
 
 int main(int argc, char **argv)
