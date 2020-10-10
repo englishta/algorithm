@@ -35,22 +35,10 @@ template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
 // }}} End Header
-ll n, k;
-ll dfs(vector<vector<ll>>& a, ll h, ll sub){
-    ll subans = 0;
-    if(h >= n-1) return 1;
-    else{
-        for(ll i=sub; sub<k; sub++){
-            ll next_w = distance(a[h+1].begin(), upper_bound(all(a[h+1]), a[h][sub]));
-            if(next_w == k) return 0;
-            subans+=dfs(a, h+1, next_w);
-        }
-    }
-    return subans%mod;
-}
 
 
-void Main(){
+int main() {
+    ll n, k;
     cin >> n >> k;
     vector<vector<ll>> v(n, vector<ll>(k));
     rep(i,n){
@@ -59,17 +47,17 @@ void Main(){
             sort(all(v[i]));
         }
     }
-    ll ans = 0;
-    rep(i,k){
-        ans+=dfs(v, 0, i);
+    vector<vector<ll>> dp(n, vector<ll>(1e9+1, 0));
+    for(ll i=0; i<1e9+1; i++){
     }
-    cout << ans%mod << endl;
-}
+    
+    for(ll i=1; i<n; i++){
+        for(auto x : v[i]){
+            ll sum = 0;
+            for(auto t : dp[i-1])
+            dp[i][x] = 
+        }
+    }
 
-int main(int argc, char **argv)
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    Main();
 	return 0;
 }
