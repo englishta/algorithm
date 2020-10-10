@@ -38,25 +38,27 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 
 
 int main() {
-    ll n, k;
-    cin >> n >> k;
-    vector<vector<ll>> v(n, vector<ll>(k));
-    rep(i,n){
-        rep(j,k){
-            cin >> v[i][j];
-            sort(all(v[i]));
-        }
-    }
-    vector<vector<ll>> dp(n, vector<ll>(1e9+1, 0));
-    for(auto x : v[0]) dp[1][x]=1;
-    
-    for(ll i=1; i<n; i++){
-        for(auto x : v[i]){
-            ll sum = 0;
-            for(auto t : dp[i-1])
-            dp[i][x] = 
-        }
-    }
+    ll dx[4] = {1, 0, 0, -1};
+    ll dy[4] = {0, 1, -1, 0};
+    ll h, w;
+    cin >> h >> w;
+    vector<string> s(h);
+    rep(i,h) cin >> s[i];
 
+    ll ans=0;
+    rep(i,h){
+        rep(j,w){
+            if(s[i][j] == '.'){
+                for(ll k=0; k<=3; k++){
+                    if(i+dx[k]<0 || i+dx[k] >=w || j+dy[k]<0 || j+dy[k] >= h){
+                        continue;
+                    }
+                    if(s[i+dx[k]][j+dy[k]] == '.') ans++;
+                }
+                s[i][j]='#';
+            }
+        }
+    }
+    cout << ans << endl;
 	return 0;
 }
