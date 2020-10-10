@@ -44,7 +44,7 @@ int main() {
     cin >> h >> w;
     vector<string> s(h);
     rep(i,h) cin >> s[i];
-
+    
     ll ans=0;
     rep(i,h){
         rep(j,w){

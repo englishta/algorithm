@@ -34,20 +34,43 @@ template<class T, class S> inline bool chmin(T &a, const S &b) { if (a>b) { a = 
 template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
+class Prints {
+private:
+    class __Prints {
+    public:
+        __Prints(const char* sep, const char* term) : sep(sep), term(term) {}
+        template <class... Args>
+        void operator()(const Args&... args) const { print(args...); }
+        template <typename T>
+        void pvec(const T& vec, size_t sz) const {
+            for (size_t i = 0; i < sz; i++)
+                std::cout << vec[i] << (i == sz - 1 ? term : sep);
+        }
+        template <typename T>
+        void pmat(const T& mat, size_t h, size_t w) {
+            for (size_t i = 0; i < h; i++)
+                for (size_t j = 0; j < w; j++)
+                    std::cout << mat[i][j] << (j == w - 1 ? term : sep);
+        }
+
+    private:
+        const char *sep, *term;
+        void print() const { std::cout << term; }
+        void print_rest() const { std::cout << term; }
+        template <class T, class... Tail>
+        void print(const T& head, const Tail&... tail) const { std::cout << head, print_rest(tail...); }
+        template <class T, class... Tail>
+        void print_rest(const T& head, const Tail&... tail) const { std::cout << sep << head, print_rest(tail...); }
+    };
+
+public:
+    Prints() {}
+    __Prints operator()(const char* sep = " ", const char* term = "\n") const { return __Prints(sep, term); }
+};
 // }}} End Header
 
 
 int main() {
-    ll n;
-    cin >> n;
-    set<ll> st;
-    rep(i, 200001) st.insert(i);
-    rep(i,n){
-        ll p;
-        cin >> p;
-        st.erase(p);
-        auto itr = st.begin();
-        cout << *itr << endl;
-    }
+    cout << "Hello" << endl;
 	return 0;
 }
