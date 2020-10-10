@@ -68,7 +68,7 @@ public:
     __Prints operator()(const char* sep = " ", const char* term = "\n") const { return __Prints(sep, term); }
 };
 // }}} End Header
-
+    
 
     
 int main() {
