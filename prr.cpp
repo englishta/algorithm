@@ -38,26 +38,16 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 
 
 int main() {
-    ll n, k;
-    cin >> n >> k;
-    vector<vector<ll>> v(n, vector<ll>(k));
+    ll n;
+    cin >> n;
+    set<ll> st;
+    rep(i, 200001) st.insert(i);
     rep(i,n){
-        rep(j,k){
-            cin >> v[i][j];
-            sort(all(v[i]));
-        }
+        ll p;
+        cin >> p;
+        st.erase(p);
+        auto itr = st.begin();
+        cout << *itr << endl;
     }
-    vector<vector<ll>> dp(n, vector<ll>(1e9+1, 0));
-    for(ll i=0; i<1e9+1; i++){
-    }
-    
-    for(ll i=1; i<n; i++){
-        for(auto x : v[i]){
-            ll sum = 0;
-            for(auto t : dp[i-1])
-            dp[i][x] = 
-        }
-    }
-
 	return 0;
 }
