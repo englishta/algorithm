@@ -34,42 +34,28 @@ template<class T, class S> inline bool chmin(T &a, const S &b) { if (a>b) { a = 
 template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
-class Prints {
-private:
-    class __Prints {
-    public:
-        __Prints(const char* sep, const char* term) : sep(sep), term(term) {}
-        template <class... Args>
-        void operator()(const Args&... args) const { print(args...); }
-        template <typename T>
-        void pvec(const T& vec, size_t sz) const {
-            for (size_t i = 0; i < sz; i++)
-                std::cout << vec[i] << (i == sz - 1 ? term : sep);
-        }
-        template <typename T>
-        void pmat(const T& mat, size_t h, size_t w) {
-            for (size_t i = 0; i < h; i++)
-                for (size_t j = 0; j < w; j++)
-                    std::cout << mat[i][j] << (j == w - 1 ? term : sep);
-        }
-
-    private:
-        const char *sep, *term;
-        void print() const { std::cout << term; }
-        void print_rest() const { std::cout << term; }
-        template <class T, class... Tail>
-        void print(const T& head, const Tail&... tail) const { std::cout << head, print_rest(tail...); }
-        template <class T, class... Tail>
-        void print_rest(const T& head, const Tail&... tail) const { std::cout << sep << head, print_rest(tail...); }
-    };
-
-public:
-    Prints() {}
-    __Prints operator()(const char* sep = " ", const char* term = "\n") const { return __Prints(sep, term); }
-};
 // }}} End Header
     
 int main() {
-    cout << "Hello" << endl;
+    LL(n, k);
+    vector<vector<ll>> a(n, vector<ll>(k));
+    rep(i,n) rep(j,k) cin >> a[i][j];
+    vector<vector<ll>> dp(1e4+10, vector<ll>(1e4+10, 0));
+    rep(i,k) dp[0][i]++;
+
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<k; j++){
+            ll pos = distance(a.begin(), lower_bound(all(a), a[i][j]));
+            dp[i+1][j]+=dp[i][pos-1];
+            dp[i+1][j]%=mod;
+        }
+        for(ll t=1; t<k; t++){
+            dp[i+1][t]+=dp[i][t-1];
+            dp[i+1][t]%=mod;
+        }
+    }
+    ll ans = 0;
+    rep(i,k) ans+=dp[n-1][i];
+    cout << ans << endl;
 	return 0;
 }
