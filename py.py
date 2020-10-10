@@ -6,5 +6,14 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Header
 # _________コーディングはここから！！___________
-a = int(input())
-print(a)
+n, h = map(int, input().split())
+A = list(map(int, input().split()))
+
+ok = False
+for x in A:
+    if x%h == 0:
+        ok = True
+if ok:
+    print("YES")
+else:
+    print("NO")
