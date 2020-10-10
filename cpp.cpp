@@ -38,5 +38,25 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 
 
 int main() {
+    ll n, k;
+    cin >> n >> k;
+    vector<vector<ll>> v(n, vector<ll>(k));
+    rep(i,n){
+        rep(j,k){
+            cin >> v[i][j];
+            sort(all(v[i]));
+        }
+    }
+    vector<vector<ll>> dp(n, vector<ll>(1e9+1, 0));
+    for(auto x : v[0]) dp[1][x]=1;
+    
+    for(ll i=1; i<n; i++){
+        for(auto x : v[i]){
+            ll sum = 0;
+            for(auto t : dp[i-1])
+            dp[i][x] = 
+        }
+    }
+
 	return 0;
 }
