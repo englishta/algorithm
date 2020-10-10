@@ -35,18 +35,35 @@ template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
 // }}} End Header
+ll n, k;
+ll dfs(vector<vector<ll>>& a, ll h, ll sub){
+    ll subans = 0;
+    if(h >= n-1) return 1;
+    else{
+        for(ll i=sub; sub<k; sub++){
+            ll next_w = distance(a[h+1].begin(), upper_bound(all(a[h+1]), a[h][sub]));
+            if(next_w == k) return 0;
+            subans+=dfs(a, h+1, next_w);
+        }
+    }
+    return subans%mod;
+}
+
 
 void Main(){
-    bool ok = false;
-    ll ans = 1;
-    LL(n, h);
+    cin >> n >> k;
+    vector<vector<ll>> v(n, vector<ll>(k));
     rep(i,n){
-        LL(a);
-        ans*=a;
-        ans%=h;
+        rep(j,k){
+            cin >> v[i][j];
+            sort(all(v[i]));
+        }
     }
-    if(ans%h == 0) puts("YES");
-    else puts("NO");
+    ll ans = 0;
+    rep(i,k){
+        ans+=dfs(v, 0, i);
+    }
+    cout << ans%mod << endl;
 }
 
 int main(int argc, char **argv)
