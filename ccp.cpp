@@ -5,7 +5,7 @@
 using namespace std;
 using ll = long long;
 using P = pair<ll, ll>;
-using Graph = vector<vector<ll>>;
+using Graph = vector<vector<ll>>;//   vector<vector<ll>>v(n,vector<ll>(k, 0));
 #define rep(i,n) for(ll i=0; i<n; i++)
 #define loop(i, j, n) for(ll i=j; i<n; i++)
 #define all(x) (x).begin(), (x).end()
@@ -34,10 +34,11 @@ template<class T, class S> inline bool chmin(T &a, const S &b) { if (a>b) { a = 
 template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
 template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
+template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cout << x << " "; } cout << endl; }
 // }}} End Header
-
-
+    
 int main() {
-    cout << "hellow world" << endl;
+    vector<int> a = {1, 2, 3, 4, 5, 6};
+    OutVector(a);
 	return 0;
 }
