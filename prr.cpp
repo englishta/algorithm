@@ -37,25 +37,6 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 // }}} End Header
     
 int main() {
-    LL(n, k);
-    vector<vector<ll>> a(n, vector<ll>(k));
-    rep(i,n) rep(j,k) cin >> a[i][j];
-    vector<vector<ll>> dp(1e4+10, vector<ll>(1e4+10, 0));
-    rep(i,k) dp[0][i]++;
-
-    for(ll i=0; i<n; i++){
-        for(ll j=0; j<k; j++){
-            ll pos = distance(a.begin(), lower_bound(all(a), a[i][j]));
-            dp[i+1][j]+=dp[i][pos-1];
-            dp[i+1][j]%=mod;
-        }
-        for(ll t=1; t<k; t++){
-            dp[i+1][t]+=dp[i][t-1];
-            dp[i+1][t]%=mod;
-        }
-    }
-    ll ans = 0;
-    rep(i,k) ans+=dp[n-1][i];
-    cout << ans << endl;
+    
 	return 0;
 }
