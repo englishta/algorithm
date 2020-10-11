@@ -39,5 +39,6 @@ template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cou
     
 int main() {
     
+
 	return 0;
 }

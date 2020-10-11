@@ -38,7 +38,7 @@ template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cou
 // }}} End Header
     
 int main() {
-    vector<ll> a = {1, 3, 4, 5, 6};
-    OutVector(a);
+
+
 	return 0;
 }
