@@ -1,3 +1,4 @@
+#pragma region Macros
 #include<bits/stdc++.h>
 //#include<atcoder/all>
 // Begin Header {{{
@@ -14,8 +15,20 @@ using Graph = vector<vector<ll>>;//   vector<vector<ll>>v(n,vector<ll>(k, 0));
 constexpr int INF  = 0x3f3f3f3f;
 const long long mod=1e9+7;
 const long double PI = acos(-1);
-template<class T, class S> inline bool chmax(T &a, const S &b) { if (a<b) { a = b; return 1; } return 0; }
-template<class T, class S> inline bool chmin(T &a, const S &b) { if (a>b) { a = b; return 1; } return 0; }
+template<class T, class S> inline bool chmax(T &a, const S &b){ 
+    if (a<b){ 
+        a = b; 
+        return 1; 
+    } 
+    return 0; 
+}
+template<class T, class S> inline bool chmin(T &a, const S &b){
+    if (a>b){
+        a = b;
+        return 1; 
+    } 
+    return 0; 
+}
 #define INT(...)                                                                                                                                               \
     int __VA_ARGS__;                                                                                                                                           \
     IN(__VA_ARGS__)
@@ -33,11 +46,34 @@ template<class T, class S> inline bool chmin(T &a, const S &b) { if (a>b) { a = 
     IN(__VA_ARGS__)
 template<class T> void scan(T &a) { cin >> a; }
 void IN() {}
-template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(head); IN(tail...); }
-template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cout << x << " "; } cout << endl; }
-// }}} End Header
-    
-int main() {
+template<class Head, class... Tail> void IN(Head &head, Tail &... tail)
+{
+    scan(head);
+    IN(tail...);
+}
+template<typename T> void OutVector(vector<T>& aData)
+{ 
+    for(auto& x : aData) cout << x << " "; 
+    cout << endl; 
+}
 
-	return 0;
+// }}} End Header
+#pragma endregion
+void solve() {
+    LL(n);
+    vector<ll> array(n);
+    ll ans = 10000;
+    rep(i,n){
+        LL(a);
+        array[i] = a;
+        chmin(ans, a);
+    }
+    cout << ans << endl;
+    OutVector(array);
+}
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
+    return 0;
 }
