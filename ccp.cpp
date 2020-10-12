@@ -1,7 +1,6 @@
 #pragma region Macros
 #include<bits/stdc++.h>
 //#include<atcoder/all>
-// Begin Header {{{
 //using namespace atcoder;
 using namespace std;
 using ll = long long;
@@ -12,6 +11,8 @@ using Graph = vector<vector<ll>>;//   vector<vector<ll>>v(n,vector<ll>(k, 0));
 #define all(x) (x).begin(), (x).end()
 #define UNIQUE(v) v.erase(unique(all(v)), v.end());
 #define Sp(p) cout<<setprecision(25)<< fixed<<p<<endl;
+#define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
+#define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
 constexpr int INF  = 0x3f3f3f3f;
 const long long mod=1e9+7;
 const long double PI = acos(-1);
@@ -56,19 +57,16 @@ template<typename T> void OutVector(vector<T>& aData)
     for(auto& x : aData) cout << x << " "; 
     cout << endl; 
 }
-
-// }}} End Header
+/* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
     LL(n);
     vector<ll> array(n);
-    ll ans = 10000;
     rep(i,n){
-        LL(a);
-        array[i] = a;
-        chmin(ans, a);
+        LL(a); array[i] = a;
     }
-    cout << ans << endl;
+    sort(all(array));
+    UNIQUE(array);
     OutVector(array);
 }
 int main(){
