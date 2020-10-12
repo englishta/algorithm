@@ -38,35 +38,20 @@ template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cou
 // }}} End Header
     
 void solve() {
-    ll n;
+    ll n, ans;
     cin >> n;
     vector<ll> a(n);
-    rep(i,n){
+    cin >> ans;
+    for(ll i=1; i<n; i++){
         cin >> a[i];
+        ans=__gcd(a[i], ans);
     }
-    sort(a.begin(), a.end());
-    ll min= a[0];
-    rep(i,n){
-        if(a[i]%min != 0){
-            a[i]%=min;
-            if(a[i]<min) min = a[i];
-        }
-        else{
-            a[i] = min;
-        } 
-    }
-    cout << min << endl;
+    cout << ans << endl;
 }
 
 int main() {
-//#ifdef FILEINPUT
-    std::ifstream ifs("./input.txt");
-    std::cin.rdbuf(ifs.rdbuf());
-//#endif
-//#ifdef FILEOUTPUT
-    std::ofstream ofs("./output.txt");
-    std::cout.rdbuf(ofs.rdbuf());
-//#endif
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     solve();
     return 0;
 }
