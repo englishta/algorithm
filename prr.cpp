@@ -37,8 +37,36 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail){ scan(he
 template<typename T> void OutVector(vector<T>& aData){ for(auto& x : aData){ cout << x << " "; } cout << endl; }
 // }}} End Header
     
+void solve() {
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    rep(i,n){
+        cin >> a[i];
+    }
+    sort(a.begin(), a.end());
+    ll min= a[0];
+    rep(i,n){
+        if(a[i]%min != 0){
+            a[i]%=min;
+            if(a[i]<min) min = a[i];
+        }
+        else{
+            a[i] = min;
+        } 
+    }
+    cout << min << endl;
+}
+
 int main() {
-
-
-	return 0;
+//#ifdef FILEINPUT
+    std::ifstream ifs("./input.txt");
+    std::cin.rdbuf(ifs.rdbuf());
+//#endif
+//#ifdef FILEOUTPUT
+    std::ofstream ofs("./output.txt");
+    std::cout.rdbuf(ofs.rdbuf());
+//#endif
+    solve();
+    return 0;
 }
