@@ -61,13 +61,30 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 void solve() {
 
-    ll z = 1;
-    ll b = 2;
-    LL(n, k);
-    vector<ll> a(n);
-    rep(i,n) cin >> a[i];
-    cout << lb(a, k) << endl;
-    cout << ub(a, k) << endl;
+	LL(n);
+    ll min = 1e9;
+	priority_queue<int> pq;
+
+
+	rep(i,n){
+		LL(a);
+        chmin(min, a);
+		pq.push(a);
+	}
+	while(!pq.empty()){
+        ll x = pq.top();
+        pq.pop();
+        if(x == min){
+            cout << min << '\n';
+            break;
+        }
+        ll y = x%min;
+        if(y){
+            chmin(min, y);
+            pq.push(y);
+        }
+    }
+
 }
 int main(){
     ios::sync_with_stdio(false);
