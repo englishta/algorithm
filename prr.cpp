@@ -59,10 +59,28 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
+
+
 void solve() {
-    
+
+	LL(n);
+	set<ll> st;
+    rep(i,n){
+		LL(a);
+	    st.insert(a);
+	}
+    while(st.size()>0){
+        auto itr = st.end(); itr--;
+        ll x = *itr;
+        if(x == *(st.begin())) break;
+        st.erase(x);
+        if(x%*(st.begin())) st.insert(x%*(st.begin()));
+    }
+    cout << *(st.begin()) << '\n';
 
 }
+
+
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
