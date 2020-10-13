@@ -60,29 +60,7 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
-
-	LL(n);
-    ll min = 1e9;
-	set<ll> st;
-
-    rep(i,n){
-		LL(a);
-        chmin(min, a);
-	    st.insert(a);
-	}
-    while(st.size()>0){
-        auto itr = st.end();
-        itr--;
-        ll x = *itr;
-        if(x == min) break;
-        st.erase(x);
-        ll y = x%min;
-        if(y){
-            chmin(min, y);
-            st.insert(y);
-        }
-    }
-    cout << min << '\n';
+    
 
 }
 int main(){
