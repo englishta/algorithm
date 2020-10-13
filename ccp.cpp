@@ -59,8 +59,11 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
-
-int main(){
+void solve() {
+    LL(n);
+    cout << n << endl;
+}
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     solve();

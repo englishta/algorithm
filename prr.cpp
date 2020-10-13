@@ -60,6 +60,9 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
+
+    ll z = 1;
+    ll b = 2;
     LL(n, k);
     vector<ll> a(n);
     rep(i,n) cin >> a[i];
