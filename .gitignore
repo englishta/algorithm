@@ -1,1 +1,2 @@
-*.exe
+#どのディレクトリかを問わず、file.exeを除外
+file-a.exe
