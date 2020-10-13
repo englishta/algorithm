@@ -6,3 +6,7 @@
 
 #file.exeを除外
 *.exe
+
+
+#setgcc.batを除外
+setgcc.bat
