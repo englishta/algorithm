@@ -12,20 +12,19 @@ int main() {
 	rep(i,n){
 		ll a;
 		cin >> a;
+		if(min>a) min = a;
 		que.push(a);
 	}
 	while(!que.empty()){
 		ll x = que.top();
 		que.pop();
-		if(x == min){
-			cout << min << '\n';
-			break;
-		}
+		if(x == min) break;
 		ll y = x%min;
 		if(y){
 			if(min>y) min = y;
 			que.push(y);
 		}
 	}
+	cout << min << '\n';
 	return 0;
 }

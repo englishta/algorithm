@@ -63,27 +63,26 @@ void solve() {
 
 	LL(n);
     ll min = 1e9;
-	priority_queue<int> pq;
+	set<ll> st;
 
-
-	rep(i,n){
+    rep(i,n){
 		LL(a);
         chmin(min, a);
-		pq.push(a);
+	    st.insert(a);
 	}
-	while(!pq.empty()){
-        ll x = pq.top();
-        pq.pop();
-        if(x == min){
-            cout << min << '\n';
-            break;
-        }
+    while(st.size()>0){
+        auto itr = st.end();
+        itr--;
+        ll x = *itr;
+        if(x == min) break;
+        st.erase(x);
         ll y = x%min;
         if(y){
             chmin(min, y);
-            pq.push(y);
+            st.insert(y);
         }
     }
+    cout << min << '\n';
 
 }
 int main(){
