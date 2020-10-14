@@ -50,6 +50,5 @@ for i in range(4):
     Ram[i]+=Ga[i]/(Gf[i]*9.0)
     qex[i]+=100*4.186*Cp*(Ga[i]+Gf[i])*(Tex[i]-Ta[i])/(Hu*Gf[i])
 #########################################
-print(qex)
-plt.plot(x, qex, '.-')
+plt.plot(x, qex, ".-")
 plt.show()
