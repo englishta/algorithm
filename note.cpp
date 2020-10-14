@@ -45,6 +45,6 @@ struct RMQ {
 
 
 int main() {
-
+    
 	return 0;
 }

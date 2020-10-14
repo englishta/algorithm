@@ -60,26 +60,17 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-
 void solve() {
-
-	LL(n);
-	set<ll> st;
-    rep(i,n){
-		LL(a);
-	    st.insert(a);
-	}
-    while(st.size()>0){
-        auto itr = st.end(); itr--;
-        ll x = *itr;
-        if(x == *(st.begin())) break;
-        st.erase(x);
-        if(x%*(st.begin())) st.insert(x%*(st.begin()));
+#if 0
+    LL(n);
+    vector<pair<int, int>> a(n);
+    for(auto &x : a){
+        cin >> x.first >> x.second;
+        x.first++; x.second++;
     }
-    cout << *(st.begin()) << '\n';
-
+    for(auto x : a) cout << x.first << x.second << endl;
+#endif
 }
-
 
 int main(){
     ios::sync_with_stdio(false);
