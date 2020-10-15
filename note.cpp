@@ -51,6 +51,6 @@ int main() {
     for(int i=0; i<a.size(); i++) tree.update(i, a[i]);
     for(auto x : tree.dat) cout << x << " ";
     cout << endl;
-    cout << tree.query(0, 7) << endl;
+    cout << tree.query(1, 6) << endl;
 	return 0;
 }
