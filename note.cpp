@@ -2,53 +2,81 @@
 using namespace std;
 using ll = long long;
 #define rep(i,n) for(ll i=0; i<n; i++)
-/* SegmentTree：[0,n-1] について、区間ごとの最小値を管理する構造体
-    update(i,x): i 番目の要素を x に更新。O(log(n))
-    query(a,b): [a,b) での最小の要素を取得。O(log(n))
-*/
-template <typename T>
-struct SegmentTree {
 
-    int n;         // 葉の数
-    vector<T> node; // 完全二分木の配列
+template<class T>
+class SegmentTree {
 
-    SegmentTree(vector<T> v) { // 葉の数は 2^x の形
-        int sz = v.size;
-        n = 1; while (n < sz) n *= 2;
-        node.resize(2*n-1, INF);
-
-        // 最下段に値を入れたあとに、下の段から順番に値を入れる
-        // 値を入れるには、自分の子の 2 値を参照すれば良い
-        for(int i=0; i<sz; i++) node[i+n-1] = v[i];
-        for(int i=n-2; i>=0; i--) node[i] = min(node[2*i+1], node[2*i+2]);
+public:
+    /**
+     * @param N size
+     * @param e identity element
+     * @param operation operation for query
+     * @param updater operation for update
+     */
+    SegmentTree(size_t N, T e, function<T(T, T)> operation, function<T(T, T)> updater)
+            : e(e), operation(std::move(operation)), updater(move(updater)) {
+        n = 1;
+        while (n < N) {
+            n *= 2;
+        }
+        data = vector<T>(2 * n - 1, e);
     }
 
+    /**
+     * iの値をxに更新
+     * @param i index ( 0-indexed )
+     * @param x  value
+     */
     void update(int i, T x) {
         i += n - 1;
-        node[i] = x;
+        data[i] = updater(data[i], x);
         while (i > 0) {
-            i = (i - 1) / 2;  // parent
-            node[i] = min(node[i * 2 + 1], node[i * 2 + 2]);
+            i = (i - 1) / 2;
+            data[i] = operation(data[i * 2 + 1], data[i * 2 + 2]);
         }
     }
 
-    // the minimum element of [a,b)
-    T query(int a, int b) { return query_sub(a, b, 0, 0, n); }
-    T query_sub(int a, int b, int k, int l, int r) {
-        if (r <= a || b <= l) {
-            return INF;
-        } else if (a <= l && r <= b) {
-            return node[k];
-        } else {
-            T vl = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
-            T vr = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
-            return min(vl, vr);
-        }
+    /**
+     * [a, b)の区間でクエリを実行
+     */
+    T query(int a, int b) {
+        return query(a, b, 0, 0, n);
+    }
+
+    /**
+     * 添字でアクセス
+     * @param i index ( 0-indexed )
+     */
+    T operator[](int i) {
+        return data[i + n - 1];
+    }
+
+private:
+    int n;
+    vector<T> data;
+    T e;
+    function<T(T, T)> operation;
+    function<T(T, T)> updater;
+
+    T query(int a, int b, int k, int l, int r) {
+        // 交差しない
+        if (r <= a || b <= l) return e;
+        // 区間 [a, b) に l, r が含まれる
+        if (a <= l && r <= b) return data[k];
+        // 左の子
+        T c1 = query(a, b, 2 * k + 1, l, (l + r) / 2);
+        // 右の子
+        T c2 = query(a, b, 2 * k + 2, (l + r) / 2, r);
+        return operation(c1, c2);
     }
 };
 
 
+
+
+
+
 int main() {
-    
+    vector<int> a={1, 3, 7, 2, 5, 3, 5, 9, 2, 4, 3, 5, 5, 2, 5};
 	return 0;
 }
