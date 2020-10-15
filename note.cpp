@@ -11,15 +11,13 @@ template <typename T>
 class RMQ {
     public:
     
-    const T INF = numeric_limits<T>::max();
+    const T Inf = numeric_limits<T>::max();
     int n;         // 葉の数
     vector<T> dat; // 完全二分木の配列
-    RMQ(int n_) : n(), dat(n_ * 4, INF) { // 葉の数は 2^x の形
-        int x = 1;
-        while (n_ > x) {
-            x *= 2;
-        }
-        n = x;
+    RMQ(size_t sz){ // 葉の数は 2^x の形
+        n = 1;
+        while (n < sz) n *= 2;
+        dat = vector<T>(2 * n-1, Inf);
     }
 
     void update(int i, T x) {
@@ -35,7 +33,7 @@ class RMQ {
     T query(int a, int b) { return query_sub(a, b, 0, 0, n); }
     T query_sub(int a, int b, int k, int l, int r) {
         if (r <= a || b <= l) {
-            return INF;
+            return Inf;
         } else if (a <= l && r <= b) {
             return dat[k];
         } else {
@@ -51,6 +49,10 @@ int main() {
     int n;
     cin >> n;
     RMQ<int> tree(n);
+    vector<int> a={1, 2, 3, 4, 5, 6, 7, 8};
+    for(int i=0; i<n; i++) tree.update(i, a[i]);
+    for(auto x : tree.dat) cout << x << " ";
+    cout << endl;
     cout << tree.n << endl;
 	return 0;
 }
