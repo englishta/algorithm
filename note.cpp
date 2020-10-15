@@ -14,7 +14,7 @@ class RMQ {
     const T Inf = numeric_limits<T>::max();
     int n;         // 葉の数
     vector<T> dat; // 完全二分木の配列
-    RMQ(size_t sz){ // 葉の数は 2^x の形
+    RMQ(size_t sz){
         n = 1;
         while (n < sz) n *= 2;
         dat = vector<T>(2 * n-1, Inf);
@@ -46,13 +46,11 @@ class RMQ {
 
 
 int main() {
-    int n;
-    cin >> n;
-    RMQ<int> tree(n);
-    vector<int> a={1, 2, 3, 4, 5, 6, 7, 8};
-    for(int i=0; i<n; i++) tree.update(i, a[i]);
+    vector<int> a={1, 2, 3, 4, 5, 6, 7};
+    RMQ<int> tree(a.size());
+    for(int i=0; i<a.size(); i++) tree.update(i, a[i]);
     for(auto x : tree.dat) cout << x << " ";
     cout << endl;
-    cout << tree.n << endl;
+    cout << tree.query(0, 7) << endl;
 	return 0;
 }
