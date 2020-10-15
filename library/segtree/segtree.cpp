@@ -2,21 +2,22 @@
 using namespace std;
 using ll = long long;
 #define rep(i,n) for(ll i=0; i<n; i++)
+
 /* RMQ：[0,n-1] について、区間ごとの最小値を管理する構造体
     update(i,x): i 番目の要素を x に更新。O(log(n))
     query(a,b): [a,b) での最小の要素を取得。O(log(n))
 */
 template <typename T>
-struct RMQ {
-    const T INF = numeric_limits<T>::max();
+class RMQ {
+    public:
+    
+    const T Inf = numeric_limits<T>::max();
     int n;         // 葉の数
     vector<T> dat; // 完全二分木の配列
-    RMQ(int n_) : n(), dat(n_ * 4, INF) { // 葉の数は 2^x の形
-        int x = 1;
-        while (n_ > x) {
-            x *= 2;
-        }
-        n = x;
+    RMQ(size_t sz){
+        n = 1;
+        while (n < sz) n *= 2;
+        dat = vector<T>(2 * n-1, Inf);
     }
 
     void update(int i, T x) {
@@ -32,7 +33,7 @@ struct RMQ {
     T query(int a, int b) { return query_sub(a, b, 0, 0, n); }
     T query_sub(int a, int b, int k, int l, int r) {
         if (r <= a || b <= l) {
-            return INF;
+            return Inf;
         } else if (a <= l && r <= b) {
             return dat[k];
         } else {
@@ -45,7 +46,11 @@ struct RMQ {
 
 
 int main() {
-    int a;
-    
+    vector<int> a={1, 2, 3, 4, 5, 6, 7};
+    RMQ<int> tree(a.size());
+    for(int i=0; i<a.size(); i++) tree.update(i, a[i]);
+    for(auto x : tree.dat) cout << x << " ";
+    cout << endl;
+    cout << tree.query(1, 6) << endl;
 	return 0;
 }
