@@ -60,8 +60,15 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
-    
-    
+    LL(x, y, a, b);
+    ll ans=0;
+    while(x < min(y/(a-1), b/a/(a-1))){
+        x*=a;
+        ans++;
+    }
+    if((y-x)%b == 0) ans--;
+    cout << ans+(y-x)/b << endl;
+    return;
 }
 int main() {
     ios::sync_with_stdio(false);

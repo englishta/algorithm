@@ -61,15 +61,7 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-#if 0
-    LL(n);
-    vector<pair<int, int>> a(n);
-    for(auto &x : a){
-        cin >> x.first >> x.second;
-        x.first++; x.second++;
-    }
-    for(auto x : a) cout << x.first << x.second << endl;
-#endif
+    return;
 }
 
 int main(){
