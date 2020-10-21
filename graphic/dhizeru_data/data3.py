@@ -24,12 +24,22 @@ def dev(deg):
 df = pd.read_csv('jikken1.csv', encoding = "SHIFT_JIS", header = 3)
 x = list(df['0.6'])
 x1 = list(df['0.6(1)'])
+x2 = list(df['0.3'])
+x3 = list(df['0.3(1)'])
+x4 = list(df['0.4'])
+x5 = list(df['0.4(1)'])
 p = x+x1
+p1 = x2+x3
+p2 = x4+x5
 
 y = []#dv/d0のリスト
 z = []#dp/d0のリスト
+z1 = []#0.3Mpa
+z2 = []#0.4Mpa
 vm3 = []#Vのリスト
 ans = []#dq/d0のリスト熱発生率
+ans_tree = []#0.3Mpa
+ans_for = []
 
 x = list(range(-40, 60))#角度°0[-40, 71)
 
@@ -40,12 +50,22 @@ for i in range(-40, 71):
 
 for i in range(len(p)-1):
     z.append(p[i+1]-p[i])
+    z1.append(p1[i+1]-p1[i])
+    z2.append(p2[i+1]-p2[i])
+
 
 for i in range(100):
     ans.append((vm3[i]*z[i]+1.3*p[i]*y[i])/0.3)
+    ans_tree.append((vm3[i]*z1[i]+1.3*p[i]*y[i])/0.3)
+    ans_for.append((vm3[i]*z2[i]+1.3*p[i]*y[i])/0.3)
 
-plt.plot(x, ans, '.-', color = 'g', label='Heat-generated rate')
-plt.ylabel( 'dQ/dθ (kg/h)' )
-plt.xlabel( 'Degree' )
+#plt.plot(x, ans, '.-', color = 'g', label='Pme = 0.6Mpa')
+#plt.plot(x, ans_for, '.-', color = 'b', label='Pme = 0.4Mpa')
+#plt.plot(x, ans_tree, '.-', color = 'deeppink', label='Pme = 0.3Mpa')
+#plt.hist(ans, color = 'g', bins = 30, label='Pme=0.6MPa')
+#plt.hist(ans_tree, color='b', bins=30, label = 'Pme = 0.4MPa')
+plt.hist(ans_for, color='deeppink', bins=30, label = 'Pme = 0.3MPa')
+plt.ylabel( 'number' )
+plt.xlabel( 'dQ/dθ (kg/h)' )
 plt.legend()
 plt.show()
