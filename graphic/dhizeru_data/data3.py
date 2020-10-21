@@ -42,4 +42,8 @@ for i in range(len(p)-1):
 for i in range(100):
     ans.append((vm3[i]*z[i]+1.3*p[i]*y[i])/0.3)
 
-print(variance(ans))
+plt.plot(x, ans, '-', color = 'g', label = 'dq/d0')
+plt.ylabel( 'dQ/dθ (kg/h)' )
+plt.xlabel( 'Degree' )
+plt.legend()
+plt.show()
