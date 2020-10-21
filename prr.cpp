@@ -61,6 +61,27 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
+    LL(t);
+    rep(k,t){
+        LL(n);
+        ll mi = 1e9+1;
+        ll ma = 0;
+        ll max_index = -2;
+        vector<ll> a(n);
+        rep(i,n) cin >> a[i];
+        rep(i,n){
+            if(a[i] >= ma){
+                ma = a[i];
+                if((i>0 && i < n-1) &&(a[i-1]<a[i] || a[i]> a[i+1])){
+                    max_index = i+1;
+                }else if(i == 0 && a[i] > a[i+1]) max_index = i+1;
+                else if(i == n-1 && a[i] > a[i-1]) max_index = i+1;
+            }
+            if(mi>a[i]) mi = a[i];
+        }
+        if(mi == ma)cout << -1 << endl;
+        else cout << max_index << endl;
+    }
     return;
 }
 
