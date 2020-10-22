@@ -60,9 +60,6 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
-    double d = 92e-3;//m内径
-    double ans = (d*d)/4;
-    cout << ans << endl;
     return;
 }
 int main() {
