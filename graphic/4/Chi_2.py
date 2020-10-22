@@ -11,7 +11,7 @@ def Chi_2(alpha, x, bunsan):
     p_value=chi2.cdf(Chi2, df=N-1)
     print('Left', Left)
     print('p_value=', p_value)
-    if p_value<0.5: print('H0 is wrong=kikyaku')
+    if p_value<alpha: print('H0 is wrong=kikyaku')
     else: print('H0 is OK=saitaku')
 
 x = [35.2, 34.5, 34.9, 35.2, 34.8, 35.1, 34.9, 35.2, 34.9, 34.8]
