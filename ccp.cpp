@@ -60,6 +60,11 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 void solve() {
+    long long a=27;
+    cin >> a;    
+    cout << a*a*a << endl;
+    cout << a << endl;
+    cout << a << endl;
     return;
 }
 int main() {
@@ -68,3 +73,4 @@ int main() {
     solve();
     return 0;
 }
+

@@ -80,5 +80,13 @@
     "files.autoGuessEncoding": true,
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "editor.fontFamily": "Fira Code"
+    "editor.fontFamily": "Fira Code",
+    "vim.insertModeKeyBindings": [
+        {
+          "before": ["j", "j"],
+          "after": ["<Esc>"]
+        }
+  ],
+
+  "vim.hlsearch": true
 }
