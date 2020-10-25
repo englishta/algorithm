@@ -1,6 +1,25 @@
-a = [40.0, 39.7, 42.1, 34.8, 45.2]#処理前
-b = [61.3, 81.5, 75.3, 72.4, 84.9]#焼き入れ、マルテンサイト
-c = [35.5, 23.5, 36.5, 22.4, 39.0]#焼きならし、パーライト
-print(sum(a)/5 )
-print(sum(b)/5 )
-print(sum(c)/5 )
+import matplotlib.pyplot as plt
+y =[40.4, 75.1, 31.4]
+labels = ['before', 'A', 'B']
+x = [1, 2, 3]
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+bar_list = ax.bar(x, y, tick_label=labels)
+bar_list[0].set_color("g")
+bar_list[1].set_color("deeppink")
+bar_list[2].set_color("blue")
+plt.ylabel('average')
+plt.xlabel('type')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
