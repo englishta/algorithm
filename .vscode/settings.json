@@ -89,6 +89,17 @@
   ],
 
   "vim.hlsearch": true,
-  "vim.useSystemClipboard": true
+  "vim.useSystemClipboard": true,
+  // 左端の行番号にカーソル位置からの距離を表示
+  "editor.lineNumbers": "relative",
+
+  // nomalモードのキーボード設定
+  "vim.normalModeKeyBindingsNonRecursive":[
+    // Ctrl+kで全選択
+        {
+          "before": ["ctrl+k"],
+          "after": ["g", "g", "V", "G"]
+        }
+  ]
 
 }

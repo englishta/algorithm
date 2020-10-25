@@ -20,4 +20,3 @@ for a in range(1, 1000):
         if 5**b > k:
             break
 
-
