@@ -6,9 +6,18 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Header
 # _________コーディングはここから！！___________
-a = [40.0, 39.7, 42.1, 34.8, 45.2]
-b = [61.3, 81.5, 75.3, 72.4, 84.9]
-c = [35.5, 23.5, 36.5, 22.4, 39.0]
-print(sum(a)/5 )
-print(sum(b)/5 )
-print(sum(c)/5 )
+
+n = int(input())
+for a in range(1, 1000):
+    k = n-3**a
+    if k<=0:
+        print(-1)
+        exit()
+    for b in range(1, 1000):
+        if 5**b == k:
+            print(a, b)
+            exit()
+        if 5**b > k:
+            break
+
+
