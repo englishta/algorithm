@@ -62,6 +62,7 @@ template<typename T> void OutVector(vector<T>& aData)
 
 void solve() {
     
+    
 }
 int main() {
     ios::sync_with_stdio(false);
