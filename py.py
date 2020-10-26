@@ -10,7 +10,7 @@ from itertools import accumulate, product, permutations, combinations, combinati
 n = int(input())
 for a in range(1, 1000):
     k = n-3**a
-    if k<=0:
+    if k <= 0:
         print(-1)
         exit()
     for b in range(1, 1000):
