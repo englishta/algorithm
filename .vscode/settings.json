@@ -81,6 +81,7 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "editor.fontFamily": "Fira Code",
+// インサートモードの設定
     "vim.insertModeKeyBindings": [
         {
           "before": ["j", "j"],
@@ -92,14 +93,18 @@
   "vim.useSystemClipboard": true,
   // 左端の行番号にカーソル位置からの距離を表示
   "editor.lineNumbers": "relative",
+  // 折りたたみ箇所を開かないように変更
+  "vim.foldfix": true, 
 
-  // nomalモードのキーボード設定
+// nomalモードのキーボード設定
   "vim.normalModeKeyBindingsNonRecursive":[
-    // Ctrl+kで全選択
-        {
-          "before": ["ctrl+k"],
-          "after": ["g", "g", "V", "G"]
-        }
-  ]
+        // Ctrl+kで全選択
+        { "before": ["ctrl+k"], "after": ["g", "g", "V", "G"] },
+  ],
+// ヴィジュアルモードの設定
+  "vim.visualModeKeyBindingsNonRecursive": [
+      // カーソル位置の単語をマルチカーソルで選択
+      { "before": [ "<C-n>" ], "after": [ "g", "b" ] },
+  ],
 
 }
