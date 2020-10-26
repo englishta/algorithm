@@ -103,8 +103,6 @@
   ],
 // ヴィジュアルモードの設定
   "vim.visualModeKeyBindingsNonRecursive": [
-      // カーソル位置の単語をマルチカーソルで選択
-      { "before": [ "<C-n>" ], "after": [ "g", "b" ] },
   ],
 
 }
