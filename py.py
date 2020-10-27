@@ -7,4 +7,8 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Header
 # _________コーディングはここから！！___________
 n = int(input())
-print(n)
+for i in range(n):
+    if 2**i > 1e9+7:
+        print("Oh!!big!!")
+        exit()
+    print("2^", i, "=", 2**i)

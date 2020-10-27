@@ -61,9 +61,9 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {    
-    int a;
-    cin >> a;
-    cout << a << endl;
+    double ans;
+    ans = PI*PI;
+    cout << pow(ans, 3) << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
