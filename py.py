@@ -8,3 +8,5 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # _________コーディングはここから！！___________
 n = int(input())
 print(n)
+a = []
+a.append(3)
