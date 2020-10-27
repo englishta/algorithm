@@ -7,4 +7,7 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Header
 # _________コーディングはここから！！___________
 n = int(input())
-print(n)
+a = []
+for i in range(n):
+    a.append(i)
+print(a)    
