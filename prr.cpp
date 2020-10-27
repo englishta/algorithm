@@ -63,7 +63,7 @@ template<typename T> void OutVector(vector<T>& aData)
 void solve() {    
     int a;
     cin >> a;
-    cout << a << endl;
+    cout << PI*a << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
