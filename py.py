@@ -6,9 +6,13 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Header
 # _________コーディングはここから！！___________
+
+num = int(input())
+num*=2
     
-
-
+for i in range(num):
+    print(num)
+    
 
 
 
