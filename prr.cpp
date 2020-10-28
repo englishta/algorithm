@@ -60,15 +60,8 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-void solve() {    
-    LL(w);
-    string s = " DiscoPresentsDiscoveryChannelProgrammingContest2016";
-    loop(i, 1, s.length()){
-        cout << s[i];
-        if((i!=0 && i%w == 0) || i==s.size()-1){
-            cout << endl;
-        }
-    }
+void solve() {
+
 }
 int main() {
     ios::sync_with_stdio(false);
