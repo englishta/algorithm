@@ -62,15 +62,12 @@ template<typename T> void OutVector(vector<T>& aData)
 
 void solve() {    
     LL(w);
-    int cnt = 0;
-    string s = "DiscoPresentsDiscoveryChannelProgrammingContest2016";
-    rep(i, s.length()){
+    string s = " DiscoPresentsDiscoveryChannelProgrammingContest2016";
+    loop(i, 1, s.length()){
         cout << s[i];
-        cnt++;
-        if(cnt == w){
+        if((i!=0 && i%w == 0) || i==s.size()-1){
             cout << endl;
-            cnt = 0;
-        };
+        }
     }
 }
 int main() {
