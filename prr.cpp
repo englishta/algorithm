@@ -61,9 +61,17 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {    
-    int a;
-    cin >> a;
-    cout << PI*a << endl;
+    LL(w);
+    int cnt = 0;
+    string s = "DiscoPresentsDiscoveryChannelProgrammingContest2016";
+    rep(i, s.length()){
+        cout << s[i];
+        cnt++;
+        if(cnt == w){
+            cout << endl;
+            cnt = 0;
+        };
+    }
 }
 int main() {
     ios::sync_with_stdio(false);
