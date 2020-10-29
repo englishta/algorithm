@@ -104,5 +104,6 @@
 // ヴィジュアルモードの設定
   "vim.visualModeKeyBindingsNonRecursive": [
   ],
+  "python.dataScience.jupyterServerURI": "local",
 
 }

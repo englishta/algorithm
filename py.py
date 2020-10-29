@@ -9,10 +9,11 @@ from itertools import accumulate, product, permutations, combinations, combinati
 
 num = int(input())
 num*=2
-    
+
 for i in range(num):
-    print(num)
     
+    print(num)
+
 
 
 
