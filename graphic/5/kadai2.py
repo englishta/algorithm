@@ -31,7 +31,7 @@ def jukaiki_bunseki(x1, x2, x3, y):
     print('C=', C)
     print('R2=', R2)
     #plt.plot(x1, y, '.', color = "y")
-    #plt.plot(x2, y, '.', color = "g")
+    plt.plot(x2, y, '.', color = "g")
     #plt.plot(x3, y, '.', color = "b")
     return
 
