@@ -75,7 +75,7 @@ void solve() {
         }
     }
     cout<< dp[n][W] << endl;
-    return; 
+    return;
 }
 int main() {
     ios::sync_with_stdio(false);
