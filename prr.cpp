@@ -71,9 +71,7 @@ void solve() {
     loop(i, 1, n+1){
         rep(j,W+1){
             dp[i][j] = dp[i-1][j];
-            if(j-w[i-1]>=0){
-                chmax(dp[i][j], dp[i-1][j-w[i-1]]+v[i-1]);
-            }
+            if(j-w[i-1]>=0) chmax(dp[i][j], dp[i-1][j-w[i-1]]+v[i-1]);
         }
     }
     cout<< dp[n][W] << endl;

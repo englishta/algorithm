@@ -7,25 +7,4 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Header
 # _________コーディングはここから！！___________
 
-n = int(input())
-st = set()
-for _ in range(n):
-    t = int(input())
-    st.add(t)
-print(len(st))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
