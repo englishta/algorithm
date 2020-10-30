@@ -61,6 +61,29 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {    
+    LL(n, W);
+    vector<ll> w(n), v(n);
+    vector<vector<ll>> dp(n+1, vector<ll>(1e5+3, 1e9));
+
+    rep(i,n){
+        cin >> w[i];
+        cin >> v[i];
+    }
+    dp[0][0] = 0;
+    for(ll i=1; i<n+1; i++){//n<=1e2
+        for(ll j=0; j<1e5+3; j++){
+            dp[i][j]=dp[i-1][j];
+            if(j-v[i-1]>=0) chmin(dp[i][j], dp[i-1][j-v[i-1]]+w[i-1]);
+        }
+    }
+    ll j=1e5;
+    while(1){
+        if(dp[n][j]>W){
+            cout << j << endl;
+            break;
+        } 
+        j--;
+    }
 
     return;
 }
