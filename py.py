@@ -6,4 +6,26 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Header
 # _________コーディングはここから！！___________
-#hellow!!
+
+n = int(input())
+st = set()
+for _ in range(n):
+    t = int(input())
+    st.add(t)
+print(len(st))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

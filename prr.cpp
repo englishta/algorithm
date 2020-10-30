@@ -61,11 +61,19 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {    
-    int n;
-    cin >> n;
-    vector<ll> a(n);
-    rep(i,n) cin >> a[i];
-    OutVector(a);
+    vector<ll> dp(1e5+2, 1e10);
+    LL(n, k);
+    vector<ll> h(n);
+    rep(i,n) cin >> h[i];
+    dp[1] = 0;
+    loop(i, 2, n+1){
+        loop(j, 1, k+1){
+            if(i-j-1<0) continue;
+            chmin(dp[i], dp[i-j]+abs(h[i-j-1]-h[i-1]));
+        }
+    }
+    cout << dp[n] << endl;
+    return; 
 }
 int main() {
     ios::sync_with_stdio(false);
