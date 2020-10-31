@@ -63,29 +63,23 @@ template<typename T> void OutVector(vector<T>& aData)
 void solve() {    
     LL(n, W);
     vector<ll> w(n), v(n);
-    vector<vector<ll>> dp(n+1, vector<ll>(1e5+3, 1e9));
+    vector<vector<ll>> dp(n+1, vector<ll>(1e5+1, INF));
+    rep(i,n+1) dp[i][0];
 
-    rep(i,n){
-        cin >> w[i];
-        cin >> v[i];
-    }
+    rep(i,n) cin >> w[i] >> v[i];
+
     dp[0][0] = 0;
     for(ll i=1; i<n+1; i++){//n<=1e2
-        for(ll j=0; j<1e5+3; j++){
+        for(ll j=0; j<1e5+1; j++){
             dp[i][j]=dp[i-1][j];
-            if(j-v[i-1]>=0) chmin(dp[i][j], dp[i-1][j-v[i-1]]+w[i-1]);
+            if(j-v[i]>=0) chmin(dp[i][j], dp[i-1][j-v[i-1]]+w[i-1]);
         }
     }
-    ll j=1e5;
-    while(1){
-        if(dp[n][j]>W){
-            cout << j << endl;
-            break;
-        } 
-        j--;
-    }
-
+    ll ans = 1e5;
+    while(dp[n][ans]>W) ans--;
+    cout << ans << endl;
     return;
+
 }
 int main() {
     ios::sync_with_stdio(false);

@@ -1,3 +1,4 @@
-print("aaa")
-for i in range(100):
-   print(i) 
+n = int(input())
+a = input()
+for i in range(n):
+   print(i)
