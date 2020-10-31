@@ -7,4 +7,4 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade\
 # _________コーディングはここから！！___________
 n = int(input())
-for i in range(n):
+print(n)

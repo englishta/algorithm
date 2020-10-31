@@ -61,10 +61,16 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-    int a;
-    cin >> a;
-    cout << a*a << endl;
-    
+    LL(n, k);
+    ll ans = 0;
+    vector<ll> P(2*n+1);
+    loop(v, 2, 2*n+1) P[v] = min(v-1, 2*n-v+1);
+
+    loop(i, 2, 2*n+1){
+        if(i-k<2 || i-k>2*n) continue;
+        ans+=P[i]*P[i-k];
+    }
+    cout << ans << endl;
 }
 int main() {
     ios::sync_with_stdio(false);

@@ -112,5 +112,6 @@
 // ヴィジュアルモードの設定
   "vim.visualModeKeyBindingsNonRecursive": [
   ],
+  //"C_Cpp.errorSquiggles": "Disabled",
 
 }
