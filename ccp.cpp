@@ -61,16 +61,43 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-    LL(n, k);
-    ll ans = 0;
-    vector<ll> P(2*n+1);
-    loop(v, 2, 2*n+1) P[v] = min(v-1, 2*n-v+1);
+    STR(s, t);
+    ll slen = s.size();
+    ll tlen = t.size();
+    vector<vector<ll>> dp(slen+1, vector<ll>(tlen+1, 0));
 
-    loop(i, 2, 2*n+1){
-        if(i-k<2 || i-k>2*n) continue;
-        ans+=P[i]*P[i-k];
+    for(ll i=1; i<slen+1; i++){
+        for(ll j=1; j<tlen+1; j++){
+            if(s[i] == t[j]) dp[i][j]=dp[i-1][j-1]+1;
+            else dp[i][j] = max({dp[i-1][j], dp[i][j-1]});
+        }
     }
-    cout << ans << endl;
+    ll len=dp[slen][tlen];
+    ll i=slen;
+    ll j=tlen;
+    vector<char> ans(max({tlen, slen})+1, '_');
+
+    while(len>=0){
+        if(s[i-1]==t[j-1]){
+            ans[len]=s[i-1];
+            i--;
+            j--;
+            len--;
+        }else if(dp[i][j]==dp[i-1][j]){
+            i--;
+        }else{
+            j--;
+        }
+    }
+    cout << dp[slen][tlen] << endl;
+    for(auto x : ans){
+        if(x == '_'){
+            cout << endl;
+            break;
+        }else{
+            cout << x;
+        }
+    }
 }
 int main() {
     ios::sync_with_stdio(false);
