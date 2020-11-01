@@ -61,7 +61,37 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-    
+    STR(s);
+    int e = 8;
+    while(e<1e3){
+        if(s == to_string(e)){
+            puts("Yes");
+            return;
+        }
+        e+=8;
+    }
+    vector<int> array(300, 0), cnt(300, 0);
+    for(ll i=0; i<s.size(); i++){
+        array[s[i]-'0']++;
+        cnt[s[i]-'0']++;
+    }
+    int ei = 8*13;
+    while(ei<1e4){
+        bool ok = true;
+        string k = to_string(ei);
+        for(char x : k){                
+            if(cnt[x-'0'] <= 0) ok = false;
+            cnt[x-'0']--;
+        }
+        rep(i, 300) cnt[i] = array[i];
+
+        if(ok){
+            cout << "Yes" << endl;   
+            return;
+        }
+        ei+=8;
+    }
+    cout << "No" << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
