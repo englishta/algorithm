@@ -72,14 +72,15 @@ void solve() {
             else dp[i][j] = max({dp[i-1][j], dp[i][j-1]});
         }
     }
+    cout << dp[slen][tlen] << endl;
     ll len=dp[slen][tlen];
-    ll i=slen;
-    ll j=tlen;
-    vector<char> ans(max({tlen, slen})+1, '_');
+    ll i=slen-1;
+    ll j=tlen-1;
+    vector<char> ans;
 
-    while(len>=0){
-        if(s[i-1]==t[j-1]){
-            ans[len]=s[i-1];
+    while(len>0){
+        if(s[i]==t[j]){
+            ans.push_back(s[i]);
             i--;
             j--;
             len--;
@@ -89,15 +90,9 @@ void solve() {
             j--;
         }
     }
-    cout << dp[slen][tlen] << endl;
-    for(auto x : ans){
-        if(x == '_'){
-            cout << endl;
-            break;
-        }else{
-            cout << x;
-        }
-    }
+    reverse(all(ans));
+    for(auto x : ans) cout << x;
+    cout << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
