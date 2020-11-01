@@ -58,10 +58,45 @@ template<typename T> void OutVector(vector<T>& aData)
     cout << endl; 
 }
 /* ------------------------------------------------------------------------- */
-#pragma endregion
+#pragma endregion    
 
 void solve() {    
-    
+    STR(s);
+    string t = s;
+    reverse(all(t));
+    int sumple_1 = 8;
+    while(sumple_1 < 100){
+        if(s == to_string(sumple_1) || t == to_string(sumple_1)){
+            puts("Yes");
+            return;
+        }
+        sumple_1+=8;
+    }
+    if(s.size() < 3){
+        puts("No");
+        return;
+    } 
+    map<char, ll> mp;
+    for(ll i=0; i<s.size(); i++) mp[s[i]]++;
+
+    int sumple = 104;
+    while(sumple<1000){
+        bool ok = true; 
+        map<char, ll> mp_sumple;
+        for(char x : to_string(sumple)) mp_sumple[x]++;
+        for(char x : to_string(sumple)){
+            if(mp[x] < mp_sumple[x]){
+                ok = false;
+            }
+            
+        }
+        if(ok){
+            cout << "Yes" << endl;   
+            return;
+        }
+        sumple+=8;
+    }
+    cout << "No" << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
