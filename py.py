@@ -6,5 +6,3 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Heade\
 # _________コーディングはここから！！___________
-for i in range(10):
-    print(10)

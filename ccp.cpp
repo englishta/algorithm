@@ -61,21 +61,7 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-    STR(s, t);
-    string ans = "";
-    ll slen = s.size();
-    ll tlen = t.size();
-    vector<vector<ll>> dp(slen+1, vector<ll>(tlen+1, 0));
-
-    for(ll i=1; i<slen+1; i++){
-        for(ll j=1; j<tlen+1; j++){
-            if(s[i-1] == t[j-1]){
-                dp[i][j]=dp[i-1][j-1]+1;
-            }
-            else dp[i][j] = max({dp[i-1][j], dp[i][j-1]});
-        }
-    }
-    cout << dp[slen][tlen] << endl;
+    
 }
 int main() {
     ios::sync_with_stdio(false);

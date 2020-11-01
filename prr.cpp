@@ -60,26 +60,44 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
+std::vector<ll> Eratos_sieve(ll n){
+	//[0, n]のインデックスに対して、最小の素因数を記録するリスト
+	vector<ll> sieve(n);
+	iota(sieve.begin(), sieve.end(), 0);
+	for(ll i=2; i*i<n; ++i){
+		if(sieve[i] < i) continue;
+		for(ll j=i*i; j<n; j+=i){
+			if(sieve[j] == j) sieve[j] = i;
+		}
+	}
+	return sieve;
+}
 void solve() {    
-    LL(n, W);
-    vector<ll> w(n+1), v(n+1);
-    //dp[i][j]前からi個目までの数列を使っで、価値j以上を達成できる、最小のコスト
-    vector<vector<ll>> dp(n+1, vector<ll>(1e5+1, 1e9+7));
-    rep(i,n) cin >> w[i] >> v[i];
 
-    dp[0][0] = 0;
-    for(ll i=1; i<n+1; i++){//n<=1e2
-        for(ll j=0; j<1e5+1; j++){
-            ll k = j-v[i-1];
-            if(k < 0) k = 0;
-            chmin(dp[i][j], dp[i-1][j]);//i個目を選ぶ場合
-            chmin(dp[i][j], dp[i-1][k]+w[i-1]);//i個目を選ばない
+	ll n, ans = 0;
+	cin >> n;
+	vector<ll> sieve = Eratos_sieve(n+1);
+
+    ll divisors=1;
+    map<ll, ll> cnt;
+    ll x = n;
+
+    while(x > 1){
+        cnt[sieve[x]]++;
+        x/=sieve[x];
+    }
+    for(auto x : cnt){
+        ll t= x.second;
+        ll sum = 0;
+        for(ll k=1; k<1e12; k++){
+            if(t>sum && t<=sum+(k+1)){
+                ans+=k;
+                break;
+            }
+            sum+=k+1;
         }
     }
-    ll ans = 1e5;
-    while(dp[n][ans]>W) ans--;
-    cout << ans << endl;
-    return;
+	cout << ans << endl;
 
 }
 int main() {
