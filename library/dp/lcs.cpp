@@ -61,37 +61,36 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion
 
 void solve() {
-    STR(s);
-    int e = 8;
-    while(e<1e3){
-        if(s == to_string(e)){
-            puts("Yes");
-            return;
-        }
-        e+=8;
-    }
-    vector<int> array(300, 0), cnt(300, 0);
-    for(ll i=0; i<s.size(); i++){
-        array[s[i]-'0']++;
-        cnt[s[i]-'0']++;
-    }
-    int ei = 8*13;
-    while(ei<1e4){
-        bool ok = true;
-        string k = to_string(ei);
-        for(char x : k){                
-            if(cnt[x-'0'] <= 0) ok = false;
-            cnt[x-'0']--;
-        }
-        rep(i, 300) cnt[i] = array[i];
+    STR(s, t);
+    string ans = "";
+    ll slen = s.size();
+    ll tlen = t.size();
+    vector<vector<ll>> dp(slen+1, vector<ll>(tlen+1, 0));
 
-        if(ok){
-            cout << "Yes" << endl;   
-            return;
+    for(ll i=1; i<slen+1; i++){
+        for(ll j=1; j<tlen+1; j++){
+            if(s[i-1] == t[j-1]){
+                dp[i][j]=dp[i-1][j-1]+1;
+            }
+            else dp[i][j] = max({dp[i-1][j], dp[i][j-1]});
         }
-        ei+=8;
     }
-    cout << "No" << endl;
+    // cout << dp[slen][tlen] << endl;
+    s = ' '+s;
+    t = ' '+t;
+    ll i=slen;
+    ll j=tlen;
+    ll len = dp[slen][tlen];
+    while(len>0){
+        if(s[i]==t[j]){
+            ans.push_back(s[i]);
+            i--; j--; len--;
+        }else if(dp[i][j]==dp[i-1][j]){
+                i--;
+        }else j--;
+    }
+    reverse(all(ans));
+    cout << ans << endl;
 }
 int main() {
     ios::sync_with_stdio(false);

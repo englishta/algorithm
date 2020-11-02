@@ -60,38 +60,27 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-void solve() {
-    STR(s);
-    int e = 8;
-    while(e<1e3){
-        if(s == to_string(e)){
-            puts("Yes");
-            return;
-        }
-        e+=8;
-    }
-    vector<int> array(300, 0), cnt(300, 0);
-    for(ll i=0; i<s.size(); i++){
-        array[s[i]-'0']++;
-        cnt[s[i]-'0']++;
-    }
-    int ei = 8*13;
-    while(ei<1e4){
-        bool ok = true;
-        string k = to_string(ei);
-        for(char x : k){                
-            if(cnt[x-'0'] <= 0) ok = false;
-            cnt[x-'0']--;
-        }
-        rep(i, 300) cnt[i] = array[i];
+void solve() {    
+    LL(n, W);
+    vector<ll> w(n+1), v(n+1);
+    //dp[i][j]前からi個目までの数列を使っで、価値j以上を達成できる、最小のコスト
+    vector<vector<ll>> dp(n+1, vector<ll>(1e5+1, 1e9+7));
+    rep(i,n) cin >> w[i] >> v[i];
 
-        if(ok){
-            cout << "Yes" << endl;   
-            return;
+    dp[0][0] = 0;
+    for(ll i=1; i<n+1; i++){//n<=1e2
+        for(ll j=0; j<1e5+1; j++){
+            ll k = j-v[i-1];
+            if(k < 0) k = 0;
+            chmin(dp[i][j], dp[i-1][j]);//i個目を選ぶ場合
+            chmin(dp[i][j], dp[i-1][k]+w[i-1]);//i個目を選ばない
         }
-        ei+=8;
     }
-    cout << "No" << endl;
+    ll ans = 1e5;
+    while(dp[n][ans]>W) ans--;
+    cout << ans << endl;
+    return;
+
 }
 int main() {
     ios::sync_with_stdio(false);
@@ -99,4 +88,3 @@ int main() {
     solve();
     return 0;
 }
-

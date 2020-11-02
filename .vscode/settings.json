@@ -82,11 +82,11 @@
     "python.linting.enabled": true,
     "editor.fontFamily": "Fira Code",
 // インサートモードの設定
-    "vim.insertModeKeyBindings": [
+    "vim.insertModeKeyBindingsNonRecursive": [
         {
           "before": ["j", "j"],
           "after": ["<Esc>"]
-        }
+        },
   ],
 
   "vim.hlsearch": true,
@@ -100,9 +100,18 @@
   "vim.normalModeKeyBindingsNonRecursive":[
         // Ctrl+kで全選択
         { "before": ["ctrl+k"], "after": ["g", "g", "V", "G"] },
+        {
+            "before": ["x"],
+            "after": ["\"", "_", "x"]
+        },
+        {
+            "before": ["s"],
+            "after": ["\"", "_", "s"]
+        }
   ],
 // ヴィジュアルモードの設定
   "vim.visualModeKeyBindingsNonRecursive": [
   ],
+  //"C_Cpp.errorSquiggles": "Disabled",
 
 }
