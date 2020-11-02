@@ -61,11 +61,7 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion    
 
 void solve() {    
-<<<<<<< HEAD
-    double ans;
-    ans = PI*PI;
-    cout << pow(ans, 3) << endl;
-=======
+
     STR(s);
     string t = s;
     reverse(all(t));
@@ -102,7 +98,6 @@ void solve() {
         sumple+=8;
     }
     cout << "No" << endl;
->>>>>>> test
 }
 int main() {
     ios::sync_with_stdio(false);
