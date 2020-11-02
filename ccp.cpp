@@ -61,60 +61,30 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
-// 素因数分解 O(√n)
-// たとえば 60 = 2^2 x 3 x 5 だったら {(2, 2), (3, 1), (5, 1)} を返す
-// 素因数の個数はlogn
-class Eratos{
-    public:
+//n以下の素数を格納した配列を返す、素数の数は、prime.size()で求まる
+//計算量O(nloglogn)=nの線形時間
+//例えば10の時、2, 3, 5, 7を入れた配列を返す。
 
-	vector<ll> array;//0～N-1までの最小の素因数を格納するリスト
-	ll N;
+vector<ll> sieve(ll n){
+	vector<ll> prime;  //素数を格納する配列
+	bool is_prime[n+1];  //is_prime[i]がtrueならiは素数
 
-	Eratos(ll size){
-		array = vector<ll>(size);
-		N = size;
-		iota(array.begin(), array.end(), 0);
-	}
+	for(ll i=0; i<=n; i++) is_prime[i] = true;
+	is_prime[0] = is_prime[1] = false;
 
-	vector<ll> make(){
-		for(ll i=2; i*i<N; ++i){
-			if(array[i] < i) continue;
-			for(ll j=i*i; j<N; j+=i){
-				if(array[j] == j) array[j] = i;
-			}
+	for(ll i=2; i<=n; i++){
+		if(is_prime[i]){
+			prime.push_back(i);
+			for(ll j=2*i; j<=n; j+=i) is_prime[j] = false;
 		}
-		return array;
 	}
-
-	map<ll, ll> factor(ll x){
-		map<ll, ll> cnt;
-		while(x>1){
-			cnt[array[x]]++;
-			x/=array[x];
-		}
-		return cnt;
-	}
-
-};
-
-
+	return prime;
+}
 void solve() {
     LL(n);
-    Eratos clas(n+1);
-    clas.make();
-    auto cnt = clas.factor(n);
-	ll ans = 0, x = n;
-    
-    for(auto x : cnt){
-        ll t= x.second;
-        ll tmp=1;
-        while(tmp<=t){
-            t-=tmp;
-            tmp++;
-        }
-        ans+=tmp-1;
-    }
-	cout << ans << endl;
+    auto array = sieve(n);
+    OutVector(array);
+
 }
 int main() {
     ios::sync_with_stdio(false);
