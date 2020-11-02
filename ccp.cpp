@@ -16,6 +16,8 @@ using Graph = vector<vector<ll>>;//   vector<vector<ll>>v(n,vector<ll>(k, 0));
 constexpr int INF  = 0x3f3f3f3f;
 const long long mod=1e9+7;
 const long double PI = acos(-1);
+void Yes(bool b) { cout << (b ? "Yes" : "No") << '\n'; }
+void YES(bool b) { cout << (b ? "YES" : "NO") << '\n'; }
 template<class T, class S> inline bool chmax(T &a, const S &b){ 
     if (a<b){ 
         a = b; 
@@ -59,39 +61,60 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
+// 素因数分解 O(√n)
+// たとえば 60 = 2^2 x 3 x 5 だったら {(2, 2), (3, 1), (5, 1)} を返す
+// 素因数の個数はlogn
+class Eratos{
+    public:
+
+	vector<ll> array;//0～N-1までの最小の素因数を格納するリスト
+	ll N;
+
+	Eratos(ll size){
+		array = vector<ll>(size);
+		N = size;
+		iota(array.begin(), array.end(), 0);
+	}
+
+	vector<ll> make(){
+		for(ll i=2; i*i<N; ++i){
+			if(array[i] < i) continue;
+			for(ll j=i*i; j<N; j+=i){
+				if(array[j] == j) array[j] = i;
+			}
+		}
+		return array;
+	}
+
+	map<ll, ll> factor(ll x){
+		map<ll, ll> cnt;
+		while(x>1){
+			cnt[array[x]]++;
+			x/=array[x];
+		}
+		return cnt;
+	}
+
+};
+
 
 void solve() {
-    STR(s);
-    int e = 8;
-    while(e<1e3){
-        if(s == to_string(e)){
-            puts("Yes");
-            return;
+    LL(n);
+    Eratos clas(n+1);
+    clas.make();
+    auto cnt = clas.factor(n);
+	ll ans = 0, x = n;
+    
+    for(auto x : cnt){
+        ll t= x.second;
+        ll tmp=1;
+        while(tmp<=t){
+            t-=tmp;
+            tmp++;
         }
-        e+=8;
+        ans+=tmp-1;
     }
-    vector<int> array(300, 0), cnt(300, 0);
-    for(ll i=0; i<s.size(); i++){
-        array[s[i]-'0']++;
-        cnt[s[i]-'0']++;
-    }
-    int ei = 8*13;
-    while(ei<1e4){
-        bool ok = true;
-        string k = to_string(ei);
-        for(char x : k){                
-            if(cnt[x-'0'] <= 0) ok = false;
-            cnt[x-'0']--;
-        }
-        rep(i, 300) cnt[i] = array[i];
-
-        if(ok){
-            cout << "Yes" << endl;   
-            return;
-        }
-        ei+=8;
-    }
-    cout << "No" << endl;
+	cout << ans << endl;
 }
 int main() {
     ios::sync_with_stdio(false);
