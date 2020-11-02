@@ -61,7 +61,6 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion    
 
 void solve() {    
-
     STR(s);
     string t = s;
     reverse(all(t));
