@@ -61,29 +61,8 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
-//n以下の素数を格納した配列を返す、素数の数は、prime.size()で求まる
-//計算量O(nloglogn)=nの線形時間
-//例えば10の時、2, 3, 5, 7を入れた配列を返す。
 
-vector<ll> sieve(ll n){
-	vector<ll> prime;  //素数を格納する配列
-	bool is_prime[n+1];  //is_prime[i]がtrueならiは素数
-
-	for(ll i=0; i<=n; i++) is_prime[i] = true;
-	is_prime[0] = is_prime[1] = false;
-
-	for(ll i=2; i<=n; i++){
-		if(is_prime[i]){
-			prime.push_back(i);
-			for(ll j=2*i; j<=n; j+=i) is_prime[j] = false;
-		}
-	}
-	return prime;
-}
 void solve() {
-    LL(n);
-    auto array = sieve(n);
-    OutVector(array);
 
 }
 int main() {
