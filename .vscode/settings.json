@@ -116,13 +116,13 @@
 
 // nim言語の設定
     // Nim project file, if empty use current selected.
-    "nim.project": [],
+    //"nim.project": [],
 
     // Optional test project.
-    "nim.test-project": "",
+    //"nim.test-project": "",
 
     // Execute build task from tasks.json file on save.
-    "nim.buildOnSave": true,
+    //"nim.buildOnSave": true,
 
     // Nim build command (c, cpp, doc, etc)
     "nim.buildCommand": "c",
