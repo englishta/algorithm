@@ -114,4 +114,22 @@
   ],
   //"C_Cpp.errorSquiggles": "Disabled",
 
+// nim言語の設定
+    // Nim project file, if empty use current selected.
+    "nim.project": [],
+
+    // Optional test project.
+    "nim.test-project": "",
+
+    // Execute build task from tasks.json file on save.
+    "nim.buildOnSave": true,
+
+    // Nim build command (c, cpp, doc, etc)
+    "nim.buildCommand": "c",
+
+    // Check code by using 'nim check' on save.
+    "nim.lintOnSave": true,
+
+    // Enable verbose logging of nimsuggest to use profile directory.
+    "nim.logNimsuggest": false
 }
