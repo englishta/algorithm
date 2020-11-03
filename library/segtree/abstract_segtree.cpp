@@ -62,12 +62,12 @@ int main() {
     auto up = [](int c, int d){return d;};
 
     vector<int> v={1, 2, 4, 4, 8, 6, 2};
-    RMQ<int> tree(v.size(), 0, MAX, up);
+    RMQ<int> tree(v.size(), -1, GCD, up);
 
     for(int i=0; i<v.size(); i++) tree.update(i, v[i]);
 
     for(auto x : tree.dat) cout << x << " ";
     cout << endl;
-    cout << tree.query(2, 5) << endl;
+    cout << tree.query(4, 6) << endl;
 	return 0;
 }
