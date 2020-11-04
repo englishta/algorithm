@@ -1,4 +1,7 @@
-var x = 1
+import strutils
+var x = parseInt(readline(stdin))
 echo x
-var k: string = readLine(stdin)
+
+var k = parseFloat(readline(stdin))
 echo k
+
