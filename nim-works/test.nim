@@ -1,5 +1,4 @@
-
-let
-    inputStr = readLine(stdin)
-echo("inputStr : ", inputStr)
-echo("inputStr : ", inputStr)
+var x = 1
+echo x
+var k: string = readLine(stdin)
+echo k
