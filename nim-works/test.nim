@@ -1,28 +1,21 @@
-import strutils
-let read = iterator: string {.closure.} =
-  while true:
-    for s in stdin.readLine.split:
-      yield s
-proc scan() : int =read().parseInt
-#proc scanf() : float =read().parseFloat
-#-----------------------------------------------------------------------------------#
-var
-  n = scan()
-  x = newseq[int](n)
-  y = newseq[int](n)
+import sequtils, strutils, strformat, algorithm, math, sugar
+let inps = iterator: string {.closure.} =
+  while true: (for s in stdin.readLine.split: yield s)
+proc inp: int{.used.} = inps().parseInt()
+template newSeqWith(y, x: int, p: untyped): untyped{.used.} =
+  newSeqWith(y, newSeqWith(x, p))
+{.warning[UnusedImport]: off.}
 
-for i in 0..<n:
-  (x[i], y[i]) = (scan(), scan())
+let n = inp()
+let a, b = inp()
+var v = stdin.readLine.split.map(parseInt)
 
-for i in 0..<n:
-  for j in i+1..<n:
-    for k in j+1..<n:
-      let
-        x2 = x[j]-x[i]
-        y2 = y[j]-y[i] 
-        x3 = x[k]-x[i]
-        y3 = y[k]-y[i] 
-      if (x2*y3 == x3*y2):
-          echo "Yes"
-          quit()
-echo "No"
+echo n
+echo a, b
+echo v
+
+
+
+    
+ 
+ 
