@@ -6,16 +6,4 @@ template newSeqWith(y, x: int, p: untyped): untyped{.used.} =
   newSeqWith(y, newSeqWith(x, p))
 {.warning[UnusedImport]: off.}
 
-let n = inp()
-let a, b = inp()
-var v = stdin.readLine.split.map(parseInt)
 
-echo n
-echo a, b
-echo v
-
-
-
-    
- 
- 
