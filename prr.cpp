@@ -62,11 +62,8 @@ template<typename T> void OutVector(vector<T>& aData)
 int main(void){
     ll n;
     cin >> n;
-    vector<ll> t(n);
-    rep(i,n){
-        LL(a);
-        if(i == 0) t[i] = a;
-        if(t[i] > 0) t[i]=t[i-1]+a;
-    }
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+    loop(i, 1, n) a[i]+=a[i-1];
     return 0;    
 }
