@@ -59,7 +59,7 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion    
-int main(){
+int main(void){
     ll n;
     cin >> n;
     vector<ll> t(n);
