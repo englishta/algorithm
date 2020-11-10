@@ -1,5 +1,5 @@
-# Begin Header {{{
-from math import gcd, pi, cos, sin
+#Begin Header {{{
+from math import gcd, pi, cos, sin, e
 from collections import Counter, deque, defaultdict
 from heapq import heappush, heappop, heappushpop, heapify, heapreplace, merge
 from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right, insort
@@ -7,9 +7,5 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
-s = [0, 1, 2, 3, 4, 5, 6]
-even = s[::2]
-odd = s[1::2]
-print(even)
-print(odd)
-print(s[::-1])
+
+
