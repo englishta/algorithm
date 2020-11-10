@@ -60,10 +60,15 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion    
 int main(void){
-    ll n;
-    cin >> n;
+    LL(n);
     vector<ll> a(n);
     rep(i,n) cin >> a[i];
     loop(i, 1, n) a[i]+=a[i-1];
+    ll Max=0, now=0;
+    rep(i,n){
+        //よろしくお願いします、よろしくお願いします
+    
+
+    }
     return 0;    
 }

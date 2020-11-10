@@ -7,3 +7,9 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
+s = [0, 1, 2, 3, 4, 5, 6]
+even = s[::2]
+odd = s[1::2]
+print(even)
+print(odd)
+print(s[::-1])
