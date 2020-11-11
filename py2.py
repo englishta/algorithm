@@ -2,12 +2,12 @@ import plotly.offline as offline
 import plotly.graph_objs as go
 
 trace0 = go.Scatter(
-x=[1, 2, 3, 4],
-y=[10, 15, 13, 17]
+x=[1, 2, 3, 4, 5, 3],
+y=[10, 15, 13, 17, 7, 2]
 )
 trace1 = go.Scatter(
-x=[1, 2, 3, 4],
-y=[16, 5, 11, 10]
+x=[1, 2, 3, 4, 2, 3, 4],
+y=[16, 5, 11, 10, 2, 5, 5]
 )
 data = [trace0, trace1]
 
