@@ -8,6 +8,6 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # _________コーディングはここから！！___________
 def deg(shita):
     return shita*pi/180
-subans = e**(0.25*deg(220))+1/(e**(0.25*deg(220))-1)
+subans = (e**(0.25*deg(220))+1)/(e**(0.25*deg(220))-1)
 print(4671*subans)
 
