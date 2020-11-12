@@ -14,3 +14,6 @@ trace = go.Scatter(
 
 data = [trace]
 offline.plot(data, filename='data', auto_open=True)
+
+
+

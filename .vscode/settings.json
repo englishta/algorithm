@@ -131,5 +131,6 @@
     "nim.lintOnSave": true,
 
     // Enable verbose logging of nimsuggest to use profile directory.
-    "nim.logNimsuggest": false
+    "nim.logNimsuggest": false,
+    "jupyter.jupyterServerType": "local"
 }

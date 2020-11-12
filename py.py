@@ -6,12 +6,20 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Heade
 # _________コーディングはここから！！___________
-def deg(shita):
-    return shita*pi/180
-subans = (e**(0.25*deg(220))+1)/(e**(0.25*deg(220))-1)
-print(4671*subans)
 
-r2v = (11342*860+1795*790+15000*120)/980
-print("r2v", r2v)
-r1v = (11342*120+1795*190+15000*860)/980
-print("r1v",)
+import plotly.graph_objs as go
+import numpy as np
+import plotly.offline as offline
+
+N = 1000
+random_x = np.random.randn(N)
+random_y = np.random.randn(N)
+
+trace = go.Scatter(
+    x = random_x,
+    y = random_y,
+    mode = 'markers'
+)
+
+data = [trace]
+offline.plot(data, filename='data', auto_open=True)
