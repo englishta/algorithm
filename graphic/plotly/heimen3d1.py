@@ -52,4 +52,4 @@ layout = go.Layout(
 # traceとlayoutからfigureを作成
 fig = go.Figure(data=[trace], layout=layout)
 # プロット
-po.iplot(fig, filename='sample-verts')
+po.plot(fig, filename='sample-verts', auto_open=True)
