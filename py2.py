@@ -1,47 +1,47 @@
 import plotly.offline as po
 import plotly.graph_objs as go
 import numpy as np
-# 格子状に座標を生成
-grid = np.mgrid[0:10, 0:20]
-grid_x = grid[0].flatten()
-grid_y = grid[1].flatten()
-grid_z = grid_x + grid_y
+##############################
+# 円柱状に座標を生成
+grid = np.mgrid[0:16, 0:3]
+grid_ang = grid[0].flatten()
+grid_z = grid[1].flatten()
+grid_x = 2*np.cos(2*grid_ang*np.pi/16)
+grid_y = 2*np.sin(2*grid_ang*np.pi/16)
 points = np.array(list(zip(grid_x, grid_y, grid_z)))
 
+# プロットのためにxyzごとにリストに分解
+xs = points[:,0]
+ys = points[:,1]
+zs = points[:,2]
 
-r = 80
-xs = []
-ys = []
-zs = []
-
-for i in range(-100, 100, 4):
-    for j in range(-100, 100, 4):
-        xs.append(i)
-        ys.append(j)
-        zet = (r**2 - (i**2 + j**2))
-        zs.append(zet)
-        
-# プロットのためにxyzごとのリストに分解
-
-#xs = points[:,0]
-#ys = points[:,1]
-#zs = points[:,2]
-
-# traceを作成
-trace = go.Scatter3d(
-    x=xs,
-    y=ys,
-    z=zs,
-    mode='markers',
-    marker=dict(
-        color='rgb(100,200,100)',
-        size=5,
-        opacity=0.8
-    )
-)
-# layoutを作成
+data = []
+# マーカー
+data.append(go.Scatter3d(
+        x=xs,
+        y=ys,
+        z=zs,
+        mode='markers',
+        marker=dict(
+            color='rgb(100,100,200)',
+            size=2,
+            opacity=0.8
+        )
+    ))
+# 線分
+for x, y, z in points:
+    data.append(go.Scatter3d(
+            x=[x, x+x/2],
+            y=[y, y+y/2],
+            z=[z, z],
+            mode='lines',
+            marker=dict(
+                color='rgb(100,100,200)',
+                size=5,
+                opacity=0.8
+            )
+        ))
 layout = go.Layout(
-    # デフォルトでは描画領域が狭いのでmarginを0に
     margin=dict(
         l=0,
         r=0,
@@ -50,8 +50,7 @@ layout = go.Layout(
     ),
     # xyz軸のスケールを統一
     scene=dict(aspectmode='cube'),
+    showlegend=False,
 )
-# traceとlayoutからfigureを作成
-fig = go.Figure(data=[trace], layout=layout)
-# プロット
-po.plot(fig, filename='sample-verts')
+fig = go.Figure(data=data, layout=layout)
+po.plot(fig, filename='sample-vecs')

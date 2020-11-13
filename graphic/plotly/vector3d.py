@@ -53,4 +53,4 @@ layout = go.Layout(
     showlegend=False,
 )
 fig = go.Figure(data=data, layout=layout)
-po.iplot(fig, filename='sample-vecs')
+po.plot(fig, filename='sample-vecs')
