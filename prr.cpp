@@ -61,8 +61,27 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion    
 
 int main(void){
+    LL(n);
+    vector<ll> a(n);
+    vector<ll> b(n);
+    vector<ll> c(n);
+    ll M = 0, ans = 0;
 
-
-
+    rep(i,n){
+        cin >> a[i];
+        if(i == 0) b[i] = a[i];
+        if(i>0) b[i]=(a[i]+b[i-1]);
+        chmax(M, b[i]);
+        c[i] = M;
+    }
+    ll sum = 0;
+    rep(i,n){            
+        if(i>0) sum+=b[i-1];
+        chmax(ans, sum);
+        chmax(ans, sum+c[i]);
+    }
+    cout << ans << endl;
+    // OutVector(c);
+    // OutVector(b);
     return 0;    
 }

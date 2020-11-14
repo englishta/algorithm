@@ -1,12 +1,6 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeClassifier, export_graphviz
-import graphviz
-import pydotplus
-from IPython.display import Image
-import io
-
+from sklearn.tree import DecisionTreeClassifier
 
 data = pd.DataFrame({
         "buy(y)":[True,True,True,True,True,True,True,False,False,False,False,False,False],
@@ -21,11 +15,12 @@ X = data.loc[:,["high", "size","autolock"]]
 clf = DecisionTreeClassifier()
 clf = clf.fit(X, y)
 
-dot_data = io.StringIO() #dotファイル情報の格納先
-export_graphviz(clf, out_file=dot_data,  
-                     feature_names=["high", "size","autolock"],#編集するのはここ  
-                     class_names=["False","True"],#編集するのはここ（なぜFase,Trueの順番なのかは後程触れます）  
-                     filled=True, rounded=True,  
-                     special_characters=True) 
-graph = pydotplus.graph_from_dot_data(dot_data.getvalue()) 
-Image(graph.create_png())
+z = pd.DataFrame({
+        "high":[2, 3, 1],
+        "size":[25, 18, 22],
+        "autolock":[1, 0, 1]
+    })
+z2 = z[["high", "size","autolock"]].values
+
+y_est = clf.predict(z2)
+print(y_est)
