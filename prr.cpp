@@ -61,8 +61,8 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion    
 
 int main(void){
-    int a;
-    cin >> a;
-    cout << a << endl;
+
+
+
     return 0;    
 }
