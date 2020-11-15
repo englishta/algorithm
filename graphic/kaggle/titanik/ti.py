@@ -1,11 +1,9 @@
+# %%
 import pandas as pd
 import numpy as np
 import graphviz
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from IPython.display import Image
-from pydotplus import graph_from_dot_data
-import io
-from cloudinit import features
 
 data = pd.DataFrame({
         "buy(y)":[True,True,True,True,True,True,True,False,False,False,False,False,False],
@@ -17,21 +15,19 @@ data = pd.DataFrame({
 y = data.loc[:,["buy(y)"]]
 X = data.loc[:,["high", "size","autolock"]]
 
+
 clf = DecisionTreeClassifier()
-clf = clf.fit(X, y)
+clf.fit(X, y)
 
 dot_data = export_graphviz(
-                        clf,
-                        filled=True,
-                        class_name=["Marriage","UNMarriage "],
-                        feature_names=features
-                    )
+    clf,
+    out_file=None,
+    filled=True,
+    rounded=True,
+)
 
-graph = graph_from_dot_data(dot_data)
-Image(graph.create(format="png"))
-
-
-
+graph = graphviz.Source(dot_data)
+graph.render("room_data", format="png")
 
 
 z = pd.DataFrame({
@@ -43,3 +39,7 @@ z2 = z[["high", "size","autolock"]].values
 
 y_est = clf.predict(z2)
 print(y_est)
+
+#一番最後に記述する
+graph
+# %%
