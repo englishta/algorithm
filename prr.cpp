@@ -72,7 +72,7 @@ int main(void){
         r[t[i]]-=p[i];
         r[s[i]]+=p[i];
     } 
-    loop(i, 1, n){
+    loop(i, 1, 2e5+10){
         r[i]+=r[i-1];
     }
 
