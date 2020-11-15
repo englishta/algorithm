@@ -49,7 +49,7 @@ x = train.loc[:,["Pclass", "Sex", "Age", "Fare"]]
  
 #決定木の作成
 clf = DecisionTreeClassifier()
-clf = clf.fit(x, y)
+clf.fit(x, y)
  
 #「test」の説明変数の値を取得
 test_features = test[["Pclass", "Sex", "Age", "Fare"]].values
