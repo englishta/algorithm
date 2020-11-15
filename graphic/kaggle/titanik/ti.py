@@ -1,6 +1,11 @@
 import pandas as pd
 import numpy as np
-from sklearn.tree import DecisionTreeClassifier
+import graphviz
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
+from IPython.display import Image
+from pydotplus import graph_from_dot_data
+import io
+from cloudinit import features
 
 data = pd.DataFrame({
         "buy(y)":[True,True,True,True,True,True,True,False,False,False,False,False,False],
@@ -14,6 +19,20 @@ X = data.loc[:,["high", "size","autolock"]]
 
 clf = DecisionTreeClassifier()
 clf = clf.fit(X, y)
+
+dot_data = export_graphviz(
+                        clf,
+                        filled=True,
+                        class_name=["Marriage","UNMarriage "],
+                        feature_names=features
+                    )
+
+graph = graph_from_dot_data(dot_data)
+Image(graph.create(format="png"))
+
+
+
+
 
 z = pd.DataFrame({
         "high":[2, 3, 1],

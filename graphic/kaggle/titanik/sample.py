@@ -35,5 +35,26 @@ train["Embarked"][train["Embarked"] == "S"] = 0
 train["Embarked"][train["Embarked"] == "C"] = 1
 train["Embarked"][train["Embarked"] == "Q"] = 2
 
-train.head(10)
+train.head(100)
+# %%
+
+from sklearn.tree import DecisionTreeClassifier
+
+#y = data.loc[:,["buy(y)"]]
+#X = data.loc[:,["high", "size","autolock"]]
+
+#「train」の目的変数と説明変数の値を取得
+y = train.loc[:,["Survived"]]
+x = train.loc[:,["Pclass", "Sex", "Age", "Fare"]]
+ 
+#決定木の作成
+clf = DecisionTreeClassifier()
+clf = clf.fit(x, y)
+ 
+#「test」の説明変数の値を取得
+test_features = test[["Pclass", "Sex", "Age", "Fare"]].values
+ 
+#「test」の説明変数を使って「my_tree_one」のモデルで予測
+my_prediction = clf.predict(test_features)
+
 # %%
