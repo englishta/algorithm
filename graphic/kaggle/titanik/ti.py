@@ -18,9 +18,11 @@ X = data.loc[:,["high", "size","autolock"]]
 
 clf = DecisionTreeClassifier()
 clf.fit(X, y)
+print(clf.classes_)
 
 dot_data = export_graphviz(
     clf,
+    class_names=["False", "True"],
     out_file=None,
     filled=True,
     rounded=True,
