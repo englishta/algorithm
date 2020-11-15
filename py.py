@@ -8,6 +8,8 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # _________コーディングはここから！！___________
 
 
+sx, sy, gx, gy = map(int, input().split())
 
-
+ans = (sy*gx+gy*sx)/(gy+sy) 
+print(ans)
 
