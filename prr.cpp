@@ -61,30 +61,9 @@ template<typename T> void OutVector(vector<T>& aData)
 #pragma endregion    
 
 int main(void){
-    LL(n, w);
-    vector<ll> s(n), t(n), p(n), r(2e5+100);
     
-    rep(i,n){
-        cin >> s[i] >> t[i] >> p[i];
-    }
 
-    rep(i,n){
-        r[t[i]]-=p[i];
-        r[s[i]]+=p[i];
-    } 
-    loop(i, 1, 2e5+10){
-        r[i]+=r[i-1];
-    }
 
-    rep(i, 2e5+10){
-        if(r[i] > w){
-            cout << "No" << endl;
-            return 0;
-        }
-    }
-    cout << "Yes" << endl;
-    //rep(i,11) cout << r[i];
-    //cout << endl;
-    
+
     return 0;    
 }

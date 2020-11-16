@@ -1,60 +1,42 @@
 # %%
-import pandas as pd 
 import numpy as np
-
+import pandas as pd
 train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 
-#データの欠損を表示するする関数
-def kesson_table(df): 
-        null_val = df.isnull().sum()
-        percent = 100 * df.isnull().sum()/len(df)
-        kesson_table = pd.concat([null_val, percent], axis=1)
-        kesson_table_ren_columns = kesson_table.rename(
-        columns = {0 : '欠損数', 1 : '%'})
-        return kesson_table_ren_columns
+train["is_train"] = 1
+test["is_train"] = 0
+data = pd.concat([train.drop(columns=["Survived"]), test])
 
-print(train.describe())
-print(test.describe())
+data["Age"] = data["Age"].fillna(data["Age"].median())
+data["Embarked"] = data["Embarked"].fillna("S")
+data = pd.concat([data, pd.get_dummies(data["Embarked"], prefix="Embarked")], axis=1).drop(columns=["Embarked"])
+data["Sex"] = pd.get_dummies(data["Sex"], drop_first=True)
 
-print(kesson_table(train))
-print(kesson_table(test))
-# %%
 
-train["Age"] = train["Age"].fillna(train["Age"].median())
-train["Embarked"] = train["Embarked"].fillna("S")
-# %%
-print(kesson_table(train))
-print(kesson_table(test))
-# %%
+feature_columns =["Pclass", "Sex", "Age", "Embarked_C", "Embarked_Q", "Embarked_S"]
+feature_train = data[data["is_train"] == 1].drop(columns=["is_train"])[feature_columns]
+feature_test = data[data["is_train"] == 0].drop(columns=["is_train"])[feature_columns]
 
-#文字列を数値に変換する
-train["Sex"][train["Sex"] == "male"] = 0
-train["Sex"][train["Sex"] == "female"] = 1
-train["Embarked"][train["Embarked"] == "S"] = 0
-train["Embarked"][train["Embarked"] == "C"] = 1
-train["Embarked"][train["Embarked"] == "Q"] = 2
+target_train = train["Survived"]
 
-train.head(100)
-# %%
+from sklearn import metrics
+from sklearn import tree
 
-from sklearn.tree import DecisionTreeClassifier
 
-#y = data.loc[:,["buy(y)"]]
-#X = data.loc[:,["high", "size","autolock"]]
+model = tree.DecisionTreeClassifier()
+model.fit(feature_train, target_train)
+pred_train = model.predict(feature_train)
+metrics.accuracy_score(target_train, pred_train)
 
-#「train」の目的変数と説明変数の値を取得
-y = train.loc[:,["Survived"]]
-x = train.loc[:,["Pclass", "Sex", "Age", "Fare"]]
- 
-#決定木の作成
-clf = DecisionTreeClassifier()
-clf.fit(x, y)
- 
-#「test」の説明変数の値を取得
-test_features = test[["Pclass", "Sex", "Age", "Fare"]].values
- 
-#「test」の説明変数を使って「my_tree_one」のモデルで予測
-my_prediction = clf.predict(test_features)
+pred_test = model.predict(feature_test)
+my_prediction = pd.DataFrame(pred_test, test["PassengerId"], columns=["Survived"])
+my_prediction.to_csv("my_prediction.csv", index_label=["PassengerId"])
+
+
+
+
+
+
 
 # %%
