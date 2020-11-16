@@ -33,8 +33,22 @@ my_prediction = pd.DataFrame(pred_test, test["PassengerId"], columns=["Survived"
 my_prediction.to_csv("my_prediction.csv", index_label=["PassengerId"])
 
 
+# %%
+import graphviz
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
+dot_data = export_graphviz(
+    model,
+    class_names=["False", "True"],
+    out_file=None,
+    filled=True,
+    rounded=True,
+)
 
+graph = graphviz.Source(dot_data)
+graph.render("titanik", format="png")
+
+graph
 
 
 
