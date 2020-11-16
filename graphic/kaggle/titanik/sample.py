@@ -23,7 +23,6 @@ target_train = train["Survived"]
 from sklearn import metrics
 from sklearn import tree
 
-
 model = tree.DecisionTreeClassifier()
 model.fit(feature_train, target_train)
 pred_train = model.predict(feature_train)
