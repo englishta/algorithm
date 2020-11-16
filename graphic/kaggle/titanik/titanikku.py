@@ -1,4 +1,5 @@
 # %%
+#タイタニック号生存者予測byketteigi
 import numpy as np
 import pandas as pd
 train = pd.read_csv("train.csv")
@@ -20,6 +21,7 @@ feature_test = data[data["is_train"] == 0].drop(columns=["is_train"])[feature_co
 
 target_train = train["Survived"]
 
+#決定木の制作
 from sklearn import metrics
 from sklearn import tree
 
