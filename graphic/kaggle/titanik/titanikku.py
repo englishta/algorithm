@@ -28,12 +28,16 @@ model.fit(feature_train, target_train)
 pred_train = model.predict(feature_train)
 metrics.accuracy_score(target_train, pred_train)
 
+#予測する
 pred_test = model.predict(feature_test)
+
+#予測結果をcsvファイルに保存する
 my_prediction = pd.DataFrame(pred_test, test["PassengerId"], columns=["Survived"])
 my_prediction.to_csv("my_prediction.csv", index_label=["PassengerId"])
 
 
 # %%
+#決定木を描写する
 import graphviz
 from sklearn.tree import DecisionTreeClassifier, export_graphviz
 
