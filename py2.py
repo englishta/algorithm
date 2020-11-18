@@ -65,17 +65,29 @@ hiz = (L-L0)/L0
 hip =(29690/a0)/65  #ひとます当たりの応力(MPa/mas)
 hihi = las_hiz/mas_last #ひとますのひずみ
 
+x = []#kousyou_hizumi
+y = []#kousyou_ouryoku(MPa)
+x1 = []#sin_hizumi
+y1 = []#sin_ouryoku(MPa)
+
 for i in range(4):
-    array_y[i]*=hip
+    array_y[i]*=hip#公称応力MPa
+    y.append(array_y[i])#y.append()
     array_y[i]*=(1+hiz)
     array_y[i]*=1e6
-    array_x[i]*=hihi
-    array_x[i] = log(array_x[i]+1)
-    array_y[i] = log10(array_y[i])
+    array_x[i]*=hihi#公称ひずみ
+    x.append(array_x[i])#x.append()
+    array_x[i] = log(array_x[i]+1)#真ひずみ
+    #x1.append()y1.append()
+    x1.append(array_x[i])
+    y1.append(array_y[i]*1e-6)
+    array_y[i] = log10(array_y[i])#log10toru
     array_x[i] = log10(array_x[i])
 
-print(array_x)
-print(array_y)
+print("x", x)
+print("y", y)
+print("x1", x1)
+print("y1", y1)
 
 senkei = np.polyfit(array_x, array_y, 1)
 Func = np.poly1d(senkei)
@@ -84,7 +96,6 @@ y2 = Func(array_x)
 print("a=", a, "b=", b)
 plt.plot(array_x, y2)
 plt.plot(array_x, array_y, '.')
-
 # %%
 #加工硬化指数を求める,650
 import matplotlib.pyplot as plt
@@ -107,17 +118,30 @@ hiz = (L-L0)/L0
 hip =(29690/a0)/65  #ひとます当たりの応力(MPa/mas)
 hihi = las_hiz/mas_last #ひとますのひずみ
 
+
+x = []#kousyou_hizumi
+y = []#kousyou_ouryoku(MPa)
+x1 = []#sin_hizumi
+y1 = []#sin_ouryoku(MPa)
+
 for i in range(4):
-    array_y[i]*=hip
+    array_y[i]*=hip#公称応力MPa
+    y.append(array_y[i])#y.append()
     array_y[i]*=(1+hiz)
     array_y[i]*=1e6
-    array_x[i]*=hihi
-    array_x[i] = log(array_x[i]+1)
-    array_y[i] = log10(array_y[i])
+    array_x[i]*=hihi#公称ひずみ
+    x.append(array_x[i])#x.append()
+    array_x[i] = log(array_x[i]+1)#真ひずみ
+    #x1.append()y1.append()
+    x1.append(array_x[i])
+    y1.append(array_y[i]*1e-6)
+    array_y[i] = log10(array_y[i])#log10toru
     array_x[i] = log10(array_x[i])
 
-print(array_x)
-print(array_y)
+print("x", x)
+print("y", y)
+print("x1", x1)
+print("y1", y1)
 
 senkei = np.polyfit(array_x, array_y, 1)
 Func = np.poly1d(senkei)
@@ -126,6 +150,7 @@ y2 = Func(array_x)
 print("a=", a, "b=", b)
 plt.plot(array_x, y2)
 plt.plot(array_x, array_y, '.')
+
 # %%
 #加工硬化指数を求める,700
 import matplotlib.pyplot as plt
@@ -148,17 +173,29 @@ hiz = (L-L0)/L0
 hip =(29690/a0)/65  #ひとます当たりの応力(MPa/mas)
 hihi = las_hiz/mas_last #ひとますのひずみ
 
+x = []#kousyou_hizumi
+y = []#kousyou_ouryoku(MPa)
+x1 = []#sin_hizumi
+y1 = []#sin_ouryoku(MPa)
+
 for i in range(4):
-    array_y[i]*=hip
+    array_y[i]*=hip#公称応力MPa
+    y.append(array_y[i])#y.append()
     array_y[i]*=(1+hiz)
     array_y[i]*=1e6
-    array_x[i]*=hihi
-    array_x[i] = log(array_x[i]+1)
-    array_y[i] = log10(array_y[i])
+    array_x[i]*=hihi#公称ひずみ
+    x.append(array_x[i])#x.append()
+    array_x[i] = log(array_x[i]+1)#真ひずみ
+    #x1.append()y1.append()
+    x1.append(array_x[i])
+    y1.append(array_y[i]*1e-6)
+    array_y[i] = log10(array_y[i])#log10toru
     array_x[i] = log10(array_x[i])
 
-print(array_x)
-print(array_y)
+print("x", x)
+print("y", y)
+print("x1", x1)
+print("y1", y1)
 
 senkei = np.polyfit(array_x, array_y, 1)
 Func = np.poly1d(senkei)
