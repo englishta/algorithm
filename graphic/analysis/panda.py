@@ -88,13 +88,18 @@ print(obj)
 # %%
 #DataFrame
 #配列をvalueにもつ辞書から初期化する方法
+
 data = {'state' : ['Ohio', 'OHIO', 'Nevada', 'Nevada'], 
 'year' : [2000, 2001, 2001, 2003], 'pop' : [1.5, 1.7, 3.6, 2.4]}
 
 frame = pd.DataFrame(data)
-print(frame)
+frame
 
 # %%
+#列の順を指定する
+frame = pd.DataFrame(data, columns=['year', 'state', 'pop'])
+frame
 
+# %%
 
 
