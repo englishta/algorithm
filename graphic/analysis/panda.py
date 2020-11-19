@@ -12,3 +12,16 @@ obj2
 
 
 # %%
+
+obj2['a']
+obj2['c']
+# %%
+
+obj2*2
+# %%
+print(obj)#objの値は変更されない
+# %%
+obj22 = obj2*2
+print(obj22)
+
+# %%
