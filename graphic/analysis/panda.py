@@ -210,7 +210,33 @@ print(frame2)
 frame2 = frame.loc[[0, 1, 2], ['year', 'pop']]
 print(frame2)
 # %%
+#csv読み込み
 frame = pd.read_table('sample.csv')
 print(frame)
+
+new_frame = frame.reindex(columns=['ID', 'gender', 'DM', 'age'])
+new_frame['young'] = new_frame['age'] <= 30 
+new_frame['age+DM'] = new_frame['age'] + new_frame['DM']
+new_frame = new_frame.drop('gender', axis=1)
+#new_frame = new_frame.drop(0, axis=0)
+
+print(new_frame)
+
+
+# %%
+#csvファイルに書き込む
+new_frame.to_csv('new_data.csv')
+
+# %%
+import numpy as np
+obj = pd.Series(np.arange(5.), index=['a', 'b', 'c', 'd', 'e'])
+
+obj
+# %%
+new_obj = obj.drop(['c', 'a'])
+
+
+# %%
+new_obj
 
 # %%
