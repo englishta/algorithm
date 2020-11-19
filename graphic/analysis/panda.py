@@ -160,10 +160,57 @@ print(frame2)
 # %%
 seq2 = frame2['eastern']
 print(seq2)
-
 frame2['eastern'][2] = True
 print(seq2)
 
 
+# %%
+
+print(frame2)
+frame2['eastern'] = frame2['state'] == 'Nevada'
+print(frame2)
+
+
+
+# %%
+#列と行を入れ替えたものを表示
+frame2.T
+# %%
+frame2
+# %%
+
+obj = pd.Series([4.5, 7.2, -5.3, 3.6], index=['d', 'b', 'a', 'c'])
+print(obj)
+
+obj2 = obj.reindex(['a', 'b', 'c', 'd', 'e'])
+print(obj2)
+
+# %%
+obj3 = pd.Series(['blue', 'purple', 'yellow'], index=[0, 2, 4])
+obj3
+
+# %%
+obj3.reindex(range(6), method='ffill')
+
+# %%
+data = {'state' : ['Ohio', 'OHIO', 'Nevada', 'Nevada'], 
+'year' : [2000, 2001, 2001, 2003], 'pop' : [1.5, 1.7, 3.6, 2.4]}
+
+frame = pd.DataFrame(data)
+print(frame)
+# %%
+#データフレームのreindex,
+#データ抽出
+frame2 = frame.reindex([0, 2, 3])
+print(frame2)
+
+frame2 = frame.reindex(columns=['year', 'pop'])
+print(frame2)
+
+frame2 = frame.loc[[0, 1, 2], ['year', 'pop']]
+print(frame2)
+# %%
+frame = pd.read_table('sample.csv')
+print(frame)
 
 # %%
