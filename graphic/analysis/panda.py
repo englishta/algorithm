@@ -101,5 +101,69 @@ frame = pd.DataFrame(data, columns=['year', 'state', 'pop'])
 frame
 
 # %%
+#存在しない列を指定するとNaNが代入される
+frame2 = pd.DataFrame(data, columns=['year', 'state', 'pop', 'NAN'])
+frame2
+
+# %%
+#データフレームからシリーズを取り出す
+#列を取り出す
+#sannsyou
+frame2['year']
+
+# %%
+#zokusei
+frame2.year
+# %%
+#行をSeriesで取り出す
+#indexで指定する
+print(frame2)
+frame2.loc[0]
+
+# %%
+#NAN列の値をスカラー値で書き変える
+print(frame2)
+frame2['NAN'] = 16.5
+print(frame2)
 
 
+# %%
+#NAN列の値を配列で書き換え
+print(frame2)
+seq1 = [1.2, 2.4, 5.2, 3.2]
+frame2['NAN'] = seq1
+
+print()
+print(frame2)
+
+# %%
+#NAN列の値をSeriesで書き換え
+print(frame2)
+print()
+
+val = pd.Series([0.0, 2.22, 5.2, 3.2])
+frame2['NAN'] = val
+print(frame2)
+
+# %%
+#列の削除
+del frame2['NAN']
+print(frame2)
+
+
+# %%
+#state列が'Nevada'であるかどうかを示す真偽値をもった列を追加
+
+frame2['eastern'] = frame2.state == 'Nevada'
+print(frame2)
+
+# %%
+seq2 = frame2['eastern']
+print(seq2)
+
+frame2['eastern'][2] = True
+print(seq2)
+
+
+
+# %%
