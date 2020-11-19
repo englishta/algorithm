@@ -1,4 +1,5 @@
 # %%
+#zipの使い方
 seq1 = ['foo', 'bar', 'baz']
 seq2 = ['one', 'two', 'three']
 #for x, y in zip(seq1, seq2):
@@ -14,3 +15,16 @@ print(a)
 print(b)
 
 # %%
+a = {1, 2, 3, 4, 5}
+b = {3, 4, 5, 6, 7, 8}
+c = a|b
+wa = a.union(b)#a | b
+seki = a.intersection(b)# a & b
+print(wa)
+print(seki)
+# %%
+
+
+
+
+
