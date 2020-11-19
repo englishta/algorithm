@@ -15,11 +15,12 @@ print(a)
 print(b)
 
 # %%
+#set
 a = {1, 2, 3, 4, 5}
 b = {3, 4, 5, 6, 7, 8}
-c = a|b
 wa = a.union(b)#a | b
 seki = a.intersection(b)# a & b
+
 print(wa)
 print(seki)
 # %%
