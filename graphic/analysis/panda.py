@@ -4,6 +4,7 @@ import pandas as pd
 obj = pd.Series([4, 7, -5, 3])
 obj.values
 obj.index
+print(obj)
 
 
 # %%
@@ -68,7 +69,32 @@ obj3+obj4
 
 
 # %%
+#name
+obj4.name = 'population'
+obj4.index.name = 'state'
 
+obj4
+# %%
+
+obj = pd.Series([4, 7, -5, 3])
+obj.values
+obj.index
+print(obj)
+
+obj.index = ['a', 'b', 'c', 'd']
+print(obj)
+
+
+# %%
+#DataFrame
+#配列をvalueにもつ辞書から初期化する方法
+data = {'state' : ['Ohio', 'OHIO', 'Nevada', 'Nevada'], 
+'year' : [2000, 2001, 2001, 2003], 'pop' : [1.5, 1.7, 3.6, 2.4]}
+
+frame = pd.DataFrame(data)
+print(frame)
+
+# %%
 
 
 
