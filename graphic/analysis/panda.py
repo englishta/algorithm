@@ -240,3 +240,14 @@ new_obj = obj.drop(['c', 'a'])
 new_obj
 
 # %%
+df = pd.DataFrame({'A' : [0, 1, 2, 3], 'B' : [2, 3, 4, 5]})
+lf = pd.DataFrame({'C' : [0, 1, 4, 5], 'D' : [4, 3, 4, 3]})
+
+print(df)
+print(lf)
+
+# %%
+new_df = df.join(lf)
+new_df
+
+# %%
