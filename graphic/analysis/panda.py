@@ -247,6 +247,7 @@ print(df)
 print(lf)
 
 # %%
+#一番シンプルなデータフレームの合体
 new_df = df.join(lf)
 new_df
 
