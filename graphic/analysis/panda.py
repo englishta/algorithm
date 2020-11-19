@@ -43,11 +43,32 @@ obj4
 
 # %%
 #Californiaインデックスのオブジェクトは存在しない
-states = ['California', 'Utah','Ohio','Oregon']
+states = ['California','Utah', 'Ohio','Oregon']
 obj4 = pd.Series(sdata, index=states)
 obj4
 
 # %%
+pd.isnull(obj4)
+# %%
+pd.notnull(obj4)
+
+# %%
+obj4.isnull()
+# %%
+obj4.notnull()
+# %%
+#gattai
+#両方のインデックスに存在するものだけ足し合わされる
+print("----------obj3--------")
+print(obj3)
+print("---------obj4--------")
+print(obj4)
+print("--------obj3+obj4--------")
+obj3+obj4
+
+
+# %%
+
 
 
 
