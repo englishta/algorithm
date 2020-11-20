@@ -257,7 +257,61 @@ frame1 = pd.read_table('sample.csv')
 print(frame1)
 
 frame2 = frame1.drop(columns = ['ID', 'gender', 'age'])
-print(frame2)
+frame3 = frame1.drop(columns = ['freq', 'DM'])
 
-pd.concat([frame1, frame2])
+print(frame2)
+print(frame3)
+
+pd.concat([frame3, frame2])
+# %%
+import pandas as pd
+frame = pd.read_table('sample.csv')
+print(frame)
+pd.get_dummies(frame['age'])
+
+
+# %%
+#get_dummiesの練習
+import pandas as pd
+import numpy as np
+
+df = pd.DataFrame({'key':['b', 'b', 'a', 'c', 'a', 'b'], 'data1': np.arange(6)})
+pd.get_dummies(df['key'])
+
+
+# %%
+dumy = pd.get_dummies(df['key'], prefix='key')
+dumy
+
+df[['key']].join(dumy)
+
+# %%
+
+df_with_dumy = df[['key', 'data1']].join(dumy)
+df_with_dumy
+df[['key', 'data1']]
+
+
+
+
+
+
+
+# %%
+#pd.concat([df1, df2, ...dfn], axis = 1)
+#で横方向にデータフレームを連結できる
+import pandas as pd
+
+df = pd.read_table('sample.csv')
+
+df1 = df.drop(columns = ['ID', 'gender'])
+df2 = df.drop(columns = ['age', 'freq', 'DM'])
+
+pd.concat([df1, df2], axis = 1)
+
+
+# %%
+#df[DM] が1かつ年齢が30未満の人を抽出したデータフレーム
+df[(df['DM'] == 1) & (df['age'] < 30)]
+
 # %%
