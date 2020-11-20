@@ -72,3 +72,29 @@ array = seq1 > seq2
 array
 
 # %%
+#listの練習
+
+
+# %%
+seq = [1, 2, 3, 4]
+seq.insert(1, 5)
+print(seq)
+seq.pop(1)
+print(seq)
+seq.remove(2)
+seq
+# %%
+seq = [1, 2, 3, 4]
+seq[1:3] = [0, 0]
+seq
+aa = seq[:]
+aa.append(500)
+print(aa)
+print(seq)
+# %%
+for i, value in enumerate(seq):
+    print(i, value)
+
+# %%
+import pandas as pd
+

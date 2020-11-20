@@ -252,3 +252,12 @@ new_df = df.join(lf)
 new_df
 
 # %%
+import pandas as pd
+frame1 = pd.read_table('sample.csv')
+print(frame1)
+
+frame2 = frame1.drop(columns = ['ID', 'gender', 'age'])
+print(frame2)
+
+pd.concat([frame1, frame2])
+# %%
