@@ -62,22 +62,10 @@ template<typename T> void OutVector(vector<T>& aData)
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-//グローバル変数
-int n, w;
-vector<int> v;
-
-int rec(int i, int t){
-    return i*t*v[i];
-}
 
 void solve() {
-    cin >> n >> w;
-    v = vector<int>(n);
 
-    rep(i,n) cin >> v[i];
-    OutVector(v);
-    cout << n << w << endl;
-    cout << rec(2, 3) << endl;
+
 }
 
 int main() {
