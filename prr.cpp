@@ -5,7 +5,10 @@
 using namespace std;
 using ll = long long;
 using P = pair<ll, ll>;
-using Graph = vector<vector<ll>>;//   vector<vector<ll>>v(n,vector<ll>(k, 0));
+#define pb push_back
+#define eb emplace_back
+#define vi vector<int>
+#define vll vector<ll>
 #define rep(i,n) for(ll i=0; i<n; i++)
 #define loop(i, j, n) for(ll i=j; i<n; i++)
 #define all(x) (x).begin(), (x).end()
@@ -62,6 +65,8 @@ template<typename T> void OutVector(vector<T>& aData)
 //グローバル変数
 
 int main(void){
+
+
 
 
 
