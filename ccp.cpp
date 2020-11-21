@@ -61,37 +61,25 @@ template<typename T> void OutVector(vector<T>& aData)
 }
 /* ------------------------------------------------------------------------- */
 #pragma endregion
-void solve() {
-    ll n;
-    ll k;
-    cin >> n >> k;
-    vector<ll> v(n);//順番
-    vector<vector<ll>> t(n, vector<ll>(n));//重み
 
-    rep(i,n){
-        rep(k,n){                
-            cin >> t[i][k];
-        }
-    }
+//グローバル変数
+int n, w;
+vector<int> v;
 
-    loop(i, 1, n) v[i] = i;
-    ll cnt = 0;
-
-    do{
-        ll sum=t[0][v[0]];
-        for(int i=1; i<n; i++){
-            sum+=t[v[i-1]][v[i]];
-        }
-        sum+=t[v[n-1]][0];
-        if(sum == k){
-            cnt++;
-            //OutVector(v);
-        }
-    }while(next_permutation(v.begin(),v.end()));
-
-    cout << cnt/2 << endl;
-
+int rec(int i, int t){
+    return i*t*v[i];
 }
+
+void solve() {
+    cin >> n >> w;
+    v = vector<int>(n);
+
+    rep(i,n) cin >> v[i];
+    OutVector(v);
+    cout << n << w << endl;
+    cout << rec(2, 3) << endl;
+}
+
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
