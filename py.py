@@ -7,10 +7,27 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
-s, p = map(int, input().split())
+a, b, c = map(int, input().split())
 
-for x in range(1, 1000001):
-    if x*(s-x) == p:
-        print("Yes")
-        exit()
-print("No")
+sum = a+b+c
+a_cnt = 100-a
+b_cnt = 100-b
+c_cnt = 100-c
+
+#a
+ansA = 1
+ansB = 1
+ansC = 1
+
+for i in range(0, a_cnt):
+    ansA*=(a+i)/(sum+i)
+
+for i in range(0, b_cnt):
+    ansB*=(b+i)/(sum+i)
+
+for i in range(0, c_cnt):
+    ansC*=(c+i)/(sum+i)
+
+ans = a_cnt*ansA+b_cnt*ansB+c_cnt*ansC
+
+print(ans)

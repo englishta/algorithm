@@ -9,8 +9,9 @@ using P = pair<ll, ll>;
 #define eb emplace_back
 #define vi vector<int>
 #define vll vector<ll>
-#define rep(i,n) for(ll i=0; i<n; i++)
-#define loop(i, j, n) for(ll i=j; i<n; i++)
+#define rep(i,n) for(ll i=0; i<(n); i++)
+#define loop(i, j, n) for(ll i=j; i<(n); i++)
+#define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
 #define all(x) (x).begin(), (x).end()
 #define UNIQUE(v) v.erase(unique(all(v)), v.end());
 #define Sp(p) cout<<setprecision(25)<< fixed<<p<<endl;
@@ -55,20 +56,35 @@ template<class Head, class... Tail> void IN(Head &head, Tail &... tail)
     scan(head);
     IN(tail...);
 }
-template<typename T> void OutVector(vector<T>& aData)
-{ 
-    for(auto& x : aData) cout << x << " "; 
-    cout << endl; 
+#define debug(var)  do{std::cout << #var << " : ";view(var);}while(0)
+template<typename T> void view(T e){std::cout << e << std::endl;}
+template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
+template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
+
+void dump() { cerr << '\n'; }
+template <class Head, class... Tail> void dump(Head head, Tail... tail) {
+    cerr << to_string(head) << " ";
+    dump(tail...);
 }
+#define Dump(...) cout<<"  "; \
+cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
+cout<<"   "; \
+dump(__VA_ARGS__)
+//デバッグ方法
+//debug(配列、変数など一つだけ);
+//Dump(変数を複数 a, b, c);
+//多次元配列初期化方法
+// vv(int, seq, 5, 5, -1);
+// vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
-#pragma endregion    
-//グローバル変数
+#pragma endregion   
 
 int main(void){
-
-
-
-
+    int a = 2;
+    vv(int, seq, 5, 5, -1);
+    debug(seq);
+    
+    
 
     return 0;    
 }
