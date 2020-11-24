@@ -36,7 +36,17 @@ plt.plot(z1, z2, '.', color = 'red')
 
 # %%
 frame
+# %%
+# 寄与率を累積する
+ruiseki = np.cumsum(rate)
 
+# 0を連結
+ruiseki = np.hstack([0, ruiseki])
+ruiseki
+# グラフを描画
+plt.plot(ruiseki, "-o", color = 'deeppink')
+plt.xlabel("Principal component")
+plt.ylabel("Cumulative contribution rate")
 # %%
 frame2 = pd.DataFrame({'Japanese' : x1h, 'English' : x2h, 'Math' : x3h, 'Seience' : x4h})
 frame2
