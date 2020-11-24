@@ -63,3 +63,15 @@ df_evr = pd.DataFrame(data = ev_ratio,
 df_evr
 
 # %%
+# 寄与率を累積する
+cc_ratio = np.cumsum(ev_ratio)
+
+# 0を連結
+cc_ratio = np.hstack([0, cc_ratio])
+
+# グラフを描画
+plt.plot(cc_ratio, "-o")
+plt.xlabel("syuseibun")
+plt.ylabel("ruiseki_kiyoritu")
+
+# %%
