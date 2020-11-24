@@ -32,3 +32,7 @@ plt.plot(z1, z2, '.', color = 'red')
 frame
 
 # %%
+frame2 = frame.drop(columns = ['X1', 'X2', 'x3', 'x4', 'z1', 'z2', 'z1_order'])
+frame2
+# %%
+pd.plotting.scatter_matrix(frame2, alpha=0.5, figsize=(8, 8))
