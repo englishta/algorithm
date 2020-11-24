@@ -17,6 +17,11 @@ x4h = (x4-np.mean(x4))/np.std(x4, ddof=1)
 
 COV = np.cov([x1h, x2h, x3h, x4h])
 L, A = np.linalg.eig(COV)
+rate = L/np.sum(L)#寄与率を求める配列
+#データフレームへ変換
+df_rate = pd.DataFrame(data = rate, 
+                      columns = ['寄与率'],
+                      index = ["主成分{}".format(x+1) for x in range(4)])
 
 z1 = A[0,0] * (x1h-np.mean(x1h)) + A[1,0] * (x2h-np.mean(x2h)) + A[2,0] * (x3h-np.mean(x3h)) + A[3,0] * (x4h-np.mean(x4h))
 z2 = A[0,1] * (x1h-np.mean(x1h)) + A[1,1] * (x2h-np.mean(x2h)) + A[2,1] * (x3h-np.mean(x3h)) + A[3,1] * (x4h-np.mean(x4h))
@@ -26,6 +31,7 @@ frame = pd.DataFrame({'X1' : x1, 'X2' : x2, 'x3' : x3, 'x4' : x4, 'x1h':x1h, 'x2
 frame = frame.assign(z1_order=len(frame.z1) - stats.mstats.rankdata(frame.z1)+1)
 print("L=", L)
 print("A=", A)
+print(df_rate)
 plt.plot(z1, z2, '.', color = 'red')
 
 # %%
