@@ -32,8 +32,34 @@ plt.plot(z1, z2, '.', color = 'red')
 frame
 
 # %%
-frame2 = frame.drop(columns = ['X1', 'X2', 'x3', 'x4', 'z1', 'z2', 'z1_order'])
+frame2 = pd.DataFrame({'Japanese' : x1h, 'English' : x2h, 'Math' : x3h, 'Seience' : x4h})
 frame2
 # %%
-pd.plotting.scatter_matrix(frame2, alpha=0.5, figsize=(8, 8))
+pd.plotting.scatter_matrix(frame2, alpha=0.5, figsize=(8, 8), color = 'red')
+
+# %%
+import sklearn
+from sklearn.decomposition import PCA
+
+frame3 = pd.DataFrame({'Japanese' : x1, 'English' : x2, 'Math' : x3, 'Science' : x4})
+pca = PCA()
+pca.fit(frame3)
+value = pca.transform(frame3)
+frame3
+
+# %%
+frame4 = pd.DataFrame(data = value, columns = ["主成分{}".format(x+1) for x in range(len(frame3.columns))])
+frame4
+
+# %%
+# モデルpcaの寄与率を算出
+ev_ratio = pca.explained_variance_ratio_
+ev_ratio
+
+# %%
+df_evr = pd.DataFrame(data = ev_ratio, 
+                      columns = ['寄与率'],
+                      index = ["主成分{}".format(x+1) for x in range(len(frame3.columns))])
+df_evr
+
 # %%
