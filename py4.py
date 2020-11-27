@@ -30,6 +30,7 @@ print(col_indices)
 eye_coo = sparse.coo_matrix((data, (row_idices, col_indices)))
 print(eye_coo)
 # %%
+#2020 11/27
 from sklearn.datasets import load_iris
 iris_dataset = load_iris()
 
