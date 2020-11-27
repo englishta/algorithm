@@ -80,8 +80,8 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-   
-    
-
+    int a;
+    cin >> a;
+    cout << a*a << endl;
     return 0;    
 }
