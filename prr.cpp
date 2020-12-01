@@ -80,8 +80,20 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-    int a;
-    cin >> a;
-    cout << a*a << endl;
+    LL(a, b, x, y);
+    int d = abs(a-b);
+    int ans;
+    int y_ = min(y, 2*x);
+
+    if(a>b){
+        ans =(d-1)*y_+x;
+    }else if(a == b){
+        ans = x;
+    }else{
+        ans = d*y_+x;
+    }
+
+    cout << ans << endl;
+
     return 0;    
 }
