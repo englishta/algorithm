@@ -1,100 +1,61 @@
-# %%
-#numpyの練習
+#%%
 import numpy as np
+x1=[3, 2, 3, 3, 2, 2, 2, 2, 3, 2, 1, 2, 1, 3, 1]
+x2=[3, 2, 2, 1, 2, 1, 2, 3, 2, 1, 1, 2, 1, 3, 1]
+x3=[1, 3, 3, 1, 1, 2, 1, 2, 1, 2, 1, 1, 1, 3, 1]
+x4=[2, 1, 2, 2, 3, 2, 3, 1, 2, 2, 2, 2, 1, 3, 1]
+x5=[2, 3, 1, 3, 1, 1, 2, 2, 1, 1, 1, 1, 1, 2, 1]
 
-data = np.random.randn(2, 3)
+
+x1_h = (x1-np.mean(x1)/ np.std(x1, ddof=1))
+x2_h = (x2-np.mean(x2)/ np.std(x2, ddof=1))
+x3_h = (x3-np.mean(x3)/ np.std(x3, ddof=1))
+x4_h = (x4-np.mean(x4)/ np.std(x4, ddof=1))
+x5_h = (x5-np.mean(x5)/ np.std(x5, ddof=1))
+
+data = np.array([x1_h, x2_h, x3_h, x4_h, x5_h]).T
 data
-# %%
-data*10
-# %%
-data+data
-# %%
-
-data+2*data
 
 # %%
-data.shape
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+model = PCA()
+model.fit(data)
+z = model.transform(data)
+print(z)
 
-# %%
-data.dtype
-# %%
-data1 = [6, 7.5, 8, 0, 1]
-arr1 = np.array(data1)
-print(arr1)
-
-data2 = [[1, 2, 3, 4], [5, 6, 7, 8]]
-arr2 = np.array(data2)
-print(arr2)
-
-print(arr2.ndim)
-# %%
-#zeroで初期化
-a = np.zeros(10)
-# %%
-np.zeros((3, 6))
-np.ones((3, 6))
-# %%
-np.empty((3,6))
-# %%
-array = np.arange(15)
-# %%
-print(*array*2)
-
-# %%
-arr1 = np.array([1.2, 2.3, 3.2], dtype=np.float64)
-arr2 = np.array([1, 2, 3], dtype=np.int64)
-print(arr1)
-print(arr2)
-
-# %%
-#型キャスト
-int_array = arr1.astype(np.int64)
-print(int_array)
-
-float_array = arr2.astype(np.float64)
-print(float_array)
+fig = plt.figure(figsize=(5, 5))
+plt.plot(-z[:,0], z[:, 1], 'r*')
 
 
 # %%
-array = np.array(['6.4', '2.3', '3.5'], dtype=np.string_)
-array
+from sklearn.cluster import KMeans
+model = KMeans(n_clusters=4)
+Data = (z[:,[0,1]])
+model.fit(Data)
 
-# %%
-array.astype(np.float64)
-print(array)
-# %%
+label = model.labels_
+label
 
-
-seq1 = np.array(['6.4', '2.3', '3.5'], dtype=np.float64)
-seq2 = np.array(['5.4', '3.3', '3.5'], dtype=np.float64)
-
-array = seq1 > seq2
-array
-
-# %%
-#listの練習
 
 
 # %%
-seq = [1, 2, 3, 4]
-seq.insert(1, 5)
-print(seq)
-seq.pop(1)
-print(seq)
-seq.remove(2)
-seq
+
+c1 = Data[np.where(label == 0)[0], :]
+c2 = Data[np.where(label == 1)[0], :]
+c3 = Data[np.where(label == 2)[0], :]
+c4 = Data[np.where(label == 3)[0], :]
+
+fig = plt.figure(figsize=(5, 5))
+plt.plot(c1[:,0], c1[:,1], '.')
+plt.plot(c2[:,0], c2[:,1], 'r*')
+plt.plot(c3[:,0], c3[:,1], 'g+')
+plt.plot(c4[:,0], c4[:,1], 'mx')
 # %%
-seq = [1, 2, 3, 4]
-seq[1:3] = [0, 0]
-seq
-aa = seq[:]
-aa.append(500)
-print(aa)
-print(seq)
-# %%
-for i, value in enumerate(seq):
-    print(i, value)
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+model = LinearDiscriminantAnalysis()
+data_set = np.array([x1, x2, x3, x4, x5, label]).T
+model.fit(data_set[:,[0,1,2,3,4]], data_set[:,5])
+model.predict([[3, 3, 1, 3, 3],])
 
 # %%
-import pandas as pd
-
