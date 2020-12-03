@@ -71,6 +71,7 @@ template <class Head, class... Tail> void dump(Head head, Tail... tail) {
 cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
 cout<<"   "; \
 dump(__VA_ARGS__)
+
 //デバッグ方法
 //debug(配列、変数など一つだけ);
 //Dump(変数を複数 a, b, c);
@@ -81,16 +82,6 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-    LL(n, m, q);
-    vll a(n), b(n), c(n), d(n);
-    rep(i,q){
-        cin >> a[i] >> b[i] >> c[i] >> d[i];
-    }
-    debug(a);
-    sort(all(a));
-    sort(all(b));
-    sort(all(c));
-    sort(all(d));
-    
-   return 0;    
+
+    return 0;    
 }
