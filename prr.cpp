@@ -4,7 +4,6 @@
 //using namespace atcoder;
 using namespace std;
 using ll = long long;
-using P = pair<ll, ll>;
 #define pb push_back
 #define eb emplace_back
 #define vi vector<int>
@@ -12,6 +11,8 @@ using P = pair<ll, ll>;
 #define rep(i,n) for(ll i=0; i<(n); i++)
 #define loop(i, j, n) for(ll i=j; i<(n); i++)
 #define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
+#define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
+#define fi first
 #define all(x) (x).begin(), (x).end()
 #define UNIQUE(v) v.erase(unique(all(v)), v.end());
 #define Sp(p) cout<<setprecision(25)<< fixed<<p<<endl;
@@ -80,20 +81,16 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-    LL(a, b, x, y);
-    int d = abs(a-b);
-    int ans;
-    int y_ = min(y, 2*x);
-
-    if(a>b){
-        ans =(d-1)*y_+x;
-    }else if(a == b){
-        ans = x;
-    }else{
-        ans = d*y_+x;
+    LL(n, m, q);
+    vll a(n), b(n), c(n), d(n);
+    rep(i,q){
+        cin >> a[i] >> b[i] >> c[i] >> d[i];
     }
-
-    cout << ans << endl;
-
-    return 0;    
+    debug(a);
+    sort(all(a));
+    sort(all(b));
+    sort(all(c));
+    sort(all(d));
+    
+   return 0;    
 }
