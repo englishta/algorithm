@@ -25,6 +25,12 @@
         }
     ],
     "configurations": [
-        
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "Main",
+            "projectName": "prog2_1cc6854"
+        }
     ]
 }

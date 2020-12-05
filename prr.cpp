@@ -82,6 +82,40 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
+    LL(n, t);
 
+    vll a(n);
+    rep(i,n) cin >> a.at(i);
+
+    vector<ll> A;
+    for (int bit = 0; bit < (1 << n / 2); bit++) {
+        int sum = 0;
+        for (int i = 0; i < (n / 2); i++) {
+            int mask = 1 << i;
+            if (bit & mask) {
+                sum += a[i];
+            }
+        }
+        A.push_back(sum);
+    }
+    vector<ll> B;
+    for (int bit = 0; bit < (1 << (n - n / 2)); bit++) {
+        int sum = 0;
+        for (int i = 0; i < (n - n / 2); i++) {
+            int mask = 1 << i;
+            if (bit & mask) {
+                sum += a[n / 2 + i];
+            }
+        }
+        B.push_back(sum);
+    }
+    ll ans=0;
+    sort(all(B));
+    for(auto x : A){
+        if(t-x>=0 && upper_bound(all(B), t-x) != B.begin()){
+            ans = max(ans, x + *(upper_bound(B.begin(), B.end(), t - x) - 1));
+        }
+    }
+    cout << ans << endl;
     return 0;    
 }

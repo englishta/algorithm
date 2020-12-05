@@ -64,7 +64,8 @@ template<typename T> void OutVector(vector<T>& aData)
 
 
 void solve() {
-
+    LL(n);
+    
 
 }
 

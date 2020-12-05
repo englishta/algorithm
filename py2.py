@@ -13,3 +13,5 @@ import numpy as np
 #クラスごとのサンプルの個数
 #悪性212, 良性357 
 # %%
+cancer.feature_names
+# %%
