@@ -2,13 +2,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 using ll = long long;
+#define endk '\n'
 #define rep(i,n) for(ll i=0; i<(n); i++)
+#define all(x) (x).begin(), (x).end()
+#define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
+#define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
+#define drop(s) cout << s << '\n', exit(0)
 
 int main(void){
-    int n; cin >> n;
-    ll ans = 1;
-    for(int i=2; i<=n; i++){
-        
-    }
     return 0;
 }
