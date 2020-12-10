@@ -28,3 +28,33 @@ for k in range(1, 60):
 import matplotlib.pyplot as plt
 plt.plot(k_value, ef, 'r.-')
 # %%
+
+model = KNeighborsClassifier(n_neighbors=5)
+model.fit(X_train, Y_train)
+Y_predicted = model.predict(X_test)
+print("5_version")
+print("accuracy = {}\n".format(metrics.accuracy_score(Y_test, Y_predicted)))
+metrics.confusion_matrix(Y_test, Y_predicted)
+# %%
+model = KNeighborsClassifier(n_neighbors=10)
+model.fit(X_train, Y_train)
+Y_predicted = model.predict(X_test)
+print("10_version")
+print("accuracy = {}\n".format(metrics.accuracy_score(Y_test, Y_predicted)))
+metrics.confusion_matrix(Y_test, Y_predicted)
+
+# %%
+model = KNeighborsClassifier(n_neighbors=30)
+model.fit(X_train, Y_train)
+Y_predicted = model.predict(X_test)
+print("30_version")
+print("accuracy = {}\n".format(metrics.accuracy_score(Y_test, Y_predicted)))
+metrics.confusion_matrix(Y_test, Y_predicted)
+
+# %%
+model = KNeighborsClassifier(n_neighbors=55)
+model.fit(X_train, Y_train)
+Y_predicted = model.predict(X_test)
+print("55_version")
+print("accuracy = {}\n".format(metrics.accuracy_score(Y_test, Y_predicted)))
+metrics.confusion_matrix(Y_test, Y_predicted)
