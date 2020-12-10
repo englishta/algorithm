@@ -84,20 +84,9 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-    LL(n);
-    vector<ll> a(n);
-    vector<ll> b(n);
-    rep(i,n){
-        LL(t);
-        a[i] = t; b[i] = t;
-    }
-    sort(all(a));
-    ll left = a[n/2-1];
-    ll right = a[n/2];
-    rep(i,n){
-        if(b[i]<=left) cout<< right << endk;
-        else cout << left << endk;
-    }
-
+    LL(N);
+    vector<int> a(N);
+    for(auto &e : a) cin >> e;
+    debug(a);
     return 0;    
 }

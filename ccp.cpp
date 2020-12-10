@@ -2,7 +2,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 using ll = long long;
-#define endk '\n'
 #define rep(i,n) for(ll i=0; i<(n); i++)
 #define all(x) (x).begin(), (x).end()
 #define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
@@ -10,5 +9,13 @@ using ll = long long;
 #define drop(s) cout << s << '\n', exit(0)
 
 int main(void){
+    ll n; cin >> n;
+    vector<ll> a(n);
+    rep(i,n) cin >> a[i];
+    ll ans = 0;
+    rep(i,n){
+        if(i+1 == a[(a[i])-1]) ans++;
+    }
+    cout << ans/2 << endl;
     return 0;
 }
