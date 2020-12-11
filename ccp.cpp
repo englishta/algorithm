@@ -7,6 +7,7 @@ using ll = long long;
 #define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
 #define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
 #define drop(s) cout << s << '\n', exit(0)
+#pragma endregion
 
 int main(void){
     ll n; cin >> n;

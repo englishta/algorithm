@@ -84,9 +84,21 @@ dump(__VA_ARGS__)
 #pragma endregion   
 
 int main(void){
-    LL(N);
-    vector<int> a(N);
-    for(auto &e : a) cin >> e;
-    debug(a);
+    LL(n);
+    vector<ll> z;
+    map<ll, ll> mp;
+
+    rep(i,n){
+        LL(num);
+        mp[num]++;
+        if(mp[num]==2){
+            z.push_back(num);
+            mp[num] = 0;
+        }
+    } 
+    sort(z.rbegin(), z.rend());
+    if(z.size()<2) drop(0);
+    cout << z[0]*z[1] << endk; 
+
     return 0;    
 }
