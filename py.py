@@ -1,4 +1,6 @@
 #Begin Header {{{
+import sys
+input = sys.stdin.readline
 from math import gcd, pi, cos, sin, e
 from collections import Counter, deque, defaultdict
 from heapq import heappush, heappop, heappushpop, heapify, heapreplace, merge

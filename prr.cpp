@@ -5,6 +5,7 @@
 using namespace std;
 using ll = long long;
 #define endk '\n'
+#define pf(a, e) a.insert(a.begin(), e)
 #define pb push_back
 #define eb emplace_back
 #define vi vector<int>
@@ -83,22 +84,50 @@ dump(__VA_ARGS__)
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-int main(void){
-    LL(n);
-    vector<ll> z;
-    map<ll, ll> mp;
+class UnionFind{
+	public:
+	vector<ll> r;
 
-    rep(i,n){
-        LL(num);
-        mp[num]++;
-        if(mp[num]==2){
-            z.push_back(num);
-            mp[num] = 0;
-        }
-    } 
-    sort(z.rbegin(), z.rend());
-    if(z.size()<2) drop(0);
-    cout << z[0]*z[1] << endk; 
+	UnionFind(ll N){
+		r = vector<ll>(N, -1);
+	}
+
+	int root(ll x){
+		if(r[x] < 0) return x;
+		return r[x] = root(r[x]);
+	}
+
+	bool unit(ll x, ll y){
+		x = root(x);
+		y = root(y);
+		if(x == y) return false;
+		if(r[x] > r[y]) swap(x, y);
+		r[x] += r[y];
+		r[y] = x;
+		return true;
+	}
+
+	ll size(ll x){
+		return -r[root(x)];
+	}
+
+    bool unit_judge(ll a_, ll b_){
+        if(root(a_) == root(b_)) return true;
+        else return false;
+    }
+
+};
+
+int main(void){
+
+    LL(N);
+    UnionFind UF(100);
+    rep(i,N){
+        LL(a, b);
+        UF.unit(a, b);
+    }
+    if(UF.unit_judge(2, 3)) drop("Yes");
+    else drop("No");
 
     return 0;    
 }
