@@ -10,13 +10,7 @@ using ll = long long;
 #pragma endregion
 
 int main(void){
-    ll n; cin >> n;
-    vector<ll> a(n);
-    rep(i,n) cin >> a[i];
-    ll ans = 0;
-    rep(i,n){
-        if(i+1 == a[(a[i])-1]) ans++;
-    }
-    cout << ans/2 << endl;
+    ll x, y; cin >> x >> y;
+    cout << (x^y) << endl;
     return 0;
 }
