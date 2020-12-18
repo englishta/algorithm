@@ -75,7 +75,7 @@ cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
 cout<<"   "; \
 dump(__VA_ARGS__)
 
-template<class T> inline T div_up(T a, T b){
+template<class T, class A> inline T div_up(T a, A b){
     if(b == 0) cout << "ZERO_de_WATTERUYO!!" << '\n';
     return (a%b == 0)? a/b : a/b+1; 
 }
@@ -88,76 +88,24 @@ template<class T> inline T div_up(T a, T b){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-template<typename T>
-struct segtree {
-private:
-	int siz=1, N;
-	vector<T> node;
-	const function<T(T, T)> op;
-	const T e_;
- 
-public:
-	segtree(int n, function<T(T, T)> func, T e) : N(n), op(func), e_(e) {
-		while(siz < N) siz *= 2;
-		node.resize(2*siz-1, e_);
-	}
-	segtree(const vector<T> &v, function<T(T,T)> func, T e) : N(v.size()), op(func), e_(e) {
-		while(siz < N) siz *= 2;
-		node.resize(2*siz-1, e_);
-		for(int i=0; i<N; i++) node[siz-1+i] = v[i];
-		for(int i=siz-2; i>=0; i--) node[i] = op(node[2*i+1], node[2*i+2]);
-	}
- 
-	void update(int idx, T val) {
-		idx += siz-1;
-		node[idx] = val;
- 
-		while(idx > 0) {
-			idx = (idx-1)/2;
-			node[idx] = op(node[2*idx+1], node[2*idx+2]);
-		}
-	}
- 
-	T get(int idx) {
-		assert(0<=idx && idx<N);
-		return get(idx, idx+1);
-	}
-	T get(int L, int R) {
-		if(L < 0) L = 0;
-		if(R > N) R = N;
-		assert(L < R);
-		return get__(L, R, 0, 0, siz);
-	}
-private:
-	T get__(int L, int R, int id, int l, int r) {
-		if(r<=L || R<=l) return e_;
-		if(L<=l && r<=R) return node[id];
-		T vl = get__(L, R, 2*id+1, l, (l+r)/2);
-		T vr = get__(L, R, 2*id+2, (l+r)/2, r);
-		return op(vl, vr);
-	}
-public:
-};
- 
-
 int main() {
-    LL(N, Q);
-    vector<ll> a(N);
-    rep(i,N) cin >> a[i];
-    segtree<ll> sg(a, [&](int a, int b){return a^b;}, 0);
-
-    rep(i,Q){
-        LL(mode, X, Y);
-        X--;
-        if(mode == 2){
-            cout << sg.get(X, Y) << endl;
-        }else{
-            sg.update(X, sg.get(X)^Y);
+    LL(n);
+    vll p(n);
+    vll v(n);
+    rep(i,n){
+        cin >> p[i];
+        if(i+1 == p[i]){
+            v[i]++;
         }
     }
-
-	return 0;
+    v.push_back(0);
+    ll cnt = 0;
+    rep(i,n){
+        if(v[i] == 1){
+            v[i] = 0; v[i+1] = 0;
+            cnt++;
+        }
+    }
+    drop(cnt);
+    return 0;
 }
-
-
-
