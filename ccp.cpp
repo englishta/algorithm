@@ -9,8 +9,9 @@ using ll = long long;
 #define drop(s) cout << s << '\n', exit(0)
 #pragma endregion
 
-int main(void){
-    ll x, y; cin >> x >> y;
-    cout << (x^y) << endl;
+
+int main() {
+    string(s);
+    cin >> s;
     return 0;
 }

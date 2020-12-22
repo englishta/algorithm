@@ -88,24 +88,8 @@ template<class T, class A> inline T div_up(T a, A b){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
+
 int main() {
-    LL(n);
-    vll p(n);
-    vll v(n);
-    rep(i,n){
-        cin >> p[i];
-        if(i+1 == p[i]){
-            v[i]++;
-        }
-    }
-    v.push_back(0);
-    ll cnt = 0;
-    rep(i,n){
-        if(v[i] == 1){
-            v[i] = 0; v[i+1] = 0;
-            cnt++;
-        }
-    }
-    drop(cnt);
+    
     return 0;
 }
