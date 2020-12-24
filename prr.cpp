@@ -11,7 +11,7 @@ using ll = long long;
 #define vi vector<int>
 #define vll vector<ll>
 #define rep(i,n) for(ll i=0; i<(n); i++)
-#define loop(i, j, n) for(ll i=j; i<(n); i++)
+#define rep1(i, j, n) for(ll i=j; i<(n); i++)
 #define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
 #define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
 #define drop(s) cout << s << endk, exit(0)
@@ -90,6 +90,16 @@ template<class T, class A> inline T div_up(T a, A b){
 
 
 int main() {
-    
+    LL(n,m);
+    vector<ll> a(n); iota(all(a), 1);
+    ll out=0;
+
+    while(m--){
+        LL(num);
+        rep(i,n){
+            if(a[i] == num) swap(a[i], out);
+        }
+    }
+    for(auto x : a) cout << x << endk;
     return 0;
 }

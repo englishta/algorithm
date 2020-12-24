@@ -8,6 +8,7 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Heade
 # _________コーディングはここから！！___________
-import numpy as np
 
-k, a, b = map(int, input().split())
+
+
+    
