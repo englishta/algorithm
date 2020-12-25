@@ -9,6 +9,3 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
-
-
-    

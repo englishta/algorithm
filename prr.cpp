@@ -90,16 +90,17 @@ template<class T, class A> inline T div_up(T a, A b){
 
 
 int main() {
-    LL(n,m);
-    vector<ll> a(n); iota(all(a), 1);
-    ll out=0;
-
-    while(m--){
-        LL(num);
-        rep(i,n){
-            if(a[i] == num) swap(a[i], out);
-        }
+    LL(n);
+    map<ll, ll> mp;
+    rep(i,n){
+        LL(num); mp[num]++;
     }
-    for(auto x : a) cout << x << endk;
+    LL(m);
+    rep(i,m){
+        LL(num);
+        if(mp[num]<1) drop("NO");
+        else mp[num]--;
+    }
+    drop("YES");
     return 0;
 }
