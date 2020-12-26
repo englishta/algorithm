@@ -11,16 +11,6 @@ using ll = long long;
 
 
 int main() {
-    ll n; cin >> n; 
-    if(n == 1) drop("Not Prime");
-    bool flag = true;
-    for(ll i=2; i*i<=n; i++){
-        if(n%i == 0) flag = false; 
-    }
-    if(flag) drop("Prime");
-
-    ll k = n;
-    if(k%3 != 0 && k%2 != 0 && k%5 != 0) drop("Prime");
-    drop("Not Prime"); 
+    drop("No");
     return 0;
 }

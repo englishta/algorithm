@@ -9,3 +9,14 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
+a, b, c = map(int, input().split())
+a_, b_, c_ = map(int, input().split())
+s1 = (a//a_) * (b//b_) * (c//c_)
+s2 = (a//a_) * (b//c_) * (c//b_)
+s3 = (a//b_) * (b//a_) * (c//c_)
+s4 = (a//b_) * (b//c_) * (c//a_)
+s5 = (a//c_) * (b//a_) * (c//b_)
+s6 = (a//c_) * (b//b_) * (c//a_)
+
+print(max(s1, s2, s3, s4, s5, s6))
+
