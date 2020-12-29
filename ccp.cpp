@@ -11,6 +11,7 @@ using ll = long long;
 
 
 int main() {
-    drop("No");
+    string s; cin >> s;
+    drop(s.size());
     return 0;
 }

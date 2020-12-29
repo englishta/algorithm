@@ -90,37 +90,6 @@ template<class T, class A> inline T div_up(T a, A b){
 
 
 int main() {
-    LL(n); 
-    STR(s);
-    ll ans = 0;
-
-    rep(z,2){
-        map<string, ll> mp;
-        rep(i,s.size()-1){
-            string t = s.substr(i, 2);
-            mp[t]++;
-        }
-        string max_st;
-        ll M=0;
-        for(auto e : mp){
-            if(e.second > M){
-                M = e.second;
-                max_st = e.first;
-            }
-        }
-        string s1="";
-        rep(i,s.size()){
-            if(s.substr(i, 2) == max_st){
-                i+=1;
-                ans++;
-            }else{
-                s1.pb(s[i]); 
-            }
-        }
-        s = s1;
-        // debug(s);
-        // debug(max_st);
-    }
-    drop(ans+s.size());
+    
     return 0;
 }
