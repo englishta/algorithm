@@ -88,8 +88,43 @@ template<class T, class A> inline T div_up(T a, A b){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
+// ooooooooo  9個
+// oxoxoxoxo  4
+// xoxoxoxox  5
+// oooooooo  8こ
+// xoxoxoxo  4
 
 int main() {
-    
+    STR(s);
+    LL(k);
+    ll cnt = 0;
+    ll cnt_=1;
+    bool pura=false;
+    int first = 0;
+
+    rep1(i, 1, s.size()){
+        
+        if(s[i-1] == s[i]){
+            cnt_++;
+            if(i==s.size()-1){
+                cnt+=cnt_/2;
+                if(cnt_%2 == 0){
+                    pura = true;
+                }
+            }
+            
+        }else{
+            if(first == 0){
+                if(cnt_%2 == 0) pura=true;
+                first++;
+            }
+            cnt+=cnt_/2;
+            cnt_=1;
+        }
+    }
+    if(!pura && s[0]==s[s.size()-1]){
+        cnt++;
+    }
+    drop(k*cnt);
     return 0;
 }

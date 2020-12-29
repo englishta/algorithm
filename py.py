@@ -1,4 +1,3 @@
-
 #Begin Header {{{
 import sys
 input = sys.stdin.readline
@@ -13,15 +12,13 @@ A, K = map(int, input().split())
 t = A
 day = 0
 
-if K == 1:
+if K == 0:
     print(2*10**12-A)
-elif K==0:
-    print()
-
+    exit()
 
 while True:
     day+=1
-    t = 1+K*t
+    t += 1+K*t
     if t>=2*10**12:
         print(day)
         exit()

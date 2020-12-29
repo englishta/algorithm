@@ -1,22 +1,9 @@
 fun main(args:Array<String>) {
-    var n = readInt()
-    val list = read_list_int()
-    var ary = Array(100003){it*0}
-
-    for(t in list){
-        if(t>0) ary[t-1]+=1
-        ary[t+1]+=1
-        ary[t]+=1
-    }
-    var M = 0
-    for(x in ary){
-        if(x > M) M = x
-    }
-    println(M)
+    var (n, w) = read_Int()
+    println(n/w)
 }
 
-
-// region kokokara template dayo (^o^)
+//******************<Macro>**************************
 fun readInt() = readLine()!!.toInt()
 fun readLong() = readLine()!!.toLong()
 fun readDouble() = readLine()!!.toDouble()
