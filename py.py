@@ -1,6 +1,4 @@
 #Begin Header {{{
-import sys
-input = sys.stdin.readline
 from math import gcd, pi, cos, sin, e
 from collections import Counter, deque, defaultdict
 from heapq import heappush, heappop, heappushpop, heapify, heapreplace, merge
@@ -8,17 +6,4 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Heade
 # _________コーディングはここから！！___________
-A, K = map(int, input().split())
-t = A
-day = 0
 
-if K == 0:
-    print(2*10**12-A)
-    exit()
-
-while True:
-    day+=1
-    t += 1+K*t
-    if t>=2*10**12:
-        print(day)
-        exit()

@@ -3,6 +3,7 @@
 using namespace std;
 using ll = long long;
 #define rep(i,n) for(ll i=0; i<(n); i++)
+#define rep1(i, j, n) for(ll i=j; i<(n); i++)
 #define all(x) (x).begin(), (x).end()
 #define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
 #define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
@@ -11,7 +12,7 @@ using ll = long long;
 
 
 int main() {
-    string s; cin >> s;
-    drop(s.size());
+    
+
     return 0;
 }

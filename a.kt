@@ -1,6 +1,6 @@
 fun main(args:Array<String>) {
-    var (n, w) = read_Int()
-    println(n/w)
+    println("hellow")
+    println("hellow")
 }
 
 //******************<Macro>**************************
@@ -11,4 +11,4 @@ fun readStr() = readLine()!!.toString()
 fun read_Int() = readLine()!!.split(" ").map{it.toInt()}
 fun read_Double() = readLine()!!.split(" ").map{it.toDouble()}
 fun read_Long() = readLine()!!.split(" ").map{it.toLong()}
-fun read_list_int() = readLine()!!.split(" ").map { it.toInt() }.toList()
+fun list() = readLine()!!.split(" ").map { it.toInt() }.toList()
