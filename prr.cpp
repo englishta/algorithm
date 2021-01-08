@@ -90,6 +90,5 @@ template<class T, class A> inline T div_up(T a, A b){
 
 int main() {
     
-    
     return 0;
 }

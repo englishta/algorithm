@@ -7,3 +7,5 @@ from itertools import accumulate, product, permutations, combinations, combinati
 # }}} End Heade
 # _________コーディングはここから！！___________
 
+s = input()
+print('Yes' if sum([int(e) for e in s])%9 == 0 else 'No')
