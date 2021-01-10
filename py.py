@@ -6,6 +6,5 @@ from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right,
 from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
 # }}} End Heade
 # _________コーディングはここから！！___________
-
-s = input()
-print('Yes' if sum([int(e) for e in s])%9 == 0 else 'No')
+x, y = map(int, input().split())
+print('Yes' if abs(x-y)<=2 else 'No')
