@@ -81,12 +81,12 @@ template<class T, class A> inline T div_up(T a, A b){
 }
 
 template<class T>
-pair<vector<T>, vector<T>> compress(vector<T> &X){
+vector<T> compress(vector<T> &X){
     vector<T> Uni = X;
     sort(all(Uni));
     UNIQUE(Uni);
     for(ll i=0; i<(ll)X.size(); i++) X[i]=lb(Uni, X[i]);
-    return make_pair(X, Uni); 
+    return X; 
 }
 //デバッグ方法
 //debug(配列、変数など一つだけ);
@@ -97,14 +97,11 @@ pair<vector<T>, vector<T>> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
+
 int main() {
-    LL(n);
-    vector<ll> a(n); rep(i,n) cin >> a[i];
-    auto k = compress(a);
-    debug(k.first);
-    debug(k.second);
-
-
+    LL(a, b, c);
+    if(c-a-b > 0 && 4*a*b<(c-a-b)*(c-a-b)) drop("Yes");
+    else drop("No");
 
     return 0;
 }
