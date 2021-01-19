@@ -12,6 +12,8 @@ using ll = long long;
 
 
 int main() {
-
+    map<ll, ll> mp;
+    mp[0]=('a');
+    drop(mp[0]);
     return 0;
 }

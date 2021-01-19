@@ -75,10 +75,10 @@ cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
 cout<<"   "; \
 dump(__VA_ARGS__)
 
-template<class T, class A> inline T div_up(T a, A b){
-    if(b == 0) cout << "ZERO_de_WATTERUYO!!" << '\n';
-    return (a%b == 0)? a/b : a/b+1; 
+template<class T, class A> inline T dup(T num, A waru){
+    return (num%waru == 0)? num/waru : num/waru+1; 
 }
+template<class T> T LCM(T a, T b){ return (a*b)/__gcd(a, b);}
 
 template<class T>
 vector<T> compress(vector<T> &X){
@@ -97,11 +97,8 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-
 int main() {
-    LL(a, b, c);
-    if(c-a-b > 0 && 4*a*b<(c-a-b)*(c-a-b)) drop("Yes");
-    else drop("No");
-
+    
+    
     return 0;
 }
