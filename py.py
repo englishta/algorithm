@@ -13,46 +13,40 @@ import numpy as np
 train = pd.read_csv("graphic/kaggle/titanik/train.csv")
 test = pd.read_csv("graphic/kaggle/titanik/test.csv")
 
-train.head(3)
 # %%
-train.info()
-#それぞれのコラムに891個のデータがあることが分かる
+print(train.shape)
+print(test.shape)
+#trainは、(891x12)
+#testは、(418x11)
 #Age,Cabin,Embarkedにnullがあることが分かる
+#%%
+train["is_train"]=1
+test["is_train"]=0
+all_df = pd.concat([train.drop(columns=["Survived"]), test])
+all_df
+
 # %%
-train2 = train.replace("male", 0).replace("female", 1).replace("S", 0).replace("Q", 2).replace("C", 1)
-test2 = test.replace("male", 0).replace("female", 1).replace("S", 0).replace("Q", 2).replace("C", 1)
+all_df = all_df.replace("male", 0).replace("female", 1).replace("S", 0).replace("Q", 2).replace("C", 1)
 #EmbarkedのSCQを数値に変換
 test.head(10)
-# %%
-
-test2.head(10)
-# %%
-train2["Age"].fillna(train2.Age.mean(), inplace = True)
-train2["Embarked"].fillna(train2.Embarked.mean(), inplace = True)
-test2["Age"].fillna(test2.Age.mean(), inplace = True)
-test2["Embarked"].fillna(test2.Embarked.mean(), inplace = True)
-test2["Fare"].fillna(test2.Fare.mean(), inplace = True)
-train2.info()
-# %%
-#Cabinの処理が面倒なのでカラムから消去
-train2 = train2.drop(["Cabin", "Name", "Ticket"], axis=1)
-test2 = test2.drop(["Cabin", "Name", "Ticket"], axis=1)
-
-test2.head(10)
-# %%
-test2.head(10)
-# %%
-train2.info()
-test2.info()
 
 # %%
-target_train = train2["Survived"]
-feature_train = train2.drop("Survived", axis=1)
-
-target_train
+all_df["Age"].fillna(all_df.Age.mean(), inplace = True)
+all_df["Embarked"].fillna(all_df.Embarked.mean(), inplace = True)
+all_df["Fare"].fillna(all_df.Fare.mean(), inplace = True)
+all_df.info()
+# %%
+all_df = all_df.drop(["Cabin", "Name", "Ticket"], axis=1)
 
 # %%
-from sklearn import tree
+target_train = train["Survived"]
+feature_train = all_df[all_df["is_train"]==1].drop(["is_train"], axis=1)
+feature_test = all_df[all_df["is_train"]==0].drop(["is_train"], axis=1)
+feature_test.head(10)
+#%%
+print(feature_train.shape)
+print(feature_test.shape)
+# %%
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 
@@ -63,12 +57,11 @@ model.fit(feature_train, target_train)
 pred_train = model.predict(feature_train)
 metrics.accuracy_score(target_train, pred_train)
 # %%
-
-pred_test = model.predict(test2)
+pred_test = model.predict(feature_test)
 # %%
 pred_test
 #%%
 #予測結果をcsvファイルに保存する
-my_prediction = pd.DataFrame(pred_test, test2["PassengerId"], columns=["Survived"])
+my_prediction = pd.DataFrame(pred_test, feature_test["PassengerId"], columns=["Survived"])
 my_prediction.to_csv("graphic/kaggle/titanik/my_prediction2.csv", index_label=["PassengerId"])
 # %%
