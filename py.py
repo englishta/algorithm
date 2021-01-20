@@ -35,10 +35,6 @@ all_df["Age"].fillna(all_df.Age.mean(), inplace = True)
 all_df["Embarked"].fillna(all_df.Embarked.mean(), inplace = True)
 all_df["Fare"].fillna(all_df.Fare.mean(), inplace = True)
 #%%
-#Cabinの欠損値をUnknownのUで置き換える
-all_df["Cabin"].fillna('U', inplace=True)
-all_df.head(10)
-all_df.info()
 #%%
 #Cabinのデータを頭文字で置き換える
 all_df["Cabin"]=all_df["Cabin"].str[:1]
@@ -48,6 +44,14 @@ all_df = pd.concat([all_df, pd.get_dummies(all_df["Cabin"], prefix="Cabin")], ax
 #名前から敬称を取り出す
 all_df["Name"] = all_df["Name"].str.extract(' ([A-Za-z]+)\.', expand = False)
 #%%
+all_df["Name"].value_counts()
+#敬称ごとの出現数を表示する
+#%%
+#出現数の少ないものをRareにする
+all_df["Name"].replace(["Capt", "Don", "Dona", "Countess", "Jonkheer", "Lady", "Mme", "Sir"], "Rare", inplace = True)
+# all_df.head(10)
+#%%
+#ダミー変数へ変換する
 all_df = pd.concat([all_df, pd.get_dummies(all_df["Name"], prefix="Name")], axis=1).drop(columns=["Name"])
 all_df.head(10)
 
