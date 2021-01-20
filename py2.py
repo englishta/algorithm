@@ -25,10 +25,20 @@ test.head(10)
 all_df["Age"].fillna(all_df.Age.mean(), inplace = True)
 all_df["Embarked"].fillna(all_df.Embarked.mean(), inplace = True)
 all_df["Fare"].fillna(all_df.Fare.mean(), inplace = True)
+#%%
+#Cabinの欠損値をUnknownのUで置き換える
+all_df["Cabin"].fillna('U', inplace=True)
+all_df.head(10)
 all_df.info()
-# %%
-all_df = all_df.drop(["Cabin", "Name", "Ticket"], axis=1)
+#%%
+#Cabinのデータを頭文字で置き換える
+all_df["Cabin"]=all_df["Cabin"].str[:1]
+#%%
+all_df = pd.concat([all_df, pd.get_dummies(all_df["Cabin"], prefix="Cabin")], axis=1).drop(columns=["Cabin"])
+all_df.head(10)
 
+# %%
+all_df = all_df.drop(["Name", "Ticket"], axis=1)
 # %%
 target_train = train["Survived"]
 feature_train = all_df[all_df["is_train"]==1].drop(["is_train"], axis=1)
