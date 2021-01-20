@@ -44,10 +44,15 @@ all_df.info()
 all_df["Cabin"]=all_df["Cabin"].str[:1]
 #%%
 all_df = pd.concat([all_df, pd.get_dummies(all_df["Cabin"], prefix="Cabin")], axis=1).drop(columns=["Cabin"])
+#%%
+#名前から敬称を取り出す
+all_df["Name"] = all_df["Name"].str.extract(' ([A-Za-z]+)\.', expand = False)
+#%%
+all_df = pd.concat([all_df, pd.get_dummies(all_df["Name"], prefix="Name")], axis=1).drop(columns=["Name"])
 all_df.head(10)
 
 # %%
-all_df = all_df.drop(["Name", "Ticket"], axis=1)
+all_df = all_df.drop(["Ticket"], axis=1)
 # %%
 target_train = train["Survived"]
 feature_train = all_df[all_df["is_train"]==1].drop(["is_train"], axis=1)
