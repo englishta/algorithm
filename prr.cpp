@@ -99,6 +99,5 @@ vector<T> compress(vector<T> &X){
 
 int main() {
     
-    
     return 0;
 }
