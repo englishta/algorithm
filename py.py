@@ -80,6 +80,19 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
 model = RandomForestClassifier()
 model.fit(feature_train, target_train)
+#%%
+features = feature_train.columns
+importances = model.feature_importances_
+indices = np.argsort(importances)[:30]
+#%%
+import matplotlib.pyplot as plt
+plt.figure(figsize=(6,6))
+# 横長の棒グラフの作成
+plt.barh(range(len(indices)), importances[indices], color='b')
+# y軸ラベルの作成
+plt.yticks(range(len(indices)), features[indices])
+plt.show()
+#%%
 pred_test = model.predict(feature_test)
 #%%
 #予測結果をcsvファイルに保存する
