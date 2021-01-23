@@ -56,11 +56,12 @@ all_df["Name"].replace("Mlle", "Miss", inplace=True)
 all_df["Name"].replace(["Mme", "Ms"], "Mrs", inplace=True)
 # all_df["Ticket"].replace(["CA 2144", "CA. 2343"], "CA", inplace=True)
 all_df["Name"].value_counts()
-
 #%%
 #ダミー変数へ変換する
 all_df = pd.concat([all_df, pd.get_dummies(all_df["Name"], prefix="Name")], axis=1).drop(columns=["Name"])
 all_df.head(10)
+#%%
+# all_df.drop(["Name_Royalty"], axis=1, inplace=True)
 
 #%%
 all_df["Ticket"].value_counts()
@@ -78,7 +79,7 @@ print(feature_test.shape)
 # %%
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import metrics
-model = RandomForestClassifier()
+model = RandomForestClassifier(n_estimators=100, random_state=1080, max_depth=30)
 model.fit(feature_train, target_train)
 #%%
 features = feature_train.columns

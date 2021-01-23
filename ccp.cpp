@@ -12,8 +12,9 @@ using ll = long long;
 
 
 int main() {
-    map<ll, ll> mp;
-    mp[0]=('a');
-    drop(mp[0]);
+    vector<ll> a = {1, 2, 3, 4, 5};
+    a.erase(a.begin()+1);
+    rep(i,a.size()) cout << a[i] << endl;
+    cout << a.size() << endl;
     return 0;
 }
