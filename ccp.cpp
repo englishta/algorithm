@@ -10,11 +10,7 @@ using ll = long long;
 #define drop(s) cout << s << '\n', exit(0)
 #pragma endregion
 
-
-int main() {
-    vector<ll> a = {1, 2, 3, 4, 5};
-    a.erase(a.begin()+1);
-    rep(i,a.size()) cout << a[i] << endl;
-    cout << a.size() << endl;
+int main(){
+    
     return 0;
 }
