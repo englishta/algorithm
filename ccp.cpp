@@ -11,6 +11,8 @@ using ll = long long;
 #pragma endregion
 
 int main(){
+    LL(n);
     
+
     return 0;
 }

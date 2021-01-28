@@ -99,22 +99,22 @@ vector<T> compress(vector<T> &X){
 
 
 int main() {
-    LL(n);
-    vector<string> S(n+1);
-    vll dp(n+1), dpf(n+1);
-    rep1(i, 1, n+1) cin>> S[i];
-    dp[0]=1;
-    dpf[0]=1;
-    for(ll i=1; i<=n; i++){
-        if(S[i]=="AND"){
-            dp[i]=dp[i-1];
-            dpf[i]=2*dpf[i-1]+dp[i-1];
-        }else{
-            dp[i]=2*dp[i-1]+dpf[i-1];
-            dpf[i]=dpf[i-1];
-        }
+    LL(na, nb);
+    set<ll> sa;
+    rep(i,na){
+        LL(A);
+        sa.insert(A);
     }
-    drop(dp[n]);
+    ll katu=0;
+    ll all = sa.size();
+
+    rep(i,nb){
+        LL(B);
+        if(sa.count(B)) katu++;
+        else all++;
+    }
+
+    SP(double(katu)/all, 15);
 
     return 0;
 }
