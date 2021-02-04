@@ -97,24 +97,8 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-
 int main() {
-    LL(na, nb);
-    set<ll> sa;
-    rep(i,na){
-        LL(A);
-        sa.insert(A);
-    }
-    ll katu=0;
-    ll all = sa.size();
-
-    rep(i,nb){
-        LL(B);
-        if(sa.count(B)) katu++;
-        else all++;
-    }
-
-    SP(double(katu)/all, 15);
+    
 
     return 0;
 }
