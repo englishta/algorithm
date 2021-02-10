@@ -11,10 +11,8 @@ using ll = long long;
 #pragma endregion
 
 int main(){
-    LL(a, b, c);
-    if(a<b){
 
-    }
+    
 
     return 0;
 }
