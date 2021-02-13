@@ -21,7 +21,6 @@ using ll = long long;
 #define SP(num, keta) cout << setprecision(keta) << fixed <<num<< '\n'
 #define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
 #define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
-constexpr int INF  = 0x3f3f3f3f;
 const long long mod=1e9+7;
 const long double PI = acos(-1);
 template<class T, class S> inline bool chmax(T &a, const S &b){ 
@@ -100,7 +99,7 @@ vector<T> compress(vector<T> &X){
 typedef pair<ll,ll> P;
 
 struct edge{ll to, cost;};
-
+ll INF=2000*100000;
 struct graph{
     ll V;
     vector<vector<edge> > G;
@@ -151,28 +150,34 @@ struct graph{
 
 int main() {
 
-    // int n = 3;
-    // graph g(n);
-    // g.add_edge(0, 1, 5);
-    // g.add_edge(0, 2, 3);
-    // g.add_edge(2, 1, 1);
-    // g.dijkstra(0);
-    // cout << g.d[1] << endl;
     LL(n, m);
     graph g(n+1);
+    vll se(n+1, INF);
 
     rep(i,m){
         LL(a, b, c);
         g.add_edge(a, b, c);
+        if(a==b) se[a]=c;
     }
 
     vv(ll, dist, n+1, n+1, 0);
+
     rep1(i, 1, n+1){
         g.dijkstra(i);
         rep1(J, 1, n+1){
             if(J==i) continue;
             dist[i][J] = g.d[J]; 
         }
+    }
+    rep1(i, 1, n+1){
+        ll ans=INF;
+        chmin(ans, se[i]);
+        rep1(J, 1, n+1){
+            if(i==J) continue;
+            chmin(ans, dist[i][J]+dist[J][i]);
+        }
+        if(ans==INF) cout << -1 << '\n';
+        else cout << ans << '\n';
     }
     return 0;
 }
