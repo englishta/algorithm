@@ -96,88 +96,35 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-typedef pair<ll,ll> P;
+int main() {
+    STR(t);
+    if(t=="zyxwvutsrqponmlkjihgfedcba") drop(-1);
 
-struct edge{ll to, cost;};
-ll INF=2000*100000;
-struct graph{
-    ll V;
-    vector<vector<edge> > G;
-    vector<ll> d, ret;
-
-    graph(ll n){
-        init(n);
+    map<char, ll> mp;
+    for(auto e : t){
+        mp[e]++;
     }
 
-    void init(ll n){
-        V = n;
-        G.resize(V);
-        d.resize(V);
-        ret.resize(V);
-        for(ll i=0; i<V; i++){
-            d[i] = INF;
-            ret[i]=INF;
+    string s = "abcdefghijklmnopqrstuvwxyz";
+    for(auto e : s){
+        if(mp[e]==0){
+            drop(t+e);
         }
     }
-
-    void add_edge(ll s, ll t, ll cost){            
-        edge e;
-        e.to = t, e.cost = cost;
-        G[s].push_back(e);
-    }
-
-    void dijkstra(ll s){
-        for(ll i=0; i<V; i++){
-            d[i] = INF;
-        }
-        d[s] = 0;
-        priority_queue<P,vector<P>, greater<P> > que;
-        que.push(P(0,s));
-
-        while(!que.empty()){
-            P p = que.top(); que.pop();
-            ll v = p.second;
-            if(d[v]<p.first) continue;
-            for(auto e : G[v]){
-                if(d[e.to]>d[v]+e.cost){
-                    d[e.to] = d[v]+e.cost;
-                    que.push(P(d[e.to],e.to));
+    map<char, ll> mp2;
+    vll que;
+    for(ll i=t.size()-1; i>=1; i--){
+        que.eb(t[i]); 
+        sort(all(que));
+        if(t[i-1]<t[i]){
+            for(auto e : que){
+                if(e>t[i-1]){
+                    t[i-1]=e;
+                    drop(t.substr(0, i));
                 }
             }
         }
     }
-};
 
-int main() {
-
-    LL(n, m);
-    graph g(n+1);
-    vll se(n+1, INF);
-
-    rep(i,m){
-        LL(a, b, c);
-        g.add_edge(a, b, c);
-        if(a==b) se[a]=c;
-    }
-
-    vv(ll, dist, n+1, n+1, 0);
-
-    rep1(i, 1, n+1){
-        g.dijkstra(i);
-        rep1(J, 1, n+1){
-            if(J==i) continue;
-            dist[i][J] = g.d[J]; 
-        }
-    }
-    rep1(i, 1, n+1){
-        ll ans=INF;
-        chmin(ans, se[i]);
-        rep1(J, 1, n+1){
-            if(i==J) continue;
-            chmin(ans, dist[i][J]+dist[J][i]);
-        }
-        if(ans==INF) cout << -1 << '\n';
-        else cout << ans << '\n';
-    }
     return 0;
 }
