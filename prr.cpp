@@ -95,36 +95,37 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
+ll f(ll k, ll M, vll v){
+    ll r = 0;
+    ll keta=1;
+    for(auto e : v){
+        r+=e*keta;
+        if(keta>(M-r)/k) return -1;
+        keta*=k;
+    }
+    return r;
+}
 
 int main() {
-    STR(t);
-    if(t=="zyxwvutsrqponmlkjihgfedcba") drop(-1);
-
-    map<char, ll> mp;
-    for(auto e : t){
-        mp[e]++;
+    STR(x);
+    LL(M);
+    ll b=0;
+    vll v;
+    for(auto e : x){
+        chmax(b, (e-'0')%10);
+        v.eb((e-'0')%10);
     }
-
-    string s = "abcdefghijklmnopqrstuvwxyz";
-    for(auto e : s){
-        if(mp[e]==0){
-            drop(t+e);
-        }
+    ll ans=0;
+    b++;
+    while(1){
+        ll num=f(b, M, v);
+        // debug(num);
+        if(num<=M) ans++; 
+        else if(num==-1) break;
+        else break;
+        b++;
     }
-    map<char, ll> mp2;
-    vll que;
-    for(ll i=t.size()-1; i>=1; i--){
-        que.eb(t[i]); 
-        sort(all(que));
-        if(t[i-1]<t[i]){
-            for(auto e : que){
-                if(e>t[i-1]){
-                    t[i-1]=e;
-                    drop(t.substr(0, i));
-                }
-            }
-        }
-    }
+    drop(ans);
 
     return 0;
 }

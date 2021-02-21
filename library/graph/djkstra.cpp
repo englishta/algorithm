@@ -15,7 +15,7 @@ int dist = g.d[i]
 #include<bits/stdc++.h>
 using namespace std;
 using ll = long long;
-constexpr int INF  = 0x3f3f3f3f;
+constexpr ll INF  = 1000000000000000;
 typedef pair<ll,ll> P;
 
 struct edge{ll to, cost;};
@@ -54,8 +54,8 @@ struct graph{
 
         while(!que.empty()){
             P p = que.top(); que.pop();
-            ll v = p.second;
-            if(d[v]<p.first) continue;
+            ll v = p.second; //現在参照している頂点の番号
+            if(d[v]<p.first) continue;//p.first=参照している頂点がpushされた時点での最短距離or時間
             for(auto e : G[v]){
                 if(d[e.to]>d[v]+e.cost){
                     d[e.to] = d[v]+e.cost;
