@@ -95,28 +95,73 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
-ll P_score(ll r, ll s){
-    ll sub = (1-min(r, s)/max(r, s));
+double P_score(ll r, ll s){
+    double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
 }
 
-ll Ans(vll r, vll s, vll &p, ll n){
-    rep(i,n) p[i]=P_score(r[i], s[i]);
-    ll A=0;
-    rep(i,n) A+=p[i];
-    return 1000000000*A/n;
-}
 
 int main() {
-       LL(n);
-       vll x(n), y(n), r(n), p(n), s(n);
-       rep(i,n){
-           cin >> x[i] >> y[i] >> r[i];
-       } 
+    LL(n);
+    vll x(n), y(n), r(n), s(n);
+    vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
+    vector<double> p(n);
+    ll Max_len=100000;
+    vll x_ray(Max_len+1);
+    vll y_ray(Max_len+1);
+
+    rep(i,n){
+        cin >> x[i] >> y[i] >> r[i];
+        x_ray[x[i]]++; y_ray[y[i]]++;
+    }
+    rep(i,15) cout << x_ray[i] << " ";
+    cout << endk;
+
+    rep(i,n){
+        ll t = 2;
+
+        a[i]=x[i];
+        c[i]=x[i]+1;
+        b[i]=y[i];
+        d[i]=y[i]+1;
 
 
+        for(ll J=1; J<=t; J++){
+            if(x_ray[x[i]-J]!=0 || x[i]-J<0) break;
+            a[i]=x[i]-J;
+        }
+        for(ll J=1; J<=t; J++){
+            if(x_ray[x[i]+J]!=0 || x[i]+J>Max_len) break;
+            c[i]=x[i]+J;
+        }
 
-    
+        for(ll J=1; J<=t; J++){
+            if(y_ray[y[i]-J]!=0 || y[i]-J<0) break;
+            b[i]=y[i]-J;
+        }
+        for(ll J=1; J<=t; J++){
+            if(y_ray[y[i]+J]!=0 || y[i]+J>Max_len) break;
+            d[i]=y[i]+J;
+        }
+        
+        for(ll J=a[i]; J<=c[i]; J++) x_ray[J]++;
+        for(ll J=b[i]; J<=d[i]; J++) y_ray[J]++;
+    }
+    rep(i,n) s[i]=(d[i]-b[i])*(c[i]-a[i]);
+    rep(i,n) p[i]= P_score(r[i], s[i]);
+//    rep(i,n) cout << p[i] << endl;
+//    double Ans = 0;
+//    rep(i,n) Ans+=p[i];
+//    Ans = 1000000000*Ans/n;
 
+//    cout << Ans << endk;
+
+//Output Answer
+    // cout << "*****************************" << endl;
+    rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
+    rep(i,15) cout << x_ray[i] << " ";
+    cout << endk;
+    rep(i,15) cout << y_ray[i] << " ";
+    cout << endk;
     return 0;
 }
