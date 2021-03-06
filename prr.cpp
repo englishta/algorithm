@@ -11,7 +11,7 @@ using ll = long long;
 #define vi vector<int>
 #define vll vector<ll>
 #define rep(i,n) for(ll i=0; i<(n); i++)
-#define rep1(i, j, n) for(ll i=j; i<(n); i++)
+#define Rep(i, j, n) for(ll i=j; i<(n); i++)
 #define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
 #define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
 #define drop(s) cout << s << endk, exit(0)
@@ -95,37 +95,11 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
-ll f(ll k, ll M, vll v){
-    ll r = 0;
-    ll keta=1;
-    for(auto e : v){
-        r+=e*keta;
-        if(keta>(M-r)/k) return -1;
-        keta*=k;
-    }
-    return r;
-}
 
 int main() {
-    STR(x);
-    LL(M);
-    ll b=0;
-    vll v;
-    for(auto e : x){
-        chmax(b, (e-'0')%10);
-        v.eb((e-'0')%10);
-    }
-    ll ans=0;
-    b++;
-    while(1){
-        ll num=f(b, M, v);
-        // debug(num);
-        if(num<=M) ans++; 
-        else if(num==-1) break;
-        else break;
-        b++;
-    }
-    drop(ans);
+    
+
+    
 
     return 0;
 }
