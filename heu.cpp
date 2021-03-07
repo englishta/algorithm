@@ -99,6 +99,26 @@ double P_score(ll r, ll s){
     double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
 }
+ll Men(ll a, ll b, ll c, ll d){
+    return abs(c-a)*abs(d-b);
+}
+
+// J->検査対象, i->0～10^5
+bool Judge(ll ai, ll bi, ll ci, ll di, ll aJ, ll bJ, ll cJ, ll dJ){
+    ll mx=100000;
+    if(cJ>mx || ci>mx) return false;
+    bool flag=true;
+    if(ai<aJ && aJ<ci && bi<bJ && bJ<di) flag = false;
+    if(ai<aJ && aJ<ci && bi<dJ && dJ<di) flag = false;
+    if(ai<cJ && cJ<ci && bi<bJ && bJ<di) flag = false;
+    if(ai<cJ && cJ<ci && bi<dJ && dJ<di) flag = false;
+    if(aJ>cJ || bJ>dJ) flag=false;
+    return flag;
+}
+bool size_Judge(ll a, ll b, ll c, ll d){
+    ll mx=100000;
+    return (a>=0 && a<mx && b>=0 && b<mx && c>0 && c<=mx && d>0 && d<=mx);
+}
 
 
 int main() {
@@ -107,61 +127,42 @@ int main() {
     vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
     vector<double> p(n);
     ll Max_len=100000;
-    vll x_ray(Max_len+1);
-    vll y_ray(Max_len+1);
 
     rep(i,n){
         cin >> x[i] >> y[i] >> r[i];
-        x_ray[x[i]]++; y_ray[y[i]]++;
+        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
+
+        // if(x[i]-1>=0) a[i]-=1;
+        if(x[i]+1<=Max_len) c[i]++;
+        // if(y[i]-1>=0) b[i]-=1;
+        if(y[i]+1<=Max_len) d[i]++;
     }
-    rep(i,15) cout << x_ray[i] << " ";
-    cout << endk;
 
     rep(i,n){
-        ll t = 2;
-
-        a[i]=x[i];
-        c[i]=x[i]+1;
-        b[i]=y[i];
-        d[i]=y[i]+1;
-
-
-        for(ll J=1; J<=t; J++){
-            if(x_ray[x[i]-J]!=0 || x[i]-J<0) break;
-            a[i]=x[i]-J;
+        // (a, b), (c, d)2頂点の座標
+        ll t=10;
+        while(t--){
+            if(size_Judge(a[i], b[i], c[i]+1, d[i])==false) break;
+            bool flg=true;
+            rep(J,n){
+                if(i == J) continue;
+                if(Judge(a[J], b[J], c[J], d[J], a[i], b[i], c[i]+1, d[i]) == false){
+                    flg = false;
+                }
+                if(Judge(a[i], b[i], c[i]+1, d[i], a[J], b[J], c[J], d[J]) == false){
+                    flg = false;
+                }
+                if(size_Judge(a[i], b[i], c[i]+1, c[i]) == false) flg = false;
+            }
+            if(flg==false) break;
+            else c[i]++;
         }
-        for(ll J=1; J<=t; J++){
-            if(x_ray[x[i]+J]!=0 || x[i]+J>Max_len) break;
-            c[i]=x[i]+J;
-        }
-
-        for(ll J=1; J<=t; J++){
-            if(y_ray[y[i]-J]!=0 || y[i]-J<0) break;
-            b[i]=y[i]-J;
-        }
-        for(ll J=1; J<=t; J++){
-            if(y_ray[y[i]+J]!=0 || y[i]+J>Max_len) break;
-            d[i]=y[i]+J;
-        }
-        
-        for(ll J=a[i]; J<=c[i]; J++) x_ray[J]++;
-        for(ll J=b[i]; J<=d[i]; J++) y_ray[J]++;
     }
-    rep(i,n) s[i]=(d[i]-b[i])*(c[i]-a[i]);
-    rep(i,n) p[i]= P_score(r[i], s[i]);
-//    rep(i,n) cout << p[i] << endl;
-//    double Ans = 0;
-//    rep(i,n) Ans+=p[i];
-//    Ans = 1000000000*Ans/n;
-
-//    cout << Ans << endk;
 
 //Output Answer
+    // cout << '\n';
     // cout << "*****************************" << endl;
+    // cout << '\n';
     rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
-    rep(i,15) cout << x_ray[i] << " ";
-    cout << endk;
-    rep(i,15) cout << y_ray[i] << " ";
-    cout << endk;
     return 0;
 }

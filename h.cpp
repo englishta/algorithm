@@ -95,37 +95,46 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
+double P_score(ll r, ll s){
+    double sub = (1-min(r, s)/(double)max(r, s));
+    return 1-sub*sub;
+}
+
 
 int main() {
-    LL(n, m);
-    vll a(n);
-    set<ll> s;
-    map<ll, ll> mp;
-    rep(i,1500002) s.insert(i);
-    rep(i,n){
-        cin >> a[i];
-    }
-    for(ll i=0; i<m; i++){
-        s.erase(a[i]);
-        mp[a[i]]++;
-    }
-    auto itr = s.begin();
-    ll ans = ll(*itr);
+       LL(n);
+       vll x(n), y(n), r(n), s(n);
+       vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
+       vector<double> p(n);
 
-    for(ll i=0; i<n-m; i++){
-        mp[a[i]]--;
-        if(mp[a[i]]==0) s.insert(a[i]);
-        s.erase(a[i+m]);
-        auto it = s.begin();
-        ll sub = *it;
-        // cout << sub << endl;
-        chmin(ans, sub);
-    }
-    drop(ans);
+       ll Max_len=100000;
+       rep(i,n){
+           cin >> x[i] >> y[i] >> r[i];
+       } 
+       rep(i,n){
+        //    ll t = ((ll)sqrt(r[i]))/2;
+            ll t = 1;
 
-    
+           a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
 
-    
+           if(x[i]-t>=0) a[i]-=t;
+           if(x[i]+t<=Max_len) c[i]+=t;
+           else c[i]++;
+           if(y[i]-t>=0) b[i]-=t;
+           if(y[i]+t<=Max_len) d[i]+=t;
+           else d[i]++;
+       }
+       rep(i,n) s[i]=(d[i]-b[i])*(c[i]-a[i]);
+       rep(i,n) p[i]= P_score(r[i], s[i]);
+    //    rep(i,n) cout << p[i] << endl;
+    //    double Ans = 0;
+    //    rep(i,n) Ans+=p[i];
+    //    Ans = 1000000000*Ans/n;
 
+    //    cout << Ans << endk;
+
+//Output Answer
+    cout << "*****************************" << endl;
+    rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
     return 0;
 }

@@ -97,8 +97,10 @@ vector<T> compress(vector<T> &X){
 #pragma endregion   
 
 int main() {
-    ll n = 4;
-    cout << (ll)sqrt(5) << endl;
+    LL(n);
+
+    
+    
 
     
 
