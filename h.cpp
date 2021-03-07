@@ -125,7 +125,7 @@ int main() {
 
     vll xs(n), xe(n), ys(n), ye(n); 
     vll X, Y;
-    ll X_mx=-1;
+    ll X_mx=-1, Y_mx=-1;
 
     rep(i,n){
         xs[i]=a[i]; xe[i]=c[i]; ys[i]=b[i]; ye[i]=d[i];
@@ -135,6 +135,7 @@ int main() {
         Y.eb(d[i]);
 
         chmax(X_mx, xe[i]);
+        chmax(Y_mx, ye[i]);
     }
     X.eb(0);
     Y.eb(0);
@@ -172,6 +173,7 @@ int main() {
 // *****************************************************************************************
 
     ll Endx_idx=lb(X, X_mx);
+    ll Endy_idx=lb(Y, Y_mx);
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -189,6 +191,25 @@ int main() {
             }
             if(f) break;
             if(x_==Endx_idx) c[i]=X_mx;
+        }
+    }
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+        for(ll y_=y2+1; y_<=Endy_idx; y_++){
+            bool f=false;
+            for(ll x_=x1; x_<=x2; x_++){
+                if(v2[x_][y_]>0){
+                    d[i]=Y[y_];
+                    f=true;
+                }
+                v2[x_][y_]++;
+            }
+            if(f) break;
+            if(y_==Endy_idx) d[i]=Y_mx;
         }
     }
     // debug(v2);
