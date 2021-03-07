@@ -146,9 +146,9 @@ int main() {
         }
     }
 
-    debug(v2);
-    cout << endk;
-    debug(v1);
+    // debug(v2);
+    // cout << endk;
+    // debug(v1);
 
 
 // input

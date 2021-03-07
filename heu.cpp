@@ -138,27 +138,79 @@ int main() {
         if(y[i]+1<=Max_len) d[i]++;
     }
 
-    rep(i,n){
-        // (a, b), (c, d)2頂点の座標
-        ll t=1;
-        while(t--){
-            if(size_Judge(a[i], b[i], c[i]+1, d[i])==false) break;
-            bool flg=true;
-            rep(J,n){
-                if(size_Judge(a[i], b[i], c[i]+1, d[i]) == false) flg = false;
-                if(i == J) continue;
+    // *****************************<デバッグ>****************************
 
-                if(Judge(a[J], b[J], c[J], d[J], a[i], b[i], c[i]+1, d[i]) == false){
-                    flg = false;
-                }
-                if(Judge(a[i], b[i], c[i]+1, d[i], a[J], b[J], c[J], d[J]) == false){
-                    flg = false;
-                }
+    vll xs(n), xe(n), ys(n), ye(n); 
+    vll X, Y;
+    ll X_mx=-1;
+
+    rep(i,n){
+        xs[i]=a[i]; xe[i]=c[i]; ys[i]=b[i]; ye[i]=d[i];
+        X.eb(a[i]);
+        X.eb(c[i]);
+        Y.eb(b[i]);
+        Y.eb(d[i]);
+
+        chmax(X_mx, xe[i]);
+    }
+    X.eb(0);
+    Y.eb(0);
+
+    sort(X.begin(), X.end());
+    sort(Y.begin(), Y.end());
+
+    X.erase(unique(X.begin(),X.end()),X.end());
+    Y.erase(unique(Y.begin(),Y.end()),Y.end());
+
+    vv(ll, v1, 3*n, 3*n);
+    vv(ll, v2, 3*n, 3*n);
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, xs[i]);
+        ll x2=lb(X, xe[i]);
+        ll y1=lb(Y, ys[i]);
+        ll y2=lb(Y, ye[i]);
+// v1 : 頂点の座標
+        v1[x1][y1]++;
+        v1[x2][y2]++;
+        v1[x1][y2]++;
+        v1[x2][y1]++;
+// v2 : 長方形の可視化
+        for(ll x_=x1; x_<=x2; x_++){
+            for(ll y_=y1; y_<=y2; y_++){
+                v2[x_][y_]++;
             }
-            if(flg==false) break;
-            else c[i]++;
         }
     }
+    // debug(v2);
+    // cout << endk;
+    // debug(v1);
+
+// *****************************************************************************************
+
+    ll Endx_idx=lb(X, X_mx);
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+        for(ll x_=x2+1; x_<=Endx_idx; x_++){
+            bool f=false;
+            for(ll y_=y1; y_<=y2; y_++){
+                if(v2[x_][y_]>0){
+                    c[i]=X[x_];
+                    f=true;
+                }
+                v2[x_][y_]++;
+            }
+            if(f) break;
+            if(x_==Endx_idx) c[i]=X_mx;
+        }
+    }
+    // debug(v2);
+    // cout << endk;
+    // debug(v1);
 
 //Output Answer
     // cout << '\n';
