@@ -102,39 +102,58 @@ double P_score(ll r, ll s){
 
 
 int main() {
-       LL(n);
-       vll x(n), y(n), r(n), s(n);
-       vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
-       vector<double> p(n);
+    LL(n);
+    vll x(n), y(n), r(n), s(n);
+    vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
+    vector<double> p(n);
+    ll Max_len=100000;
+    vll X, Y;
 
-       ll Max_len=100000;
-       rep(i,n){
-           cin >> x[i] >> y[i] >> r[i];
-       } 
-       rep(i,n){
-        //    ll t = ((ll)sqrt(r[i]))/2;
-            ll t = 1;
+    rep(i,n){
+        cin >> x[i] >> y[i] >> r[i];
 
-           a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
+        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
+        c[i]++; d[i]++;
+        X.eb(a[i]);
+        X.eb(c[i]);
+        Y.eb(b[i]);
+        Y.eb(d[i]);
+    } 
+    X.eb(0);
+    Y.eb(0);
+    // X.eb(Max_len);
+    // Y.eb(Max_len);
 
-           if(x[i]-t>=0) a[i]-=t;
-           if(x[i]+t<=Max_len) c[i]+=t;
-           else c[i]++;
-           if(y[i]-t>=0) b[i]-=t;
-           if(y[i]+t<=Max_len) d[i]+=t;
-           else d[i]++;
-       }
-       rep(i,n) s[i]=(d[i]-b[i])*(c[i]-a[i]);
-       rep(i,n) p[i]= P_score(r[i], s[i]);
-    //    rep(i,n) cout << p[i] << endl;
-    //    double Ans = 0;
-    //    rep(i,n) Ans+=p[i];
-    //    Ans = 1000000000*Ans/n;
+    sort(X.begin(), X.end());
+    sort(Y.begin(), Y.end());
 
-    //    cout << Ans << endk;
 
-//Output Answer
-    cout << "*****************************" << endl;
-    rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
+    X.erase(unique(X.begin(),X.end()),X.end());
+    Y.erase(unique(Y.begin(),Y.end()),Y.end());
+    // debug(X);
+    // debug(Y);
+
+    vv(ll, v, 2*n+1, 2*n+1);
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+
+        v[x1][y1]++;
+        v[x2][y2]++;
+        v[x1][y2]++;
+        v[x2][y1]++;
+    }
+    rep(i,n){
+
+    }
+
+
+    // debug(v);
+
+//     cout << "*****************************" << endl;
+//     rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
     return 0;
 }

@@ -98,7 +98,75 @@ vector<T> compress(vector<T> &X){
 
 int main() {
     LL(n);
+    vll X, Y, xs(n), xe(n), ys(n), ye(n);
+    
+    rep(i,n){
+        LL(a, b, c, d);
+        xs[i]=a; xe[i]=c; ys[i]=b; ye[i]=d;
 
+        X.eb(a);
+        X.eb(c);
+        Y.eb(b);
+        Y.eb(d);
+    } 
+    X.eb(0);
+    Y.eb(0);
+
+    sort(X.begin(), X.end());
+    sort(Y.begin(), Y.end());
+
+
+    X.erase(unique(X.begin(),X.end()),X.end());
+    Y.erase(unique(Y.begin(),Y.end()),Y.end());
+    // debug(X);
+    // debug(Y);
+
+    vv(ll, v1, 2*n+1, 2*n+1);
+    vv(ll, v2, 2*n+1, 2*n+1);
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, xs[i]);
+        ll x2=lb(X, xe[i]);
+        ll y1=lb(Y, ys[i]);
+        ll y2=lb(Y, ye[i]);
+
+// v1 : 頂点の座標
+
+        v1[x1][y1]++;
+        v1[x2][y2]++;
+        v1[x1][y2]++;
+        v1[x2][y1]++;
+
+// v2 : 長方形の可視化
+
+        for(ll x_=x1; x_<=x2; x_++){
+            for(ll y_=y1; y_<=y2; y_++){
+                v2[x_][y_]++;
+            }
+        }
+    }
+
+    debug(v2);
+    cout << endk;
+    debug(v1);
+
+
+// input
+// n
+// a, b, c, d
+
+// (a, b), (c, d)が対角線の頂点のである長方形
+
+// 2
+// 1 1 3 3
+// 2 2 4 4
+
+// output
+// 0 0 0 0 0 
+// 0 1 0 1 0 
+// 0 0 1 0 1 
+// 0 1 0 1 0 
+// 0 0 1 0 1
     
     
 

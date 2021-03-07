@@ -108,10 +108,10 @@ bool Judge(ll ai, ll bi, ll ci, ll di, ll aJ, ll bJ, ll cJ, ll dJ){
     ll mx=100000;
     if(cJ>mx || ci>mx) return false;
     bool flag=true;
-    if(ai<aJ && aJ<ci && bi<bJ && bJ<di) flag = false;
-    if(ai<aJ && aJ<ci && bi<dJ && dJ<di) flag = false;
-    if(ai<cJ && cJ<ci && bi<bJ && bJ<di) flag = false;
-    if(ai<cJ && cJ<ci && bi<dJ && dJ<di) flag = false;
+    if(ai<=aJ && aJ<=ci && bi<=bJ && bJ<=di) flag = false;
+    if(ai<=aJ && aJ<=ci && bi<=dJ && dJ<=di) flag = false;
+    if(ai<=cJ && cJ<=ci && bi<=bJ && bJ<=di) flag = false;
+    if(ai<=cJ && cJ<=ci && bi<=dJ && dJ<=di) flag = false;
     if(aJ>cJ || bJ>dJ) flag=false;
     return flag;
 }
@@ -140,19 +140,20 @@ int main() {
 
     rep(i,n){
         // (a, b), (c, d)2頂点の座標
-        ll t=10;
+        ll t=1;
         while(t--){
             if(size_Judge(a[i], b[i], c[i]+1, d[i])==false) break;
             bool flg=true;
             rep(J,n){
+                if(size_Judge(a[i], b[i], c[i]+1, d[i]) == false) flg = false;
                 if(i == J) continue;
+
                 if(Judge(a[J], b[J], c[J], d[J], a[i], b[i], c[i]+1, d[i]) == false){
                     flg = false;
                 }
                 if(Judge(a[i], b[i], c[i]+1, d[i], a[J], b[J], c[J], d[J]) == false){
                     flg = false;
                 }
-                if(size_Judge(a[i], b[i], c[i]+1, c[i]) == false) flg = false;
             }
             if(flg==false) break;
             else c[i]++;
