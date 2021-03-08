@@ -99,26 +99,18 @@ double P_score(ll r, ll s){
     double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
 }
-ll Men(ll a, ll b, ll c, ll d){
-    return abs(c-a)*abs(d-b);
-}
 
 
 int main() {
     LL(n);
     vll x(n), y(n), r(n), s(n);
     vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
-    vector<double> p(n);
-    ll Max_len=100000;
 
     rep(i,n){
         cin >> x[i] >> y[i] >> r[i];
         a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
-
-        // if(x[i]-1>=0) a[i]-=1;
-        if(x[i]+1<=Max_len) c[i]++;
-        // if(y[i]-1>=0) b[i]-=1;
-        if(y[i]+1<=Max_len) d[i]++;
+        c[i]++;
+        d[i]++;
     }
 
     // *****************************<デバッグ>****************************
@@ -146,8 +138,11 @@ int main() {
     X.erase(unique(X.begin(),X.end()),X.end());
     Y.erase(unique(Y.begin(),Y.end()),Y.end());
 
-    vv(ll, v1, 3*n, 3*n);
-    vv(ll, v2, 3*n, 3*n);
+    vv(ll, v1, 4*n, 4*n);
+    vv(ll, v2, 4*n, 4*n);
+
+    ll Endx_idx=lb(X, X_mx);
+    ll Endy_idx=lb(Y, Y_mx);
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, xs[i]);
@@ -166,60 +161,229 @@ int main() {
             }
         }
     }
+
+    for(ll x_=0; x_<=Endx_idx+1; x_++){
+        v2[x_][Endy_idx+1]=-1;
+    }
+    for(ll y_=0; y_<=Endy_idx+1; y_++){
+        v2[Endx_idx+1][y_]=-1;
+    }
     // debug(v2);
     // cout << endk;
-    // debug(v1);
 
 // *****************************************************************************************
 
-    ll Endx_idx=lb(X, X_mx);
-    ll Endy_idx=lb(Y, Y_mx);
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
-        for(ll x_=x2+1; x_<=Endx_idx; x_++){
-            bool f=false;
-            for(ll y_=y1; y_<=y2; y_++){
-                if(v2[x_][y_]>0){
-                    c[i]=X[x_];
-                    f=true;
-                }
-                v2[x_][y_]++;
-            }
-            if(f) break;
-            if(x_==Endx_idx) c[i]=X_mx;
-        }
-    }
-
-    for(ll i=0; i<n; i++){
-        ll x1=lb(X, a[i]);
-        ll x2=lb(X, c[i]);
-        ll y1=lb(Y, b[i]);
-        ll y2=lb(Y, d[i]);
-        for(ll y_=y2+1; y_<=Endy_idx; y_++){
+        for(ll y_=y2+1; ; y_++){
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
                 if(v2[x_][y_]>0){
-                    d[i]=Y[y_];
-                    f=true;
+                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)9999);
+                    f = true;
+                    break;
+                }else if(v2[x_][y_]==-1){
+                    d[i]=min(d[i]+abs(999-d[i])/2, (ll)9999);
+                    f = true;
+                    break;
                 }
-                v2[x_][y_]++;
             }
-            if(f) break;
-            if(y_==Endy_idx) d[i]=Y_mx;
+            if(f){
+                X_mx=-1; Y_mx-1;
+                X=vector<ll>();
+                Y=vector<ll>();
+                X.eb(0); Y.eb(0);
+
+                rep(J,n){
+                    X.eb(a[J]);
+                    X.eb(c[J]);
+                    Y.eb(b[J]);
+                    Y.eb(d[J]);
+                    chmax(X_mx, c[J]);
+                    chmax(Y_mx, d[J]);
+                }
+                sort(all(X));
+                sort(all(Y));
+                X.erase(unique(X.begin(),X.end()),X.end());
+                Y.erase(unique(Y.begin(),Y.end()),Y.end());
+            }
+            v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+            v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+
+
+            for(ll J=0; J<n; J++){
+                ll x1=lb(X, a[J]);
+                ll x2=lb(X, b[J]);
+                ll y1=lb(Y, c[J]);
+                ll y2=lb(Y, d[J]);
+
+        // v1 : 頂点の座標
+                v1[x1][y1]++;
+                v1[x2][y2]++;
+                v1[x1][y2]++;
+                v1[x2][y1]++;
+        // v2 : 長方形の可視化
+                for(ll x_=x1; x_<=x2; x_++){
+                    for(ll y_=y1; y_<=y2; y_++){
+                        v2[x_][y_]++;
+                    }
+                }
+            }
+            Endx_idx = lb(X, X_mx);
+            Endy_idx = lb(Y, Y_mx);
+
+            for(ll x_=0; x_<=Endx_idx+1; x_++){
+                v2[x_][Endy_idx+1]=-1;
+            }
+            for(ll y_=0; y_<=Endy_idx+1; y_++){
+                v2[Endx_idx+1][y_]=-1;
+            }
+            break;
         }
     }
+    // cout << "conform-1 movement!!" << endl;
     // debug(v2);
-    // cout << endk;
-    // debug(v1);
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+        for(ll y_=y2+1; ; y_++){
+            bool f=false;
+            for(ll x_=x1; x_<=x2; x_++){
+                if(v2[x_][y_]>0){
+                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)9999);
+                    f = true;
+                    break;
+                }else if(v2[x_][y_]==-1){
+                    d[i]=min(d[i]+abs(999-d[i])/2, (ll)9999);
+                    f = true;
+                    break;
+                }
+            }
+            if(f){
+                X_mx=-1; Y_mx-1;
+                X=vector<ll>();
+                Y=vector<ll>();
+                X.eb(0); Y.eb(0);
+
+                rep(J,n){
+                    X.eb(a[J]);
+                    X.eb(c[J]);
+                    Y.eb(b[J]);
+                    Y.eb(d[J]);
+                    chmax(X_mx, c[J]);
+                    chmax(Y_mx, d[J]);
+                }
+                sort(all(X));
+                sort(all(Y));
+                X.erase(unique(X.begin(),X.end()),X.end());
+                Y.erase(unique(Y.begin(),Y.end()),Y.end());
+            }
+            v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+            v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+
+
+            for(ll J=0; J<n; J++){
+                ll x1=lb(X, a[J]);
+                ll x2=lb(X, b[J]);
+                ll y1=lb(Y, c[J]);
+                ll y2=lb(Y, d[J]);
+
+        // v1 : 頂点の座標
+                v1[x1][y1]++;
+                v1[x2][y2]++;
+                v1[x1][y2]++;
+                v1[x2][y1]++;
+        // v2 : 長方形の可視化
+                for(ll x_=x1; x_<=x2; x_++){
+                    for(ll y_=y1; y_<=y2; y_++){
+                        v2[x_][y_]++;
+                    }
+                }
+            }
+            Endx_idx = lb(X, X_mx);
+            Endy_idx = lb(Y, Y_mx);
+
+            for(ll x_=0; x_<=Endx_idx+1; x_++){
+                v2[x_][Endy_idx+1]=-1;
+            }
+            for(ll y_=0; y_<=Endy_idx+1; y_++){
+                v2[Endx_idx+1][y_]=-1;
+            }
+            break;
+        }
+    }
+// ******************<いったん記録1>*************************************
+//     v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+//     v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+
+//     for(ll i=0; i<n; i++){
+//         ll x1=lb(X, a[i]);
+//         ll x2=lb(X, c[i]);
+//         ll y1=lb(Y, b[i]);
+//         ll y2=lb(Y, d[i]);
+// // v1 : 頂点の座標
+//         v1[x1][y1]++;
+//         v1[x2][y2]++;
+//         v1[x1][y2]++;
+//         v1[x2][y1]++;
+// // v2 : 長方形の可視化
+//         for(ll x_=x1; x_<=x2; x_++){
+//             for(ll y_=y1; y_<=y2; y_++){
+//                 v2[x_][y_]++;
+//             }
+//         }
+
+    // cout << "Conform!!" << endl;
+    
+    // debug(v2);
+
+// ******************<いったん記録>*************************************
+
+
+    // for(ll i=0; i<n; i++){
+    //     ll x1=lb(X, a[i]);
+    //     ll x2=lb(X, c[i]);
+    //     ll y1=lb(Y, b[i]);
+    //     ll y2=lb(Y, d[i]);
+
+    //     for(ll x_=x2+1; x_<=Endx_idx; x_++){
+    //         bool f=false;
+    //         for(ll y_=y1; y_<=y2; y_++){
+    //             if(v2[x_][y_]>0){
+    //                 c[i]=X[x_];
+    //                 f=true;
+    //             }
+    //             v2[x_][y_]++;
+    //         }
+    //         if(f) break;
+    //         if(x_==Endx_idx) c[i]=X_mx;
+    //     }
+    // }
 
 //Output Answer
     // cout << '\n';
     // cout << "*****************************" << endl;
     // cout << '\n';
     rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
+
+
+// <Calc_Score> ***************************************
+    // vector<long double> p(n);
+    // long double Sum=0;
+    // for(ll i=0; i<n; i++){
+    //     s[i]=(c[i]-a[i])*(d[i]-b[i]);
+    //     p[i]=P_score(r[i], s[i]);
+    //     Sum+=p[i];
+    // }
+    // cout << endl;
+    // cout << "Score=" << 1000000000*Sum/n << endk;
     return 0;
 }
+
