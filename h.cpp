@@ -145,25 +145,7 @@ void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2
     }
 }
 
-int main() {
-    LL(n);
-    vll x(n), y(n), r(n), s(n);
-    vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
-    vv(ll, v2, 4*n, 4*n);
-    vll X, Y;
-
-    rep(i,n){
-        cin >> x[i] >> y[i] >> r[i];
-        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
-        c[i]++; d[i]++;
-    }
-
-    Set_Table(n, X, Y, a, b, c, d, v2); 
-
-    // cout << "aa" << endk;
-    // debug(v2);
-
-
+void Search_X(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -190,6 +172,9 @@ int main() {
             }
         }
     }
+}
+
+void Search_Y(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -216,7 +201,27 @@ int main() {
             }
         }
     }
+}
 
+
+int main() {
+    LL(n);
+    vll X, Y;
+    vll x(n), y(n), r(n), s(n);
+    vll a(n), b(n), c(n), d(n);
+    vv(ll, v2, 4*n, 4*n);
+
+    rep(i,n){
+        cin >> x[i] >> y[i] >> r[i];
+        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
+        c[i]++; d[i]++;
+    }
+
+    Set_Table(n, X, Y, a, b, c, d, v2); 
+    rep(i,10){
+        Search_X(n, X, Y, a, b, c, d, v2);
+        Search_Y(n, X, Y, a, b, c, d, v2);
+    }
 
 //Output Answer
     // cout << '\n';
