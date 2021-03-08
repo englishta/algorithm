@@ -187,7 +187,7 @@ int main() {
                     f = true;
                     break;
                 }else if(v2[x_][y_]==-1){
-                    d[i]=min(d[i]+abs(999-d[i])/2, (ll)9999);
+                    d[i]=min(d[i]+abs(9999-d[i])/2, (ll)9999);
                     f = true;
                     break;
                 }
@@ -210,39 +210,40 @@ int main() {
                 sort(all(Y));
                 X.erase(unique(X.begin(),X.end()),X.end());
                 Y.erase(unique(Y.begin(),Y.end()),Y.end());
-            }
-            v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-            v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+
+                v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+                v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
 
 
-            for(ll J=0; J<n; J++){
-                ll x1=lb(X, a[J]);
-                ll x2=lb(X, b[J]);
-                ll y1=lb(Y, c[J]);
-                ll y2=lb(Y, d[J]);
+                for(ll J=0; J<n; J++){
+                    ll x1=lb(X, a[J]);
+                    ll x2=lb(X, c[J]);
+                    ll y1=lb(Y, b[J]);
+                    ll y2=lb(Y, d[J]);
 
-        // v1 : 頂点の座標
-                v1[x1][y1]++;
-                v1[x2][y2]++;
-                v1[x1][y2]++;
-                v1[x2][y1]++;
-        // v2 : 長方形の可視化
-                for(ll x_=x1; x_<=x2; x_++){
-                    for(ll y_=y1; y_<=y2; y_++){
-                        v2[x_][y_]++;
+            // v1 : 頂点の座標
+                    v1[x1][y1]++;
+                    v1[x2][y2]++;
+                    v1[x1][y2]++;
+                    v1[x2][y1]++;
+            // v2 : 長方形の可視化
+                    for(ll x_=x1; x_<=x2; x_++){
+                        for(ll y_=y1; y_<=y2; y_++){
+                            v2[x_][y_]++;
+                        }
                     }
                 }
-            }
-            Endx_idx = lb(X, X_mx);
-            Endy_idx = lb(Y, Y_mx);
+                Endx_idx = lb(X, X_mx);
+                Endy_idx = lb(Y, Y_mx);
 
-            for(ll x_=0; x_<=Endx_idx+1; x_++){
-                v2[x_][Endy_idx+1]=-1;
+                for(ll x_=0; x_<=Endx_idx+1; x_++){
+                    v2[x_][Endy_idx+1]=-1;
+                }
+                for(ll y_=0; y_<=Endy_idx+1; y_++){
+                    v2[Endx_idx+1][y_]=-1;
+                }
+                break;
             }
-            for(ll y_=0; y_<=Endy_idx+1; y_++){
-                v2[Endx_idx+1][y_]=-1;
-            }
-            break;
         }
     }
     // cout << "conform-1 movement!!" << endl;
@@ -253,23 +254,22 @@ int main() {
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
-        for(ll y_=y2+1; ; y_++){
+        for(ll x_=x2+1; ; x_++){
             bool f=false;
-            for(ll x_=x1; x_<=x2; x_++){
+            for(ll y_=y1; y_<=y2; y_++){
                 if(v2[x_][y_]>0){
-                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)9999);
+                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)9999);
                     f = true;
-                    break;
                 }else if(v2[x_][y_]==-1){
-                    d[i]=min(d[i]+abs(999-d[i])/2, (ll)9999);
+                    c[i]=min(c[i]+abs(9999-c[i])/2, (ll)9999);
                     f = true;
-                    break;
                 }
             }
             if(f){
                 X_mx=-1; Y_mx-1;
                 X=vector<ll>();
                 Y=vector<ll>();
+
                 X.eb(0); Y.eb(0);
 
                 rep(J,n){
@@ -284,41 +284,46 @@ int main() {
                 sort(all(Y));
                 X.erase(unique(X.begin(),X.end()),X.end());
                 Y.erase(unique(Y.begin(),Y.end()),Y.end());
-            }
-            v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-            v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
+
+                v1 = vector<vll> (4*n, vll(4*n, 0));
+                v2 = vector<vll> (4*n, vll(4*n, 0));
 
 
-            for(ll J=0; J<n; J++){
-                ll x1=lb(X, a[J]);
-                ll x2=lb(X, b[J]);
-                ll y1=lb(Y, c[J]);
-                ll y2=lb(Y, d[J]);
+                for(ll J=0; J<n; J++){
+                    ll x1=lb(X, a[J]);
+                    ll x2=lb(X, c[J]);
+                    ll y1=lb(Y, b[J]);
+                    ll y2=lb(Y, d[J]);
 
-        // v1 : 頂点の座標
-                v1[x1][y1]++;
-                v1[x2][y2]++;
-                v1[x1][y2]++;
-                v1[x2][y1]++;
-        // v2 : 長方形の可視化
-                for(ll x_=x1; x_<=x2; x_++){
-                    for(ll y_=y1; y_<=y2; y_++){
-                        v2[x_][y_]++;
+            // v1 : 頂点の座標
+                    v1[x1][y1]++;
+                    v1[x2][y2]++;
+                    v1[x1][y2]++;
+                    v1[x2][y1]++;
+            // v2 : 長方形の可視化
+                    for(ll x_=x1; x_<=x2; x_++){
+                        for(ll y_=y1; y_<=y2; y_++){
+                            v2[x_][y_]++;
+                        }
                     }
                 }
-            }
-            Endx_idx = lb(X, X_mx);
-            Endy_idx = lb(Y, Y_mx);
+                Endx_idx = lb(X, X_mx);
+                Endy_idx = lb(Y, Y_mx);
 
-            for(ll x_=0; x_<=Endx_idx+1; x_++){
-                v2[x_][Endy_idx+1]=-1;
+                for(ll x_=0; x_<=Endx_idx+1; x_++){
+                    v2[x_][Endy_idx+1]=-1;
+                }
+                for(ll y_=0; y_<=Endy_idx+1; y_++){
+                    v2[Endx_idx+1][y_]=-1;
+                }
+                break;
             }
-            for(ll y_=0; y_<=Endy_idx+1; y_++){
-                v2[Endx_idx+1][y_]=-1;
-            }
-            break;
         }
     }
+    // cout << endk;
+    // cout << "hey!" << endk;
+    // debug(v2);
+    // cout << endk;
 // ******************<いったん記録1>*************************************
 //     v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
 //     v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
