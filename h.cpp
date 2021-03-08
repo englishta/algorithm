@@ -99,61 +99,34 @@ double P_score(ll r, ll s){
     double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
 }
+void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2){
+    ll X_mx=-1; ll Y_mx=-1;
+    X=vector<ll>();
+    Y=vector<ll>();
+    X.eb(0); Y.eb(0);
 
-
-int main() {
-    LL(n);
-    vll x(n), y(n), r(n), s(n);
-    vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
-
-    rep(i,n){
-        cin >> x[i] >> y[i] >> r[i];
-        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
-        c[i]++;
-        d[i]++;
+    rep(J,n){
+        X.eb(a[J]);
+        X.eb(c[J]);
+        Y.eb(b[J]);
+        Y.eb(d[J]);
+        chmax(X_mx, c[J]);
+        chmax(Y_mx, d[J]);
     }
-
-    // *****************************<デバッグ>****************************
-
-    vll xs(n), xe(n), ys(n), ye(n); 
-    vll X, Y;
-    ll X_mx=-1, Y_mx=-1;
-
-    rep(i,n){
-        xs[i]=a[i]; xe[i]=c[i]; ys[i]=b[i]; ye[i]=d[i];
-        X.eb(a[i]);
-        X.eb(c[i]);
-        Y.eb(b[i]);
-        Y.eb(d[i]);
-
-        chmax(X_mx, xe[i]);
-        chmax(Y_mx, ye[i]);
-    }
-    X.eb(0);
-    Y.eb(0);
-
-    sort(X.begin(), X.end());
-    sort(Y.begin(), Y.end());
-
+    sort(all(X));
+    sort(all(Y));
     X.erase(unique(X.begin(),X.end()),X.end());
     Y.erase(unique(Y.begin(),Y.end()),Y.end());
 
-    vv(ll, v1, 4*n, 4*n);
-    vv(ll, v2, 4*n, 4*n);
+    v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
 
-    ll Endx_idx=lb(X, X_mx);
-    ll Endy_idx=lb(Y, Y_mx);
 
-    for(ll i=0; i<n; i++){
-        ll x1=lb(X, xs[i]);
-        ll x2=lb(X, xe[i]);
-        ll y1=lb(Y, ys[i]);
-        ll y2=lb(Y, ye[i]);
-// v1 : 頂点の座標
-        v1[x1][y1]++;
-        v1[x2][y2]++;
-        v1[x1][y2]++;
-        v1[x2][y1]++;
+    for(ll J=0; J<n; J++){
+        ll x1=lb(X, a[J]);
+        ll x2=lb(X, c[J]);
+        ll y1=lb(Y, b[J]);
+        ll y2=lb(Y, d[J]);
+
 // v2 : 長方形の可視化
         for(ll x_=x1; x_<=x2; x_++){
             for(ll y_=y1; y_<=y2; y_++){
@@ -161,6 +134,8 @@ int main() {
             }
         }
     }
+    ll Endx_idx = lb(X, X_mx);
+    ll Endy_idx = lb(Y, Y_mx);
 
     for(ll x_=0; x_<=Endx_idx+1; x_++){
         v2[x_][Endy_idx+1]=-1;
@@ -168,10 +143,26 @@ int main() {
     for(ll y_=0; y_<=Endy_idx+1; y_++){
         v2[Endx_idx+1][y_]=-1;
     }
-    // debug(v2);
-    // cout << endk;
+}
 
-// *****************************************************************************************
+int main() {
+    LL(n);
+    vll x(n), y(n), r(n), s(n);
+    vll a(n), b(n), c(n), d(n);//(x1, y1), y(x2, y2)taikakusen
+    vv(ll, v2, 4*n, 4*n);
+    vll X, Y;
+
+    rep(i,n){
+        cin >> x[i] >> y[i] >> r[i];
+        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
+        c[i]++; d[i]++;
+    }
+
+    Set_Table(n, X, Y, a, b, c, d, v2); 
+
+    cout << "aa" << endk;
+    debug(v2);
+
 
 
     for(ll i=0; i<n; i++){
@@ -186,64 +177,15 @@ int main() {
                     d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)9999);
                     chmax(d[i], b[i]);
                     f = true;
-                    break;
                 }else if(v2[x_][y_]==-1){
                     d[i]=min(d[i]+abs(9999-d[i])/2, (ll)9999);
                     chmax(d[i], b[i]);
                     f = true;
-                    break;
                 }
+                if(f) break;
             }
             if(f){
-                X_mx=-1; Y_mx-1;
-                X=vector<ll>();
-                Y=vector<ll>();
-                X.eb(0); Y.eb(0);
-
-                rep(J,n){
-                    X.eb(a[J]);
-                    X.eb(c[J]);
-                    Y.eb(b[J]);
-                    Y.eb(d[J]);
-                    chmax(X_mx, c[J]);
-                    chmax(Y_mx, d[J]);
-                }
-                sort(all(X));
-                sort(all(Y));
-                X.erase(unique(X.begin(),X.end()),X.end());
-                Y.erase(unique(Y.begin(),Y.end()),Y.end());
-
-                v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-                v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-
-
-                for(ll J=0; J<n; J++){
-                    ll x1=lb(X, a[J]);
-                    ll x2=lb(X, c[J]);
-                    ll y1=lb(Y, b[J]);
-                    ll y2=lb(Y, d[J]);
-
-            // v1 : 頂点の座標
-                    v1[x1][y1]++;
-                    v1[x2][y2]++;
-                    v1[x1][y2]++;
-                    v1[x2][y1]++;
-            // v2 : 長方形の可視化
-                    for(ll x_=x1; x_<=x2; x_++){
-                        for(ll y_=y1; y_<=y2; y_++){
-                            v2[x_][y_]++;
-                        }
-                    }
-                }
-                Endx_idx = lb(X, X_mx);
-                Endy_idx = lb(Y, Y_mx);
-
-                for(ll x_=0; x_<=Endx_idx+1; x_++){
-                    v2[x_][Endy_idx+1]=-1;
-                }
-                for(ll y_=0; y_<=Endy_idx+1; y_++){
-                    v2[Endx_idx+1][y_]=-1;
-                }
+                Set_Table(n, X, Y, a, b, c, d, v2);
                 break;
             }
         }
@@ -268,113 +210,15 @@ int main() {
                     chmax(c[i], a[i]);
                     f = true;
                 }
+                if(f) break;
             }
             if(f){
-                X_mx=-1; Y_mx-1;
-                X=vector<ll>();
-                Y=vector<ll>();
-
-                X.eb(0); Y.eb(0);
-
-                rep(J,n){
-                    X.eb(a[J]);
-                    X.eb(c[J]);
-                    Y.eb(b[J]);
-                    Y.eb(d[J]);
-                    chmax(X_mx, c[J]);
-                    chmax(Y_mx, d[J]);
-                }
-                sort(all(X));
-                sort(all(Y));
-                X.erase(unique(X.begin(),X.end()),X.end());
-                Y.erase(unique(Y.begin(),Y.end()),Y.end());
-
-                v1 = vector<vll> (4*n, vll(4*n, 0));
-                v2 = vector<vll> (4*n, vll(4*n, 0));
-
-
-                for(ll J=0; J<n; J++){
-                    ll x1=lb(X, a[J]);
-                    ll x2=lb(X, c[J]);
-                    ll y1=lb(Y, b[J]);
-                    ll y2=lb(Y, d[J]);
-
-            // v1 : 頂点の座標
-                    v1[x1][y1]++;
-                    v1[x2][y2]++;
-                    v1[x1][y2]++;
-                    v1[x2][y1]++;
-            // v2 : 長方形の可視化
-                    for(ll x_=x1; x_<=x2; x_++){
-                        for(ll y_=y1; y_<=y2; y_++){
-                            v2[x_][y_]++;
-                        }
-                    }
-                }
-                Endx_idx = lb(X, X_mx);
-                Endy_idx = lb(Y, Y_mx);
-
-                for(ll x_=0; x_<=Endx_idx+1; x_++){
-                    v2[x_][Endy_idx+1]=-1;
-                }
-                for(ll y_=0; y_<=Endy_idx+1; y_++){
-                    v2[Endx_idx+1][y_]=-1;
-                }
+                Set_Table(n, X, Y, a, b, c, d, v2);
                 break;
             }
         }
     }
-    // cout << endk;
-    // cout << "hey!" << endk;
-    // debug(v2);
-    // cout << endk;
-// ******************<いったん記録1>*************************************
-//     v1 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-//     v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
 
-//     for(ll i=0; i<n; i++){
-//         ll x1=lb(X, a[i]);
-//         ll x2=lb(X, c[i]);
-//         ll y1=lb(Y, b[i]);
-//         ll y2=lb(Y, d[i]);
-// // v1 : 頂点の座標
-//         v1[x1][y1]++;
-//         v1[x2][y2]++;
-//         v1[x1][y2]++;
-//         v1[x2][y1]++;
-// // v2 : 長方形の可視化
-//         for(ll x_=x1; x_<=x2; x_++){
-//             for(ll y_=y1; y_<=y2; y_++){
-//                 v2[x_][y_]++;
-//             }
-//         }
-
-    // cout << "Conform!!" << endl;
-    
-    // debug(v2);
-
-// ******************<いったん記録>*************************************
-
-
-    // for(ll i=0; i<n; i++){
-    //     ll x1=lb(X, a[i]);
-    //     ll x2=lb(X, c[i]);
-    //     ll y1=lb(Y, b[i]);
-    //     ll y2=lb(Y, d[i]);
-
-    //     for(ll x_=x2+1; x_<=Endx_idx; x_++){
-    //         bool f=false;
-    //         for(ll y_=y1; y_<=y2; y_++){
-    //             if(v2[x_][y_]>0){
-    //                 c[i]=X[x_];
-    //                 f=true;
-    //             }
-    //             v2[x_][y_]++;
-    //         }
-    //         if(f) break;
-    //         if(x_==Endx_idx) c[i]=X_mx;
-    //     }
-    // }
 
 //Output Answer
     // cout << '\n';
