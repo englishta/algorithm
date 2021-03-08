@@ -160,8 +160,8 @@ int main() {
 
     Set_Table(n, X, Y, a, b, c, d, v2); 
 
-    cout << "aa" << endk;
-    debug(v2);
+    // cout << "aa" << endk;
+    // debug(v2);
 
 
 
@@ -174,11 +174,11 @@ int main() {
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
                 if(v2[x_][y_]>0){
-                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)9999);
+                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)100000);
                     chmax(d[i], b[i]);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    d[i]=min(d[i]+abs(9999-d[i])/2, (ll)9999);
+                    d[i]=min(d[i]+abs(9999-d[i])/2, (ll)100000);
                     chmax(d[i], b[i]);
                     f = true;
                 }
@@ -190,8 +190,6 @@ int main() {
             }
         }
     }
-    // cout << "conform-1 movement!!" << endl;
-    // debug(v2);
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -202,11 +200,11 @@ int main() {
             bool f=false;
             for(ll y_=y1; y_<=y2; y_++){
                 if(v2[x_][y_]>0){
-                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)9999);
+                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)100000);
                     chmax(c[i], a[i]);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    c[i]=min(c[i]+abs(9999-c[i])/2, (ll)9999);
+                    c[i]=min(c[i]+abs(9999-c[i])/2, (ll)100000);
                     chmax(c[i], a[i]);
                     f = true;
                 }
