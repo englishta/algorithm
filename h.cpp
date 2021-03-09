@@ -96,12 +96,18 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-const ll k = 80;//精度
+const long double k = 83.5;
 
 double P_score(ll r, ll s){
     double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
 }
+long double ALL_score(ll n, vll a, vll b, vll c, vll d, vll r){
+    long double Sum=0;
+    rep(i,n) Sum+=P_score(r[i], (c[i]-a[i])*(d[i]-b[i]));
+    return 1000000000*Sum/n;
+}
+
 void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2){
     ll X_mx=-1; ll Y_mx=-1;
     X=vector<ll>();
@@ -234,9 +240,13 @@ void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
                     chmin(a[i], c[i]);
                     f = true;
                 }else if(x_==0){
-                    if(a[i]>5000) a[i]/=4;
-                    else a[i]/=2;
-                    chmin(a[i], c[i]);
+                    if(c[i]-a[i]<(ll)sqrt(r[i])){
+                        a[i]-=(ll)sqrt(r[i])-(c[i]-a[i]);
+                        chmax(a[i], 0ll);
+                    }else{
+                        if(a[i]>5000) a[i]/=4;
+                        else a[i]/=2;
+                    }
                     f = true;
                 }
                 if(f) break;
@@ -267,8 +277,13 @@ void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
                     chmin(b[i], d[i]);
                     f = true;
                 }else if(y_==0){
-                    if(b[i]>5000) b[i]/=4;
-                    else b[i]/=2;
+                    if(d[i]-b[i]<(ll)sqrt(r[i])){
+                        b[i]-=(ll)sqrt(r[i])-(d[i]-b[i]);
+                        chmax(b[i], 0ll);
+                    }else{
+                        if(b[i]>5000) b[i]/=4;
+                        else b[i]/=2;
+                    }
                     f = true;
                 }
                 if(f) break;
@@ -298,6 +313,8 @@ int main() {
     }
 
     Set_Table(n, X, Y, a, b, c, d, v2); 
+
+        
     rep(i,10){
         Search_Y_pls(n, X, Y, a, b, c, d, v2, r);
         Search_X_pls(n, X, Y, a, b, c, d, v2, r);
@@ -305,23 +322,16 @@ int main() {
         Search_X_mi(n, X, Y, a, b, c, d, v2, r);
     }
 
+    // cout << endk;
+    // drop(ALL_score(n, a, b, c, d, r));
+
+
 //Output Answer
     // cout << '\n';
     // cout << "*****************************" << endl;
     // cout << '\n';
     rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
 
-
-// <Calc_Score> ***************************************
-    // vector<long double> p(n);
-    // long double Sum=0;
-    // for(ll i=0; i<n; i++){
-    //     s[i]=(c[i]-a[i])*(d[i]-b[i]);
-    //     p[i]=P_score(r[i], s[i]);
-    //     Sum+=p[i];
-    // }
-    // cout << endl;
-    // cout << "Score=" << 1000000000*Sum/n << endk;
     return 0;
 }
 
