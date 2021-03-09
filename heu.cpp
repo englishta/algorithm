@@ -1,5 +1,7 @@
 #pragma region Macros
 #include<bits/stdc++.h>
+//#include<atcoder/all>
+//using namespace atcoder;
 using namespace std;
 using ll = long long;
 #define endk '\n'
@@ -143,7 +145,7 @@ void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2
     }
 }
 
-void Search_X(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -172,7 +174,7 @@ void Search_X(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> 
     }
 }
 
-void Search_Y(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
@@ -201,6 +203,65 @@ void Search_Y(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> 
     }
 }
 
+void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+        for(ll x_=x1-1; x_>=0; x_--){
+            bool f=false;
+            for(ll y_=y1; y_<=y2; y_++){
+                if(v2[x_][y_]>0){
+                    a[i]=max(a[i]-abs(a[i]-X[x_])/2, 0ll);
+                    chmin(a[i], c[i]);
+                    f = true;
+                }else if(x_==0){
+                    a[i]=a[i]/2;
+                    chmin(a[i], c[i]);
+                    f = true;
+                }
+                if(f) break;
+            }
+            if(f){
+                Set_Table(n, X, Y, a, b, c, d, v2);
+                break;
+            }
+        }
+    }
+}
+
+void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+
+    for(ll i=0; i<n; i++){
+        ll x1=lb(X, a[i]);
+        ll x2=lb(X, c[i]);
+        ll y1=lb(Y, b[i]);
+        ll y2=lb(Y, d[i]);
+        for(ll y_=y1-1; y_>=0; y_--){
+            bool f=false;
+            for(ll x_=x1; x_<=x2; x_++){
+                if(v2[x_][y_]>0){
+                    b[i]-=(b[i]-Y[y_])/2;
+                    chmin(b[i], d[i]);
+                    f = true;
+                }else if(y_==0){
+                    b[i]=b[i]/2;
+                    chmin(b[i], d[i]);
+                    f = true;
+                }
+                if(f) break;
+            }
+            if(f){
+                Set_Table(n, X, Y, a, b, c, d, v2);
+                break;
+            }
+        }
+    }
+}
+
+
 
 int main() {
     LL(n);
@@ -217,8 +278,10 @@ int main() {
 
     Set_Table(n, X, Y, a, b, c, d, v2); 
     rep(i,10){
-        Search_X(n, X, Y, a, b, c, d, v2);
-        Search_Y(n, X, Y, a, b, c, d, v2);
+        Search_Y_pls(n, X, Y, a, b, c, d, v2);
+        Search_X_pls(n, X, Y, a, b, c, d, v2);
+        Search_Y_mi(n, X, Y, a, b, c, d, v2);
+        Search_X_mi(n, X, Y, a, b, c, d, v2);
     }
 
 //Output Answer

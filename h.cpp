@@ -95,6 +95,9 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
+
+const ll k = 80;//精度
+
 double P_score(ll r, ll s){
     double sub = (1-min(r, s)/(double)max(r, s));
     return 1-sub*sub;
@@ -145,13 +148,17 @@ void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2
     }
 }
 
-void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
+
+        ll s = (c[i]-a[i])*(d[i]-b[i]);
+        if(100*P_score(r[i], s)>k) continue;
+
         for(ll y_=y2+1; ; y_++){
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
@@ -160,8 +167,8 @@ void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
                     chmax(d[i], b[i]);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    d[i]=min(d[i]+abs(9999-d[i])/2, (ll)100000);
-                    chmax(d[i], b[i]);
+                    if(abs(10000-d[i])>5000) d[i]+=abs(10000-d[i])/4;
+                    else d[i]+=abs(10000-d[i])/2;
                     f = true;
                 }
                 if(f) break;
@@ -174,23 +181,26 @@ void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
     }
 }
 
-void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
+        ll s = (c[i]-a[i])*(d[i]-b[i]);
+        if(100*P_score(r[i], s)>k) continue;
+
         for(ll x_=x2+1; ; x_++){
             bool f=false;
             for(ll y_=y1; y_<=y2; y_++){
                 if(v2[x_][y_]>0){
-                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)100000);
+                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)10000);
                     chmax(c[i], a[i]);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    c[i]=min(c[i]+abs(9999-c[i])/2, (ll)100000);
-                    chmax(c[i], a[i]);
+                    if(abs(10000-c[i])>5000) c[i]+=abs(10000-c[i])/4;
+                    else c[i]+=abs(10000-c[i])/2;
                     f = true;
                 }
                 if(f) break;
@@ -203,13 +213,16 @@ void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
     }
 }
 
-void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
+        ll s = (c[i]-a[i])*(d[i]-b[i]);
+        if(100*P_score(r[i], s)>k) continue;
+
         for(ll x_=x1-1; x_>=0; x_--){
             bool f=false;
             for(ll y_=y1; y_<=y2; y_++){
@@ -218,7 +231,8 @@ void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
                     chmin(a[i], c[i]);
                     f = true;
                 }else if(x_==0){
-                    a[i]=a[i]/2;
+                    if(a[i]>5000) a[i]/=4;
+                    else a[i]/=2;
                     chmin(a[i], c[i]);
                     f = true;
                 }
@@ -232,13 +246,16 @@ void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
     }
 }
 
-void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2){
+void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r){
 
     for(ll i=0; i<n; i++){
         ll x1=lb(X, a[i]);
         ll x2=lb(X, c[i]);
         ll y1=lb(Y, b[i]);
         ll y2=lb(Y, d[i]);
+        ll s = (c[i]-a[i])*(d[i]-b[i]);
+        if(100*P_score(r[i], s)>k) continue;
+
         for(ll y_=y1-1; y_>=0; y_--){
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
@@ -247,8 +264,8 @@ void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
                     chmin(b[i], d[i]);
                     f = true;
                 }else if(y_==0){
-                    b[i]=b[i]/2;
-                    chmin(b[i], d[i]);
+                    if(b[i]>5000) b[i]/=4;
+                    else b[i]/=2;
                     f = true;
                 }
                 if(f) break;
@@ -260,6 +277,7 @@ void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
         }
     }
 }
+
 
 
 
@@ -278,10 +296,10 @@ int main() {
 
     Set_Table(n, X, Y, a, b, c, d, v2); 
     rep(i,10){
-        Search_Y_pls(n, X, Y, a, b, c, d, v2);
-        Search_X_pls(n, X, Y, a, b, c, d, v2);
-        Search_Y_mi(n, X, Y, a, b, c, d, v2);
-        Search_X_mi(n, X, Y, a, b, c, d, v2);
+        Search_Y_pls(n, X, Y, a, b, c, d, v2, r);
+        Search_X_pls(n, X, Y, a, b, c, d, v2, r);
+        Search_Y_mi(n, X, Y, a, b, c, d, v2, r);
+        Search_X_mi(n, X, Y, a, b, c, d, v2, r);
     }
 
 //Output Answer
