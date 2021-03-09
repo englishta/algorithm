@@ -169,11 +169,17 @@ void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
                 if(v2[x_][y_]>0){
-                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)10000);
+                    if((d[i]-b[i])*(c[i]-a[i])<r[i]){
+                        d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)10000);
+                    }
                     f = true;
                 }else if(v2[x_][y_]==-1){
                     if((d[i]-b[i])<sqrt(r[i])){
                         d[i]+=abs((ll)sqrt(r[i])-(d[i]-b[i]));
+                        chmin(d[i], 10000);
+                    }else if(s<r[i]){
+                        if(10000-d[i]>5000) d[i]+=(10000-d[i])/4;
+                        else d[i]+=(10000-d[i])/2;
                         chmin(d[i], 10000);
                     }
                     f = true;
@@ -202,12 +208,18 @@ void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
             bool f=false;
             for(ll y_=y1; y_<=y2; y_++){
                 if(v2[x_][y_]>0){
-                    c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)10000);
-                    chmax(c[i], a[i]);
+                    if((d[i]-b[i])*(c[i]-a[i])<r[i]){
+                        c[i]=min(c[i]+abs(X[x_]-c[i])/2, (ll)10000);
+                        chmax(c[i], a[i]);
+                    }
                     f = true;
                 }else if(v2[x_][y_]==-1){
                     if((c[i]-a[i])<sqrt(r[i])){
                         c[i]+=abs((ll)sqrt(r[i])-(c[i]-a[i]));
+                        chmin(c[i], 10000);
+                    }else if(s<r[i]){
+                        if((10000-c[i])>5000) c[i]+=(10000-c[i])/4;
+                        else c[i]+=(10000-c[i])/2;
                         chmin(c[i], 10000);
                     }
                     f = true;
@@ -236,14 +248,16 @@ void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
             bool f=false;
             for(ll y_=y1; y_<=y2; y_++){
                 if(v2[x_][y_]>0){
-                    a[i]=max(a[i]-abs(a[i]-X[x_])/2, 0ll);
-                    chmin(a[i], c[i]);
+                    if((d[i]-b[i])*(c[i]-a[i])<r[i]){
+                        a[i]=max(a[i]-abs(a[i]-X[x_])/2, 0ll);
+                        chmin(a[i], c[i]);
+                    }
                     f = true;
                 }else if(x_==0){
                     if(c[i]-a[i]<(ll)sqrt(r[i])){
                         a[i]-=(ll)sqrt(r[i])-(c[i]-a[i]);
                         chmax(a[i], 0ll);
-                    }else{
+                    }else if((d[i]-b[i])*(c[i]-a[i])<r[i]){
                         if(a[i]>5000) a[i]/=4;
                         else a[i]/=2;
                     }
@@ -273,14 +287,16 @@ void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vl
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
                 if(v2[x_][y_]>0){
-                    b[i]-=(b[i]-Y[y_])/2;
-                    chmin(b[i], d[i]);
+                    if((c[i]-a[i])*(d[i]-b[i])<r[i]){
+                        b[i]-=(b[i]-Y[y_])/2;
+                        chmin(b[i], d[i]);
+                    }
                     f = true;
                 }else if(y_==0){
                     if(d[i]-b[i]<(ll)sqrt(r[i])){
                         b[i]-=(ll)sqrt(r[i])-(d[i]-b[i]);
                         chmax(b[i], 0ll);
-                    }else{
+                    }else if((d[i]-b[i])*(c[i]-a[i])<r[i]){
                         if(b[i]>5000) b[i]/=4;
                         else b[i]/=2;
                     }
