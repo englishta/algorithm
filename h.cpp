@@ -163,12 +163,13 @@ void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
             bool f=false;
             for(ll x_=x1; x_<=x2; x_++){
                 if(v2[x_][y_]>0){
-                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)100000);
-                    chmax(d[i], b[i]);
+                    d[i]=min(d[i]+abs(Y[y_]-d[i])/2, (ll)10000);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    if(abs(10000-d[i])>5000) d[i]+=abs(10000-d[i])/4;
-                    else d[i]+=abs(10000-d[i])/2;
+                    if((d[i]-b[i])<sqrt(r[i])){
+                        d[i]+=abs((ll)sqrt(r[i])-(d[i]-b[i]));
+                        chmin(d[i], 10000);
+                    }
                     f = true;
                 }
                 if(f) break;
@@ -199,8 +200,10 @@ void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<v
                     chmax(c[i], a[i]);
                     f = true;
                 }else if(v2[x_][y_]==-1){
-                    if(abs(10000-c[i])>5000) c[i]+=abs(10000-c[i])/4;
-                    else c[i]+=abs(10000-c[i])/2;
+                    if((c[i]-a[i])<sqrt(r[i])){
+                        c[i]+=abs((ll)sqrt(r[i])-(c[i]-a[i]));
+                        chmin(c[i], 10000);
+                    }
                     f = true;
                 }
                 if(f) break;
