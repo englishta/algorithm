@@ -106,6 +106,7 @@ ll Men(ll a, ll b, ll c, ll d){
 
 int main() {
     LL(r, s);
-    drop(P_score(r, s));
+    double ans = double(r-s)/r;
+    cout << ans << endk;
 
 }
