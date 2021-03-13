@@ -108,5 +108,6 @@ int main() {
     LL(r, s);
     double ans = double(r-s)/r;
     cout << ans << endk;
+    return 0;
 
 }
