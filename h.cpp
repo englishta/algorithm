@@ -96,321 +96,35 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-const long double k = 99.7;
 
-double P_score(ll r, ll s){
-    double sub = (1-min(r, s)/(double)max(r, s));
-    return 1-sub*sub;
-}
-long double ALL_score(ll n, vll a, vll b, vll c, vll d, vll r){
-    long double Sum=0;
-    rep(i,n) Sum+=P_score(r[i], (c[i]-a[i])*(d[i]-b[i]));
-    return 1000000000*Sum/n;
-}
+ll H, W, A, B;
+bool used[16][16];
+ll dfs(ll x, ll y, ll a){
 
-void Set_Table(ll n, vll &X, vll &Y, vll a, vll b, vll c, vll d, vector<vll> &v2){
-    ll X_mx=-1; ll Y_mx=-1;
-    X=vector<ll>();
-    Y=vector<ll>();
-    X.eb(0); Y.eb(0);
-
-    rep(J,n){
-        X.eb(a[J]);
-        X.eb(c[J]);
-        Y.eb(b[J]);
-        Y.eb(d[J]);
-        chmax(X_mx, c[J]);
-        chmax(Y_mx, d[J]);
-    }
-    sort(all(X));
-    sort(all(Y));
-    X.erase(unique(X.begin(),X.end()),X.end());
-    Y.erase(unique(Y.begin(),Y.end()),Y.end());
-
-    v2 = vector<vector<ll>> (4*n, vector<ll>(4*n, 0));
-
-
-    for(ll J=0; J<n; J++){
-        ll x1=lb(X, a[J]);
-        ll x2=lb(X, c[J]);
-        ll y1=lb(Y, b[J]);
-        ll y2=lb(Y, d[J]);
-
-// v2 : 長方形の可視化
-        for(ll x_=x1; x_<=x2; x_++){
-            for(ll y_=y1; y_<=y2; y_++){
-                v2[x_][y_]++;
-            }
-        }
-    }
-    ll Endx_idx = lb(X, X_mx);
-    ll Endy_idx = lb(Y, Y_mx);
-
-    for(ll x_=0; x_<=Endx_idx+1; x_++){
-        v2[x_][Endy_idx+1]=-1;
-    }
-    for(ll y_=0; y_<=Endy_idx+1; y_++){
-        v2[Endx_idx+1][y_]=-1;
-    }
-}
-
-void Search_Y_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r, ll nu, vll ord){
-    for(ll J=0; J<n; J++){
-        ll i=ord[J];
-        if(nu%2 == 0) continue;
-        // if(nu>10) i=ord[n-1-J];
-        // if(nu<2 && J>3*n/4) break;
-    // for(auto e : ord){
-    //     ll i = e;
-    //     if(nu%2 == i%2) continue;
-        
-        ll x1=lb(X, a[i]);
-        ll x2=lb(X, c[i]);
-        ll y1=lb(Y, b[i]);
-        ll y2=lb(Y, d[i]);
-        ll od = d[i];
-        ll s = (c[i]-a[i])*(d[i]-b[i]);
-        if(100*P_score(r[i], s)>k) continue;
-
-        for(ll y_=y2+1; ; y_++){
-            bool f=false;
-            for(ll x_=x1; x_<=x2; x_++){
-                if(v2[x_][y_]>0){
-                    if(s<r[i]){
-                        if(sqrt(r[i])>d[i]-b[i]) d[i]+=min((ll)sqrt(r[i])-(d[i]-b[i])+10, 3*(Y[y_]-d[i])/4);
-                        else if(sqrt(r[i])>c[i]-a[i]) d[i]+=min((r[i]-s)/(8*(c[i]-a[i])), 3*(Y[y_]-d[i])/4);
-                        else d[i]+=min((r[i]-s)/(4*(c[i]-a[i])), 3*(Y[y_]-d[i])/4);
-                    }
-                    f = true;
-                }else if(v2[x_][y_]==-1){
-                    if((d[i]-b[i])<sqrt(r[i])){
-                        d[i]+=(ll)sqrt(r[i])-(d[i]-b[i]);
-                    }else if(s<r[i]){
-                        if(sqrt(r[i])>c[i]-a[i]) d[i]+=(r[i]-s)/(8*(c[i]-a[i]));
-                        else d[i]+=(r[i]-s)/(4*(c[i]-a[i]));
-                    }
-                    chmin(d[i], 10000);
-                    f = true;
-                }
-                ll ns = (d[i]-b[i])*(c[i]-a[i]);
-                if(P_score(r[i], ns)<P_score(r[i], s)) d[i] = od;
-                if(f) break;
-            }
-            if(f){
-                Set_Table(n, X, Y, a, b, c, d, v2);
-                break;
-            }
-        }
-    }
-}
-
-void Search_X_pls(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r, ll nu, vll ord){
-    for(ll J=0; J<n; J++){
-        ll i=ord[J];
-        if(nu%2 == 0) continue;
-        if(nu>30) i=ord[n-1-J];
-        // if(nu<2 && J>3*n/4) break;
-    // for(auto e : ord){
-    //     ll i = e;
-    //     if(nu%2 == i%2) continue;
-
-        ll x1=lb(X, a[i]);
-        ll x2=lb(X, c[i]);
-        ll y1=lb(Y, b[i]);
-        ll y2=lb(Y, d[i]);
-        ll s = (c[i]-a[i])*(d[i]-b[i]);
-        ll oc = c[i];
-        if(100*P_score(r[i], s)>k) continue;
-
-        for(ll x_=x2+1; ; x_++){
-            bool f=false;
-            for(ll y_=y1; y_<=y2; y_++){
-                if(v2[x_][y_]>0){
-                    if(s<r[i]){
-                        if(sqrt(r[i])>c[i]-a[i]) c[i]+=min((ll)sqrt(r[i])-(c[i]-a[i])+10, 3*(X[x_]-c[i])/4);
-                        else if(sqrt(r[i])>c[i]-a[i]) c[i]+=min((r[i]-s)/(8*(d[i]-b[i])), 3*(X[x_]-c[i])/4); 
-                        else c[i]+=min((r[i]-s)/(4*(d[i]-b[i])), 3*(X[x_]-c[i])/4);
-                        chmin(c[i], 10000);
-                    }
-                    f = true;
-                }else if(v2[x_][y_]==-1){
-                    if((c[i]-a[i])<sqrt(r[i])){
-                        c[i]+=abs((ll)sqrt(r[i])-(c[i]-a[i]));
-                    }else if(s<r[i]){
-                        if(sqrt(r[i])>c[i]-a[i]) c[i]+=(r[i]-s)/(8*(d[i]-b[i])); 
-                        else c[i]+=(r[i]-s)/(4*(d[i]-b[i]));
-                    }
-                    chmin(c[i], 10000);
-                    f = true;
-                }
-                ll ns = (d[i]-b[i])*(c[i]-a[i]);
-                if(P_score(r[i], ns)<P_score(r[i], s)) c[i] = oc;
-                if(f) break;
-            }
-            if(f){
-                Set_Table(n, X, Y, a, b, c, d, v2);
-                break;
-            }
-        }
-    }
-}
-
-void Search_X_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r, ll nu, vll ord){
-
-    for(ll J=0; J<n; J++){
-        ll i=ord[J];
-        if(nu%2 == 0) continue;
-        // if(nu>10) i=ord[n-1-J];
-        // if(nu<2 && J>3*n/4) break;
-    // for(auto e : ord){
-    //     ll i=e;
-    //     if(nu%2 == i%2) continue;
-
-        ll x1=lb(X, a[i]);
-        ll x2=lb(X, c[i]);
-        ll y1=lb(Y, b[i]);
-        ll y2=lb(Y, d[i]);
-        ll s = (c[i]-a[i])*(d[i]-b[i]);
-        ll oa = a[i];
-        if(100*P_score(r[i], s)>k) continue;
-
-        for(ll x_=x1-1; x_>=0; x_--){
-            bool f=false;
-            for(ll y_=y1; y_<=y2; y_++){
-                if(v2[x_][y_]>0){
-                    if((d[i]-b[i])*(c[i]-a[i])<r[i]){
-                        if(sqrt(r[i])>c[i]-a[i]) a[i]-=min((ll)sqrt(r[i])-(c[i]-a[i])+10, 3*(a[i]-X[x_])/4);
-                        else if(sqrt(r[i])>d[i]-b[i]) a[i]-=min((r[i]-s)/(8*(d[i]-b[i])), 3*(a[i]-X[x_])/4);
-                        else a[i]-=min((r[i]-s)/(4*(d[i]-b[i])), 3*(a[i]-X[x_])/4);
-                        chmax(a[i], 0ll);
-                    }
-                    f = true;
-                }else if(x_==0){
-                    if(c[i]-a[i]<(ll)sqrt(r[i])){
-                        a[i]-=(ll)sqrt(r[i])-(c[i]-a[i]);
-                    }else if(s<r[i]){
-                        if(d[i]-b[i]<sqrt(r[i])) a[i]-=(r[i]-s)/(8*(d[i]-b[i]));
-                        else a[i]-=(r[i]-s)/(3*(d[i]-b[i]));
-                        // a[i]/=2;
-                    }
-                    chmax(a[i], 0ll);
-                    f = true;
-                }
-                ll ns = (d[i]-b[i])*(c[i]-a[i]);
-                if(P_score(r[i], ns)<=P_score(r[i], s)) a[i] = oa;
-                if(f) break;
-            }
-            if(f){
-                Set_Table(n, X, Y, a, b, c, d, v2);
-                break;
-            }
-        }
-    }
-}
-
-void Search_Y_mi(ll n, vll &X, vll &Y, vll &a, vll &b, vll &c, vll &d, vector<vll> &v2, vll r, ll nu, vll ord){
-    for(ll J=0; J<n; J++){
-        ll i=ord[J];
-        if(nu%2 == 0) continue;
-        if(nu>30) i=ord[n-1-J];
-        // if(nu<2 && J>3*n/4) break;
-    // for(auto e : ord){
-        // ll i=e;
-        
-        ll x1=lb(X, a[i]);
-        ll x2=lb(X, c[i]);
-        ll y1=lb(Y, b[i]);
-        ll y2=lb(Y, d[i]);
-        ll s = (c[i]-a[i])*(d[i]-b[i]);
-        ll ob=b[i];
-        if(100*P_score(r[i], s)>k) continue;
-
-        for(ll y_=y1-1; y_>=0; y_--){
-            bool f=false;
-            for(ll x_=x1; x_<=x2; x_++){
-                if(v2[x_][y_]>0){
-                    if(s<r[i]){
-                        if(sqrt(r[i])>(d[i]-b[i])) b[i]-=min((ll)sqrt(r[i])-(d[i]-b[i])+10, 3*(b[i]-Y[y_])/4);
-                        else if(c[i]-a[i]<sqrt(r[i])) b[i]-=min((r[i]-s)/(8*(c[i]-a[i])), 3*(b[i]-Y[y_])/4);
-                        else b[i]-=min((r[i]-s)/(4*(c[i]-a[i])), 3*(b[i]-Y[y_])/4);
-                        chmin(b[i], d[i]);
-                    }
-                    f = true;
-                }else if(y_==0){
-                    if(d[i]-b[i]<(ll)sqrt(r[i])){
-                        b[i]-=(ll)sqrt(r[i])-(d[i]-b[i]);
-                    }else if(s<r[i]){
-                        if(c[i]-a[i]<sqrt(r[i])) b[i]-=(r[i]-s)/(8*(c[i]-a[i]));
-                        else b[i]-=(r[i]-s)/(3*(c[i]-a[i]));
-                        // b[i]/=2;
-                    }
-                    chmax(b[i], 0ll);
-                    f = true;
-                }
-                ll ns = (d[i]-b[i])*(c[i]-a[i]);
-                if(P_score(r[i], ns)<P_score(r[i], s)) b[i]=ob;
-                if(f) break;
-            }
-            if(f){
-                Set_Table(n, X, Y, a, b, c, d, v2);
-                break;
-            }
-        }
-    }
-}
-
-
-
-
-int main() {
-    LL(n);
-    vll X, Y;
-    vll x(n), y(n), r(n), s(n);
-    vll a(n), b(n), c(n), d(n);
-    vv(ll, v2, 4*n, 4*n);
-    vector<pair<ll, ll>> V;
-
-
-    rep(i,n){
-        cin >> x[i] >> y[i] >> r[i];
-        a[i]=c[i]=x[i]; b[i]=d[i]=y[i];
-        c[i]++; d[i]++;
-    }
+    if(H==y) return a == 0;
+    if(W==x) return dfs(0, y+1, a);
+    if(used[y][x]) return dfs(x+1, y, a);
     
+    ll res = 0;
+    if(y+1<H && !used[y+1][x] && 0<a){
+        used[y][x]=used[y+1][x]=true;
+        res+=dfs(x+1, y, a-1);
+        used[y][x]=used[y+1][x]=false;
+    } 
 
-    Set_Table(n, X, Y, a, b, c, d, v2); 
+    if(x+1<W && !used[y][x+1] && 0<a){
+        used[y][x] = used[y][x+1]=true;
+        res+=dfs(x+1, y, a-1);
+        used[y][x] = used[y][x+1] = false;
+    } 
 
-        
-    rep(i,40){
-        vector<pair<long double, ll>> V;
-        vll ord;
-        for(ll i=0; i<n; i++){
-            V.eb(100*(r[i]-((c[i]-a[i])*(d[i]-b[i])))/(long double)r[i], i);
-        }
-        sort(V.rbegin(), V.rend());
-        // sort(all(V));
-        if(i==39){
-            for(auto E : V) cout << E.first << endk;
-        }
-        for(auto e : V) ord.eb(e.second);
+    res+=dfs(x+1, y, a);
+    return res;
+}
 
-        Search_Y_pls(n, X, Y, a, b, c, d, v2, r, i, ord);
-        Search_X_pls(n, X, Y, a, b, c, d, v2, r, i, ord);
-        Search_X_mi(n, X, Y, a, b, c, d, v2, r, i, ord);
-        Search_Y_mi(n, X, Y, a, b, c, d, v2, r, i, ord);
-        cout << ALL_score(n, a, b, c, d, r) << endk;
-    }
-
-    // cout << endk;
-    // cout << ALL_score(n, a, b, c, d, r) << endk;
-
-
-//Output Answer
-    // cout << '\n';
-    // cout << "*****************************" << endl;
-    // cout << '\n';
-    rep(i,n) cout << a[i] << " " << b[i] << " " << c[i] << " " << d[i] << endk;
-
+int main(){
+    cin >> H >> W >> A >> B;
+    cout << dfs(0, 0, A) << endk;
+    
     return 0;
 }
-

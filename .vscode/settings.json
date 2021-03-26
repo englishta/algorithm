@@ -81,13 +81,14 @@
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
     "editor.fontFamily": "Fira Code",
+    
 // インサートモードの設定
     "vim.insertModeKeyBindingsNonRecursive": [
         {
           "before": ["j", "j"],
           "after": ["<Esc>"]
         },
-  ],
+    ],
 
   "vim.hlsearch": true,
   "vim.useSystemClipboard": true,
@@ -132,5 +133,6 @@
 
     // Enable verbose logging of nimsuggest to use profile directory.
     "nim.logNimsuggest": false,
-    "jupyter.jupyterServerType": "local"
+    "jupyter.jupyterServerType": "local",
+    "git.ignoreLimitWarning": true
 }
