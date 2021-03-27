@@ -97,26 +97,7 @@ vector<T> compress(vector<T> &X){
 #pragma endregion   
 
 int main() {
-    ll H, W; cin >> H >> W;
-    ll A, B; cin >> A >> B;
-    ll N = H*W;
-    vv(ll, dp, N+1, ll(1<<N), 0);
-    dp[0][0] = 1;
-
-    for(ll i=0; i<ll(1<<N)-1; i++){
-        ll J=0;
-        while((i>>J) & 1) J++;
-
-        for(ll k=0; k<=N; k++){
-            ll h=J/W, w=J%W;
-            if(k+1 <=N) dp[k+1][i | ll(1<<J)] +=dp[k][i];
-            if(h+1 < H && ((i >> (J+W)) & 1) == 0) dp[k][i | ll(1<<(J+W))] += dp[k][i];
-            if(w+1 < W && ((i >> (J+1)) & 1) == 0) dp[k][i | ll(1<<(J+1))] += dp[k][i];
-        }
-    }
-    // debug(dp);
-    cout << dp[B][ll(1<<N)-1] << endk;
-
+    
     return 0;
 
 }

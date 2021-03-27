@@ -97,34 +97,8 @@ vector<T> compress(vector<T> &X){
 #pragma endregion   
 
 
-ll H, W, A, B;
-bool used[16][16];
-ll dfs(ll x, ll y, ll a){
-
-    if(H==y) return a == 0;
-    if(W==x) return dfs(0, y+1, a);
-    if(used[y][x]) return dfs(x+1, y, a);
-    
-    ll res = 0;
-    if(y+1<H && !used[y+1][x] && 0<a){
-        used[y][x]=used[y+1][x]=true;
-        res+=dfs(x+1, y, a-1);
-        used[y][x]=used[y+1][x]=false;
-    } 
-
-    if(x+1<W && !used[y][x+1] && 0<a){
-        used[y][x] = used[y][x+1]=true;
-        res+=dfs(x+1, y, a-1);
-        used[y][x] = used[y][x+1] = false;
-    } 
-
-    res+=dfs(x+1, y, a);
-    return res;
-}
-
 int main(){
-    cin >> H >> W >> A >> B;
-    cout << dfs(0, 0, A) << endk;
+    
     
     return 0;
 }

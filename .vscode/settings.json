@@ -83,7 +83,7 @@
     "editor.fontFamily": "Fira Code",
     
 // インサートモードの設定
-    "vim.insertModeKeyBindingsNonRecursive": [
+    "vim.insertModeKeyBindings": [
         {
           "before": ["j", "j"],
           "after": ["<Esc>"]
