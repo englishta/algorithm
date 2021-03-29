@@ -98,7 +98,9 @@ vector<T> compress(vector<T> &X){
 
 
 int main(){
-    ll n; cin >> n;
+    LL(t);
+    
+    
     
 
     
