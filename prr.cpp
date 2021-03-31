@@ -97,6 +97,9 @@ vector<T> compress(vector<T> &X){
 #pragma endregion   
 
 int main() {
+    int a;
+    cin >> a;
+    cout << a << endk;
     
     
     return 0;

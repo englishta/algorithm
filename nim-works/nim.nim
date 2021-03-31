@@ -1,4 +1,4 @@
-import sequtils, strutils, strformat, algorithm, math, sugar
+import sequtils, strutils, strformat, algorithm, math, sugar, complex
 # let inps = iterator: string {.closure.} =
 #   while true: (for s in stdin.readLine.split: yield s)
 # proc inp: int{.used.} = inps().parseInt()
@@ -6,37 +6,26 @@ import sequtils, strutils, strformat, algorithm, math, sugar
 #   newSeqWith(y, newSeqWith(x, p))
 {.warning[UnusedImport]: off.}
 
+let 
+    n = stdin.readLine.parseInt()
+    A = stdin.readLine.split.map(parseInt)
+var ans:int64 = 10000000000000000
 
-# let s = stdin.readLine
-# echo s[1..2] & s[0]
+for bit in 0..<(1 shl (n-1)):
+    # var vec = newSeq[int]()
+    var xorSum:int64 = 0
+    var orSum:int64 = A[0]
+    for i in 0..<(n-1):
+        if(bit and (1 shl i)) != 0:
+            xorSum = (xorSum xor orSum)
+            orSum = A[i+1]
+            if i == n-2: xorSum=(xorSum xor A[n-1])
+        else:
+            orSum=(orSum or A[i+1])
+            if i == n-2: xorSum=(xorsum xor orSum)
+    if xorSum<ans: ans = xorSum
 
-var
-  h, w, x, y, ans: int
+if n == 1: echo A[0]
+else: echo ans
 
-(h, w, x, y) = stdin.readLine.split.map(parseInt)
-let s = (0..<h).mapIt(stdin.readLine)
-
-x-=1
-y-=1
-ans = 0
-
-if s[x][y]=='.': ans+=1
-
-for j in y+1..<w:
-  if s[x][j]=='#': break
-  else: ans+=1
-
-for j in 1..y:
-  if s[x][y-j]=='#': break
-  else: ans+=1
-
-for i in x+1..<h:
-  if s[i][y]=='#': break
-  else: ans+=1
-
-for i in 1..x:
-  if s[x-i][y]=='#': break
-  else: ans+=1
-
-echo ans
 
