@@ -97,11 +97,26 @@ vector<T> compress(vector<T> &X){
 #pragma endregion   
 
 int main() {
-    int a;
-    cin >> a;
-    cout << a << endk;
-    
-    
+    string s, t;
+    cin >> s >> t;
+    bool flag = true;
+    rep(i, s.size()){
+        if(s[i] == '@'){
+            if(!(t[i] == 'a' || t[i] == 't' || t[i] == 'c' || t[i] == 'o' || t[i] == 'd' || t[i] == 'e' || t[i] == 'r' || t[i] == '@')){
+                flag = false;
+            }
+        }
+        else if(t[i] == '@'){
+            if(!(s[i] == 'a' || s[i] == 't' || s[i] == 'c' || s[i] == 'o' || s[i] == 'd' || s[i] == 'e' || s[i] == 'r' || s[i] == '@')){
+                flag = false;
+            }
+        } 
+        else if(s[i] != t[i]) flag = false;
+    }
+
+    if(flag) cout << "You can win" << endk;
+    else cout << "You will lose" << endk;
+
     return 0;
 
 }
