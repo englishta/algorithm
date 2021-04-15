@@ -96,27 +96,31 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-int main() {
-    string s, t;
-    cin >> s >> t;
-    bool flag = true;
-    rep(i, s.size()){
-        if(s[i] == '@'){
-            if(!(t[i] == 'a' || t[i] == 't' || t[i] == 'c' || t[i] == 'o' || t[i] == 'd' || t[i] == 'e' || t[i] == 'r' || t[i] == '@')){
-                flag = false;
-            }
-        }
-        else if(t[i] == '@'){
-            if(!(s[i] == 'a' || s[i] == 't' || s[i] == 'c' || s[i] == 'o' || s[i] == 'd' || s[i] == 'e' || s[i] == 'r' || s[i] == '@')){
-                flag = false;
-            }
-        } 
-        else if(s[i] != t[i]) flag = false;
-    }
+ll N;
+ll c[101010], cnt[101010], good[101010];
+vector<vll> G(101010);
 
-    if(flag) cout << "You can win" << endk;
-    else cout << "You will lose" << endk;
+void dfs(ll v, ll pa){
+    if(cnt[c[v]] == 0) good[v]++;
+    cnt[c[v]]++;
+
+    for(auto nv : G[v]){
+        if(nv != pa) dfs(nv, v);
+    }
+    cnt[c[v]]--;    
+}
+
+int main() {
+    cin >> N;
+    rep(i,N) cin >> c[i];
+    rep(i,N-1){
+        LL(A, B);
+        A--; B--;
+        G[A].push_back(B);
+        G[B].push_back(A);
+    }
+    dfs(0, 0);
+    rep(i,N) if(good[i]>0) cout << i+1 << endk; 
 
     return 0;
-
 }

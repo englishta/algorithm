@@ -1,103 +1,27 @@
-#Begin Header {{{
-from math import gcd, pi, cos, sin, e
-from collections import Counter, deque, defaultdict
-from heapq import heappush, heappop, heappushpop, heapify, heapreplace, merge
-from bisect import bisect_left, bisect_right, bisect, insort_left, insort_right, insort
-from itertools import accumulate, product, permutations, combinations, combinations_with_replacement
-# }}} End Heade
-# _________コーディングはここから！！___________
-
 #%%
 import pandas as pd
-import numpy as np
-train = pd.read_csv("graphic/kaggle/titanik/train.csv")
-test = pd.read_csv("graphic/kaggle/titanik/test.csv")
+url = "https://info.finance.yahoo.co.jp/ranking/?kd=1&tm=d&mk=1"
+
+dfs = pd.read_html(url)
+df = dfs[0]
+df
+#%%
+
+df.columns = ['順位', 'コード', '市場', '名称', '日付', '取引値', '前日比', '増加値', '出来高', '掲示板']
+df = df.drop('掲示板', axis=1)
+#%%
+df = df.drop(df.index[-1])
+df = df.astype({'順位' : int})
+#%%
+df['増加値']=[e.replace('+', '') for e in df['増加値'].tolist()]
+#%%
+df
+#%%
+# df = df.astype({'順位' : int, 'コード': int, '取引値' : int, '増加値' : int, '出来高' : int})
+#%%
+df['前日比'] = [e.replace('+', '').replace('%', '') for e in df['前日比'].tolist()]
+#%%
+df = df.astype({'前日比' : float})
+df.to_csv('./stock_up.csv', encoding = 'utf_8_sig')
 
 # %%
-print(train.shape)
-print(test.shape)
-#trainは、(891x12)
-#testは、(418x11)
-#Age,Cabin,Embarkedにnullがあることが分かる
-#%%
-train["is_train"]=1
-test["is_train"]=0
-all_df = pd.concat([train.drop(columns=["Survived"]), test])
-all_df
-
-# %%
-all_df = all_df.replace("male", 0).replace("female", 1).replace("S", 0).replace("Q", 2).replace("C", 1)
-#EmbarkedのSCQを数値に変換
-test.head(10)
-
-# %%
-all_df["Age"].fillna(all_df.Age.mean(), inplace = True)
-all_df["Embarked"].fillna(all_df.Embarked.mean(), inplace = True)
-all_df["Fare"].fillna(all_df.Fare.mean(), inplace = True)
-#%%
-#Familysizeを導入
-all_df["FamilySize"]=all_df["SibSp"]+all_df["Parch"]
-# all_df.drop(["SibSp", "Parch"], axis=1, inplace=True)
-#%%
-#Cabinのデータを頭文字で置き換える
-all_df["Cabin"]=all_df["Cabin"].str[:1]
-#%%
-all_df = pd.concat([all_df, pd.get_dummies(all_df["Cabin"], prefix="Cabin")], axis=1).drop(columns=["Cabin"])
-#%%
-#名前から敬称を取り出す
-all_df["Name"] = all_df["Name"].str.extract(' ([A-Za-z]+)\.', expand = False)
-#%%
-all_df["Name"].value_counts()
-#敬称ごとの出現数を表示する
-#%%
-all_df["Name"].replace(["Capt", "Col", "Dr", "Major", "Rev"], "Officer", inplace = True)
-all_df["Name"].replace(["Countess", "Don", "Dona", "Jonkheer", "Lady", "Sir"], "Royalty", inplace = True)
-all_df["Name"].replace("Mlle", "Miss", inplace=True)
-all_df["Name"].replace(["Mme", "Ms"], "Mrs", inplace=True)
-# all_df["Ticket"].replace(["CA 2144", "CA. 2343"], "CA", inplace=True)
-all_df["Name"].value_counts()
-#%%
-#ダミー変数へ変換する
-all_df = pd.concat([all_df, pd.get_dummies(all_df["Name"], prefix="Name")], axis=1).drop(columns=["Name"])
-all_df.head(10)
-#%%
-# all_df.drop(["Name_Royalty"], axis=1, inplace=True)
-
-#%%
-all_df["Ticket"].value_counts()
-# %%
-all_df = all_df.drop(["Ticket"], axis=1)
-# %%
-target_train = train["Survived"]
-feature_train = all_df[all_df["is_train"]==1].drop(["is_train"], axis=1)
-feature_test = all_df[all_df["is_train"]==0].drop(["is_train"], axis=1)
-feature_test.head(10)
-#%%
-print(feature_train.shape)
-print(feature_test.shape)
-
-# %%
-from sklearn.ensemble import RandomForestClassifier
-from sklearn import metrics
-model = RandomForestClassifier(n_estimators=100, random_state=1080, max_depth=30)
-model.fit(feature_train, target_train)
-#%%
-features = feature_train.columns
-importances = model.feature_importances_
-indices = np.argsort(importances)[:30]
-#%%
-import matplotlib.pyplot as plt
-plt.figure(figsize=(6,6))
-# 横長の棒グラフの作成
-plt.barh(range(len(indices)), importances[indices], color='b')
-# y軸ラベルの作成
-plt.yticks(range(len(indices)), features[indices])
-plt.show()
-#%%
-pred_test = model.predict(feature_test)
-#%%
-#予測結果をcsvファイルに保存する
-my_prediction = pd.DataFrame(pred_test, feature_test["PassengerId"], columns=["Survived"])
-my_prediction.to_csv("graphic/kaggle/titanik/my_prediction2.csv", index_label=["PassengerId"])
-# %%
-

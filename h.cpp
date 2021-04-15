@@ -94,16 +94,43 @@ vector<T> compress(vector<T> &X){
 // vv(int, seq, 5, 5, -1);
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
-#pragma endregion   
-
+#pragma endregion
 
 int main(){
-    LL(t);
-    
-    
-    
+    LL(n);
+    vll c(n);
+    vector<vector<ll>> G(n);
+    rep(i,n) cin >> c[i];
 
-    
-    
+    rep(i,n-1){
+        ll A, B;
+        cin >> A >> B;
+        A--; B--;
+        G[B].push_back(A);
+        G[A].push_back(B);
+    }
+    queue<ll> que;
+    que.push(0);
+
+    vll dist(n, -1); dist[0] = 2;
+    vll ans; ans.eb(1);
+    map<ll, ll> mp;
+    mp[c[0]]++;
+
+    while(!que.empty()){
+        ll v=que.front();
+        que.pop();
+
+        for(auto nv : G[v]){
+            if(dist[nv] != -1) continue;
+            if(mp[c[nv]] == 0) ans.eb(nv+1);
+            mp[c[nv]]++;
+            dist[nv] = 2;
+            que.push(nv);
+        }
+    }
+    for(auto e : ans) cout << e << '\n';
+
+
     return 0;
 }
