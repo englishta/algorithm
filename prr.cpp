@@ -96,31 +96,8 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion   
 
-ll N;
-ll c[101010], cnt[101010], good[101010];
-vector<vll> G(101010);
-
-void dfs(ll v, ll pa){
-    if(cnt[c[v]] == 0) good[v]++;
-    cnt[c[v]]++;
-
-    for(auto nv : G[v]){
-        if(nv != pa) dfs(nv, v);
-    }
-    cnt[c[v]]--;    
-}
-
 int main() {
-    cin >> N;
-    rep(i,N) cin >> c[i];
-    rep(i,N-1){
-        LL(A, B);
-        A--; B--;
-        G[A].push_back(B);
-        G[B].push_back(A);
-    }
-    dfs(0, 0);
-    rep(i,N) if(good[i]>0) cout << i+1 << endk; 
+    
 
     return 0;
 }
