@@ -42,3 +42,24 @@ print(data.cumsum()/data.sum()) #積み上げ割合
 # 乱数
 import numpy.random as random
 random.seed(0)
+rnd_data = random.randn(10)
+rnd_data
+# %%
+data = np.array([9, 2, 3, 4, 10, 6, 7, 8, 1, 5])
+# 抽出対象データ
+
+# 10個を抽出(重複あり, 復元抽出)
+print(random.choice(data, 10))
+
+# %%
+#　10個を抽出重複なし、非復元抽出
+print(random.choice(data, 10, replace=False))
+
+# %%
+
+
+
+
+
+
+
