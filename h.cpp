@@ -99,11 +99,7 @@ vector<T> compress(vector<T> &X){
 
 
 int main(){
-    mt19937 mt{ random_device{}() };
-    uniform_int_distribution<int> dist(0, 6);  
-    rep(i,10){
-        cout << dist(mt) << endk;
-    }  
+    
 
     return 0;
 }

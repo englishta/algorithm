@@ -100,8 +100,8 @@ constexpr int m = 50;
 // タイルの整数値とポイントの配列
 vector<vector<int>> G(m, vector<int>(100));
 vector<vector<int>> p(m, vector<int>(100));
-// 既に到達したかを管理する配列
-vector<vector<int>> used(m, vector<int>(100, 0));
+// 到達したタイルを判別する配列 idx:tile_number, used[x]=0:not arrived, used[x]>0: arrived
+int used[3000];
 // 進む方向の配列
 vector<int> dx={1, -1, 0, 0};
 vector<int> dy={0, 0, 1, -1};
@@ -119,7 +119,7 @@ void solve(int x, int y){
         int ny=y+dy[k];
 
         if(nx<0 || nx>=m || ny<0 || ny>=m) continue;
-        if(used[nx][ny]!=0 || G[x][y] == G[nx][ny]) continue;
+        if(used[G[nx][ny]]!=0 || G[x][y] == G[nx][ny]) continue;
         sect.push_back(k);
     }
 
@@ -131,12 +131,7 @@ void solve(int x, int y){
     int nx = x+dx[sect[idx]];
     int ny = y+dy[sect[idx]];
 
-    for(ll t=0; t<4; t++){
-        ll ax = nx+dx[t]; ll ay = ny+dy[t];
-        if(ax<0 || ax>=m || ay<0 || ay>=m) continue;
-        if(G[ax][ay] == G[nx][ny]) used[ax][ay]++; 
-    }
-    used[nx][ny]++;
+    used[G[nx][ny]]++;
     v.push_back(s[sect[idx]]);
     score+=G[nx][ny];
 
@@ -145,22 +140,13 @@ void solve(int x, int y){
 
 int main() {
     // スタートの値を入力
-    int xs, ys;
-    cin >> xs >> ys;
+    INT(xs, ys);
 
     rep(i,m) rep(j,m) cin >> G[i][j];
     rep(i,m) rep(j,m) cin >> p[i][j];
 
-    used[xs][ys]++;
+    used[G[xs][ys]]++;
 
-    for(ll t=0; t<4; t++){
-        ll ax = xs+dx[t]; ll ay = ys+dy[t];
-        if(ax<0 || ax>=m || ay<0 || ay>=m) continue;
-        if(G[ax][ay] == G[xs][ys]){
-            used[ax][ay]++;
-            break;
-        }
-    }
     // 深さ優先探索start 
     solve(xs, ys);
     // 移動経路出力
