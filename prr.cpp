@@ -96,10 +96,10 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-constexpr int m = 50;
+constexpr int H=50, W=50, m=50;
 // タイルの整数値とポイントの配列
-vector<vector<int>> G(m, vector<int>(100));
-vector<vector<int>> p(m, vector<int>(100));
+vector<vector<int>> G(H, vector<int>(W));
+vector<vector<int>> p(H, vector<int>(W));
 // 到達したタイルを判別する配列 idx:tile_number, used[x]=0:not arrived, used[x]>0: arrived
 int used[3000];
 // 進む方向の配列

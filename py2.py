@@ -17,4 +17,3 @@ if not None: print("Yes6")
 if not False: print("Yes7")
 if not set(): print("Yes8")
 # %%
-

@@ -21,6 +21,11 @@ def move_adjacent_max(y:int, x:int, score:int, history: list):
             continue
         if can[2] < points[ny][nx]:
             can = (ny, nx, points[ny][nx], move)
+        
+    res = move_adjacent_max(can[0], can[1], score+can[2], list(history+can[3]))
+    seen.discard(tile[y][x])
+
+    return res
 
 H, W = 50, 50
 sy, sx = map(int, input().split())
