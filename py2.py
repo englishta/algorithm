@@ -1,4 +1,1 @@
-a = int(input())
-print(a)
-
-
+print(2**16)
