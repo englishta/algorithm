@@ -23,6 +23,9 @@ using ll = long long;
 #define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
 const long long mod=1e9+7;
 const long double PI = acos(-1);
+void Yes() {cout << "Yes" << '\n'; exit(0);}
+void No() {cout << "No" << '\n'; exit(0);}
+
 template<class T, class S> inline bool chmax(T &a, const S &b){ 
     if (a<b){ 
         a = b; 
@@ -96,62 +99,39 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-constexpr int H=50, W=50, m=50;
-// タイルの整数値とポイントの配列
-vector<vector<int>> G(H, vector<int>(W));
-vector<vector<int>> p(H, vector<int>(W));
-// 到達したタイルを判別する配列 idx:tile_number, used[x]=0:not arrived, used[x]>0: arrived
-int used[3000];
-// 進む方向の配列
-vector<int> dx={1, -1, 0, 0};
-vector<int> dy={0, 0, 1, -1};
-string s = "DURL";
-// スコア
-ll score = 0;
-// 移動経路を記録する配列
-vector<char> v;
-
-void solve(int x, int y){
-    vector<int> sect;
-
-    for(ll k=0; k<4; k++){
-        int nx=x+dx[k];
-        int ny=y+dy[k];
-
-        if(nx<0 || nx>=m || ny<0 || ny>=m) continue;
-        if(used[G[nx][ny]]!=0 || G[x][y] == G[nx][ny]) continue;
-        sect.push_back(k);
+template<class T>
+vector<vector<T>> fnp(vector<vector<T>> a, T b){
+    for(int i=0; i<a.size(); i++){
+        for(int j=0; j<a[i].size(); j++){
+            a[i][j] += b;
+        }
     }
+    return a;
+}
+template<class T>
+vector<vector<T>> fnm(vector<vector<T>> a, T b){
+    for(int i=0; i<a.size(); i++){
+        for(int j=0; j<a[i].size(); j++){
+            a[i][j] -= b;
+        }
+    }
+    return a;
+}
 
-    if(sect.size() == 0) return;
-    mt19937 mt{ random_device{}() };
-    uniform_int_distribution<int> dist(0, sect.size()-1);
-
-    int idx=dist(mt);
-    int nx = x+dx[sect[idx]];
-    int ny = y+dy[sect[idx]];
-
-    used[G[nx][ny]]++;
-    v.push_back(s[sect[idx]]);
-    score+=G[nx][ny];
-
-    solve(nx, ny);
+template<class T>
+vector<vector<T>> fnp(vector<vector<T>> a, vector<vector<T>> b){
+    for(int i=0; i<a.size(); i++){
+        for(int j=0; j<a[i].size(); j++){
+            a[i][j] += b[i][j];
+        }
+    }
+    return a;
 }
 
 int main() {
-    // スタートの値を入力
-    INT(xs, ys);
+    vector<vector<int>> v(3, vector<int>(2, 1));
+    auto nv = fnm(v, 3);
+    debug(nv);
 
-    rep(i,m) rep(j,m) cin >> G[i][j];
-    rep(i,m) rep(j,m) cin >> p[i][j];
-
-    used[G[xs][ys]]++;
-
-    // 深さ優先探索start 
-    solve(xs, ys);
-    // 移動経路出力
-    for(auto e : v) cout << e;
-    cout << '\n';
-    
     return 0;
 }

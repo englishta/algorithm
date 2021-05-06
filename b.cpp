@@ -23,6 +23,9 @@ using ll = long long;
 #define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
 const long long mod=1e9+7;
 const long double PI = acos(-1);
+void Yes() {cout << "Yes" << '\n'; exit(0);}
+void No() {cout << "No" << '\n'; exit(0);}
+
 template<class T, class S> inline bool chmax(T &a, const S &b){ 
     if (a<b){ 
         a = b; 
@@ -94,38 +97,9 @@ vector<T> compress(vector<T> &X){
 // vv(int, seq, 5, 5, -1);
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
-#pragma endregion   
+#pragma endregion
 
 int main() {
-    LL(n, m);
-    vll a(n);
-    set<ll> s;
-    map<ll, ll> mp;
-    rep(i,1500002) s.insert(i);
-    rep(i,n){
-        cin >> a[i];
-    }
-    for(ll i=0; i<m; i++){
-        s.erase(a[i]);
-        mp[a[i]]++;
-    }
-    auto itr = s.begin();
-    ll ans = ll(*itr);
-
-    for(ll i=0; i<n-m; i++){
-        mp[a[i]]--;
-        if(mp[a[i]]==0) s.insert(a[i]);
-        s.erase(a[i+m]);
-        auto it = s.begin();
-        ll sub = *it;
-        // cout << sub << endl;
-        chmin(ans, sub);
-    }
-    drop(ans);
-
     
-
-    
-
     return 0;
 }
