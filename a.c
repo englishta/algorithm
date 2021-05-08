@@ -3,26 +3,9 @@
 #define rep1(i, J, n) for(int i=(J); i<(n); i++)
 
 int main(void){
-    const int n;
-    scanf("%d", &n);
-    int a[n];
-    int u = 0;
-    int d = 0; 
-    int ans = 1;
-
-    rep(i,n) scanf("%d", &a[i]);
-    rep1(i, 1, n){
-        if(u && a[i-1]>a[i]){
-            u=0; ans++; 
-        }else if(d && a[i-1]<a[i]){
-            d=0; ans++;
-        }else{
-            if(a[i-1]<a[i]) u = 1;
-            else if(a[i-1]>a[i]) d = 1;
-        }
-    }
-    printf("%d", ans);
-    printf("\n");
+    char s[4]; // char型の配列
+    scanf("%s", s);
+    printf("%c%c%c\n", s[1], s[2], s[0]);
 
     return 0;
 }
