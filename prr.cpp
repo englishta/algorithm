@@ -99,39 +99,7 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-template<class T>
-vector<vector<T>> fnp(vector<vector<T>> a, T b){
-    for(int i=0; i<a.size(); i++){
-        for(int j=0; j<a[i].size(); j++){
-            a[i][j] += b;
-        }
-    }
-    return a;
-}
-template<class T>
-vector<vector<T>> fnm(vector<vector<T>> a, T b){
-    for(int i=0; i<a.size(); i++){
-        for(int j=0; j<a[i].size(); j++){
-            a[i][j] -= b;
-        }
-    }
-    return a;
-}
-
-template<class T>
-vector<vector<T>> fnp(vector<vector<T>> a, vector<vector<T>> b){
-    for(int i=0; i<a.size(); i++){
-        for(int j=0; j<a[i].size(); j++){
-            a[i][j] += b[i][j];
-        }
-    }
-    return a;
-}
-
 int main() {
-    vector<vector<int>> v(3, vector<int>(2, 1));
-    auto nv = fnm(v, 3);
-    debug(nv);
 
     return 0;
 }
