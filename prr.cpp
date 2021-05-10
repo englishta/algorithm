@@ -100,6 +100,6 @@ vector<T> compress(vector<T> &X){
 #pragma endregion
 
 int main() {
-
+    LL(n);
     return 0;
 }

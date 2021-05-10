@@ -54,8 +54,7 @@ def Main():
             # print(*ans_cell['source']) #ソースコードを取り出す
             if fn1(ans_cell['source'], "print"): v1[1]+=v2[1]
             result = ans_cell['outputs'][0]["text"][0]
-            if result == "Hello World!\n":
-                v1[0]+=v2[0]
+            if result == "Hello World!\n": v1[0]+=v2[0]
                 
         except:
             pass
