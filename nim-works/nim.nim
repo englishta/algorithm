@@ -46,7 +46,6 @@ proc `*`[T, I, K, J](a: Matrix[T, I, K], b: Matrix[T, K, J]): Matrix[T, I, J]=
     result = c
 
 
-
 var g: Matrix[int, 2, 3] = [[2, 3, 4], [2, 5, 1]]
 var mat: Matrix[float, 2, 2]
 var mat2 = `+`(mat, 2.0)
