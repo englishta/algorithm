@@ -122,5 +122,6 @@
     "jupyter.jupyterServerType": "local",
     "git.ignoreLimitWarning": true,
 
-    
+// python 自作モジュールエラー対策
+    "python.autoComplete.extraPaths": ["/mnt/c/MinGW/prog2/common/"],
 }

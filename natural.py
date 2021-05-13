@@ -48,8 +48,10 @@ text = "You say goodbye and I say hellow."
 corpus, word_to_id, id_to_word = preprocess(text)
 
 # %%
-# common.pyのpreprocess関数を使う
-from common import preprocess
+# util.pyのpreprocess関数を使う
+import sys
+sys.path.append('..')
+from util import preprocess
 text = "You say goodbye and I say hellow."
 print(preprocess(text))
 # %%
