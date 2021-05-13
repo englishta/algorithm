@@ -120,5 +120,7 @@
     "nim.lintOnSave": true,
     "nim.logNimsuggest": false,
     "jupyter.jupyterServerType": "local",
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+
+    
 }
