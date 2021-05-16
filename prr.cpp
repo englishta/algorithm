@@ -99,7 +99,9 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-int main(){
 
-  return 0;
+int main(){
+    
+
+    return 0;
 }
