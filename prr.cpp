@@ -77,11 +77,10 @@ cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
 cout<<"   "; \
 dump(__VA_ARGS__)
 
-template<class T, class A> inline T dup(T num, A waru){
-    return (num%waru == 0)? num/waru : num/waru+1; 
-}
+template<class T, class A> inline T dup(T num, A waru){ return (num%waru == 0)? num/waru : num/waru+1; }
 template<class T> T LCM(T a, T b){ return (a*b)/__gcd(a, b);}
-
+template<class T>char chr(T number){ return char('0'+number); }//int(0..9)->char('0'..'9')
+ll bai(ll n){ll t=1; rep(i,n) t*=2; return t;}// 2^n
 template<class T>
 vector<T> compress(vector<T> &X){
     vector<T> Uni = X;
@@ -101,7 +100,9 @@ vector<T> compress(vector<T> &X){
 
 
 int main(){
-    
-
+    LL(A, B, k);
+    string s = "";
+    rep(i,A) s+='a';
+    rep(i,B) s+='b';
     return 0;
 }
