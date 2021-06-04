@@ -1,28 +1,7 @@
-from collections import deque
-
-s = input()
-n = len(s)
-dq = deque()
-rev = False
-for i in range(n):
-    if s[i] == 'R':
-        flag = not flag 
-    elif not dq: 
-        dq.append(s[i])
-    elif flag:
-        if dq[-1] == s[i]:
-            dq.pop()
-        else:
-            dq.append(s[i])
-
-    else:
-        if dq[0] == s[i]:
-            dq.popleft()
-        else:
-            dq.appendleft(s[i])
-
-if not flag:
-    s = reversed(s)
-
-print("".join(s))
-    
+import re
+s = "if(a == 2) print(3) /*こんにちは，*/"
+k = "aaaaaaaaa*/ for i in range(n)"
+t = re.sub(r'/\*.*\*/', "", s)
+k = re.sub(r'.*\*/', "", k)
+print(k)
+# print(t)

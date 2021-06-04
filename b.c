@@ -1,16 +1,8 @@
-// abc199-a
-/*
-あああああああ
-いいいい
-ううう
-*/
 #include<stdio.h>
 int main(){
     int a,b,c;
-    scanf("%d %d %d",&a,&b,&c);/*aaaaaaaaa
-    aaaaaaaaaaa
-    bbbbbbbb
-    aaaaa*/a = a*a;
+    scanf("%d %d %d",&a,&b,&c);
+    a=a*a;
     b=b*b;
     c=c*c;
     if(a+b<c){
@@ -19,5 +11,4 @@ int main(){
         printf("No\n");
     }
     return(0);
-
 }
