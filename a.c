@@ -10,7 +10,8 @@ int main(){
     scanf("%d %d %d",&a,&b,&c);/*aaaaaaaaa
     aaaaaaaaaaa
     bbbbbbbb
-    aaaaa*/a = a*a;
+    aaaaa*/
+    a = a*a;
     b=b*b;
     c=c*c;
     if(a+b<c){

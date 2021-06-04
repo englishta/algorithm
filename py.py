@@ -15,7 +15,7 @@ for i in range(len(list)):
     end = len(s)-1
 
     if list[i].count("*/"): coment_out = False
-    if s != "" and s != "#include<stdio.h>" and s[:2] != "//" and not coment_out:
+    if s != "" and s != "#include<stdio.h>" and not coment_out:
         if s[end] != ';' and s[end] !='{' and s[end] !='}' and s[:3] != "for" and s[:2] != "if":
             rev.append(str(i+1)+"行目：セミコロンなし")
         if s.count("　"):
