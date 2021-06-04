@@ -1,7 +1,11 @@
 import re
-s = "if(a == 2) print(3) /*こんにちは，*/"
-k = "aaaaaaaaa*/ for i in range(n)"
-t = re.sub(r'/\*.*\*/', "", s)
-k = re.sub(r'.*\*/', "", k)
-print(k)
-# print(t)
+s = "void f(int x, int y){"
+j = "int a=(2+3);"
+t = "aa__bb__cc__dd"
+k = "aa"
+
+j = re.sub(r"(int|double|void) .*\((int|double|void).*\)", "Func", j)
+s = re.sub(r"(int|double|void) .*\((int|double|void).*\)", "Func", s)
+t = re.sub(r"(aa|bb|cc)", "xx", t)
+print(j)
+print(s)
