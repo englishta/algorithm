@@ -7,10 +7,7 @@
 #include<stdio.h>
 int main(){
     int a,b,c;
-    scanf("%d %d %d",&a,&b,&c);/*aaaaaaaaa
-    aaaaaaaaaaa
-    bbbbbbbb
-    aaaaa*/
+    scanf("%d %d %d",&a,&b,&c);
     a = a*a;
     b=b*b;
     c=c*c;
