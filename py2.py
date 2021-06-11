@@ -1,3 +1,9 @@
+# https://dai1741.github.io/maximum-algo-2012/docs/parsing/
+# 再帰降下型構文解析
+
+# AOJの問題
+# https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0109&lang=jp
+
 def expr(s, i):
   val = term(s, i)
   while s[i] == '+' or s[i] == '-':
@@ -6,7 +12,8 @@ def expr(s, i):
     val2 = term(s, i)
     if op == '+': val += val2
     else: val -= val2
-    return val
+
+  return val
  
 
 def term(s, i):
@@ -17,7 +24,7 @@ def term(s, i):
     val2 = factor(s, i)
     if op == '*': val *= val2
     else: val /= val2
-    return val
+  return val
 
 def factor(s, i):
   if s[i].isdigit(): return number(s, i)
@@ -44,12 +51,11 @@ def solve():
     print(expr(s, i))
 
 def Main():
-  str = "1+2*6/(10-7)"
+  # str = "1+2*6/(10-7)"
+  str = "1+12"
   i = 0
   print(str, " = ", expr(str, i))
 
-
-	
 
 if __name__ == "__main__":
   Main()
