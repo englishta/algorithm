@@ -1,19 +1,55 @@
-import re
-# s = "void f(int x, int y){"
-# j = "int a=(2+3);"
-# t = "aa__bb__cc__dd"
-# k = "aa"
+def expr(s, i):
+  val = term(s, i)
+  while s[i] == '+' or s[i] == '-':
+    op = s[i]
+    i+=1
+    val2 = term(s, i)
+    if op == '+': val += val2
+    else: val -= val2
+    return val
+ 
 
-# j = re.sub(r"(int|double|void) .*\((int|double|void).*\)", "Func", j)
-# s = re.sub(r"(int|double|void) .*\((int|double|void).*\)", "Func", s)
-# t = re.sub(r"(aa|bb|cc)", "xx", t)
-# print(j)
-# print(s)
+def term(s, i):
+  val = factor(s, i)
+  while s[i] == '*' or s[i] == '/':
+    op = s[i]
+    i+=1
+    val2 = factor(s, i)
+    if op == '*': val *= val2
+    else: val /= val2
+    return val
 
-# s = 'if(n%2 == 0) {'
-# s = "aaabb{b;"
-s = 'for (int i=0; i<=n; i++)       {'
-s = s.replace(" ", "")
-s = re.sub(r"(if|for)\s*\(.*\)\s*[^\{;]+", "(if|for)() do", s)
-# s = re.sub(r"[^\{;]", "_", s)
-print(s)
+def factor(s, i):
+  if s[i].isdigit(): return number(s, i)
+  i+=1
+  ret = expr(s, i)
+  i+=1
+  return ret
+
+
+def number(s, i):
+  n = ord(s[i])
+  i+=1
+  while s[i].isdigit():
+    n = n*10 + int(s[i])
+    i+=1
+  return n
+
+
+def solve():
+  n = int(input())
+  for i in range(n):
+    s = str(input())
+    i = 0
+    print(expr(s, i))
+
+def Main():
+  str = "1+2*6/(10-7)"
+  i = 0
+  print(str, " = ", expr(str, i))
+
+
+	
+
+if __name__ == "__main__":
+  Main()

@@ -99,17 +99,8 @@ vector<T> compress(vector<T> &X){
 #pragma endregion
 
 int main(){
-    LL(n, k);
-    vector<pair<ll, ll>> v;
-    rep(i,n){
-        LL(a, b);
-        v.eb(a, b);
-    }
-    sort(all(v));
-    for(ll i=0; i<n; i++){
-        if(k < v[i].first) break;
-        k+=v[i].second;
-    }
-    cout << k << endl;
+
+
+
     return 0;
 }
