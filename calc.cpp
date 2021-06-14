@@ -55,14 +55,14 @@ int number(string& s, int& i) {
 }
 
 // AOJの問題を解くための関数宣言
-void solve(){
-  int n; cin >> n;
-  for(int j=0; j<n; j++){
-    string s; cin >> s;
-    int i = 0;
-    cout << expr(s, i) << endl;
-  }
-}
+// void solve(){
+//   int n; cin >> n;
+//   for(int j=0; j<n; j++){
+//     string s; cin >> s;
+//     int i = 0;
+//     cout << expr(s, i) << endl;
+//   }
+// }
 
 int main() {
   // solve();
