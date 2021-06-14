@@ -98,19 +98,17 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-void solve(vll a, vll c, ll k){
-    ll ans;
-    ll t = ub(c, k);
-    if(t == 0){
-        cout << k << '\n';
-        return;
-    }
-    t--;
-    if(c[t] == k) ans = c[t]+1;
-    else ans = a[t]+k-c[t];
-    cout << ans << '\n';
-
-}
+// void solve(vll a, vll c, ll k){
+//     ll ans;
+//     ll t = lb(c, k);
+//     if(t == 0){
+//         cout << k << '\n';
+//         return;
+//     }
+//     t--;
+//     ans = a[t]+k-c[t];
+//     cout << ans << '\n';
+// }
 
 int main(){
     LL(n, q);
@@ -121,7 +119,11 @@ int main(){
     }
     rep(i,q){
         LL(k);
-        solve(a, c, k);
+        ll ans;
+        ll t = lb(c, k);
+        if(t == 0) ans = k;
+        else ans = a[t-1]+k-c[t];
+        cout << ans << '\n';
     }
     return 0;
 }
