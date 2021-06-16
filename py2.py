@@ -7,6 +7,7 @@
 # term := <factor> | <term> * <factor> | <term> / <factor>
 # factor := (<expr>) | <number>
 # number := [0 - 9]*
+import re
 
 i = 0
 
@@ -60,3 +61,40 @@ def Calculate(st):
   i=0
   st = st.replace(" ", "")
   return expr(st)
+
+
+# --------------<is_str func>--------
+def is_str(v):
+    return type(v) is str
+
+# --------------<deformate func>--------
+def search_var(Str, t, d):
+    q = len(t)
+    n = len(Str)
+    S = ""
+    i = 0
+    while i < n:
+        if i<=n-q and Str[i:i+q] == t:
+            S+=str(d[t])
+            i+=q
+        else:
+            S+=Str[i]
+            i+=1
+    return S    
+
+def deformate(Str, d):
+    for var in d.keys():
+        Str = search_var(Str, var, d)
+    return Str
+
+def func(Str, d):
+    var = ""
+    Str = Str.replace(" ", "").replace(";", "")
+    for e in re.sub(r"(int|double)", "", Str):
+        if e == '=': break
+        var+=e
+    Str= re.sub(r"(int|double).+=", '', Str)
+    Str = deformate(Str, d)
+    Num = Calculate(Str)
+    print(var, "<--", Str,"=", Num)
+    d[var] = Num

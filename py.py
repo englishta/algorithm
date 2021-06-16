@@ -1,14 +1,9 @@
-from py2 import Calculate
-import re
+from py2 import func
 
+d = {'hens' : 3, 'x' : 4}
 
-d = {}
-s = "int var = (8*4)/(3+5);"
-var = ""
-s = s.replace(" ", "").replace(";", "")
-for e in re.sub(r"(int|double)", "", s):
-    if e == '=': break
-    var+=e
-d[var] = Calculate(re.sub(r"(int|double).+=", '', s))
+s = "int t = (hens*x)/(2-hens+5);"
 
+print(d)
+func(s, d)
 print(d)
