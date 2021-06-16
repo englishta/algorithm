@@ -55,7 +55,6 @@ def number(s):
     i+=1
   return n
 
-
 def Calculate(st):
   global i
   i=0
