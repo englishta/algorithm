@@ -97,21 +97,54 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion
+class UnionFind{
+	public:
+	vector<ll> r;
 
+	UnionFind(ll N){
+		r = vector<ll>(N, -1);
+	}
+
+	int root(ll x){
+		if(r[x] < 0) return x;
+		return r[x] = root(r[x]);
+	}
+
+	bool unit(ll x, ll y){
+		x = root(x);
+		y = root(y);
+		if(x == y) return false;
+		if(r[x] > r[y]) swap(x, y);
+		r[x] += r[y];
+		r[y] = x;
+		return true;
+	}
+
+	int size(ll x){
+		return -r[root(x)];
+	}
+
+};
 int main(){
-    LL(n, q);
-    vll a(n), c(n);
-    rep(i,n){
-        cin >> a[i];
-        c[i] = a[i]-i-1;
+    LL(n);
+    vll a(n);
+    rep(i,n) cin >> a[i];
+    UnionFind UF(n);
+    ll ans=0;
+    set<ll> st;
+
+    rep(i,n/2){
+        UF.unit(a[i], a[n-1-i]);
+        st.insert(a[i]);
+        st.insert(a[n-1-i]);
     }
-    rep(i,q){
-        LL(k);
-        ll ans;
-        ll t = lb(c, k);
-        if(t == 0) ans = k;
-        else ans = a[t-1]+k-c[t];
-        cout << ans << '\n';
+    for(auto e : st){
+        if(UF.r[e]<0){
+            ans+=(-1)*UF.r[e]-1;
+        }
     }
+
+    cout << max(ans, 0ll) << endl;
+
     return 0;
 }

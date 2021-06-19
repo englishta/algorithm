@@ -6,8 +6,6 @@ using ll = long long;
 
 
 int main(){
-    int c = 2+3, d = 2*c;
-    cout << c << d << endl;
     
     return 0;
 }
