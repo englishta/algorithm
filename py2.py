@@ -83,7 +83,7 @@ def search_var(Str, t, d):
         else:
             S+=Str[i]
             i+=1
-    return S    
+    return S
 
 def deformate(Str, d):
     for var in d.keys():
