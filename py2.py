@@ -90,7 +90,7 @@ def deformate(Str, d):
         Str = search_var(Str, var, d)
     return Str
 
-def func(String, d):
+def Scan1(String, d):
     for Str in String.split(","):
         var = ""
         Str = Str.replace(" ", "").replace(";", "")
