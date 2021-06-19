@@ -1,4 +1,3 @@
-import re
-a = 'a_'
-if bool(re.search(r'[_]', a)): print("Yes")
-else: print("No")
+d = {'aaa' : 2, 'a': 3, 'b' : 3}
+for s in d.keys():
+	print(s)
