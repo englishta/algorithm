@@ -105,7 +105,7 @@ class UnionFind{
 		r = vector<ll>(N, -1);
 	}
 
-	int root(ll x){
+	ll root(ll x){
 		if(r[x] < 0) return x;
 		return r[x] = root(r[x]);
 	}
@@ -120,7 +120,7 @@ class UnionFind{
 		return true;
 	}
 
-	int size(ll x){
+	ll size(ll x){
 		return -r[root(x)];
 	}
 
