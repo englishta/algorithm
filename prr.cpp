@@ -123,25 +123,24 @@ class UnionFind{
 	ll size(ll x){
 		return -r[root(x)];
 	}
-
 };
+
 int main(){
     LL(n);
     vll a(n);
     rep(i,n) cin >> a[i];
-    UnionFind UF(n);
+    UnionFind UF(201010);
     ll ans=0;
     set<ll> st;
 
     rep(i,n/2){
         UF.unit(a[i], a[n-1-i]);
-        st.insert(a[i]);
-        st.insert(a[n-1-i]);
+    }
+    for(auto e : a){
+        st.insert(UF.root(e));
     }
     for(auto e : st){
-        if(UF.r[e]<0){
-            ans+=(-1)*UF.r[e]-1;
-        }
+        ans+=(-1)*UF.r[e]-1;
     }
 
     cout << max(ans, 0ll) << endl;
