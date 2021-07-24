@@ -97,53 +97,10 @@ vector<T> compress(vector<T> &X){
 // vv(型, 名前, 縦, 横, 埋める数);
 /* ------------------------------------------------------------------------- */
 #pragma endregion
-class UnionFind{
-	public:
-	vector<ll> r;
 
-	UnionFind(ll N){
-		r = vector<ll>(N, -1);
-	}
-
-	ll root(ll x){
-		if(r[x] < 0) return x;
-		return r[x] = root(r[x]);
-	}
-
-	bool unit(ll x, ll y){
-		x = root(x);
-		y = root(y);
-		if(x == y) return false;
-		if(r[x] > r[y]) swap(x, y);
-		r[x] += r[y];
-		r[y] = x;
-		return true;
-	}
-
-	ll size(ll x){
-		return -r[root(x)];
-	}
-};
 
 int main(){
-    LL(n);
-    vll a(n);
-    rep(i,n) cin >> a[i];
-    UnionFind UF(201010);
-    ll ans=0;
-    set<ll> st;
-
-    rep(i,n/2){
-        UF.unit(a[i], a[n-1-i]);
-    }
-    for(auto e : a){
-        st.insert(UF.root(e));
-    }
-    for(auto e : st){
-        ans+=(-1)*UF.r[e]-1;
-    }
-
-    cout << max(ans, 0ll) << endl;
-
+    
+    
     return 0;
 }
