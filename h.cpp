@@ -1,33 +1,143 @@
 #pragma region Macros
 #include<bits/stdc++.h>
+//#include<atcoder/all>
+//using namespace atcoder;
 using namespace std;
 using ll = long long;
+#define endk '\n'
+#define pf(a, e) a.insert(a.begin(), e)
+#define pb push_back
+#define eb emplace_back
+#define vi vector<int>
+#define vll vector<ll>
 #define rep(i,n) for(ll i=0; i<(n); i++)
+#define Rep(i, j, n) for(ll i=j; i<(n); i++)
+#define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
+#define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
+#define drop(s) cout << s << endk, exit(0)
+#define print(x) cout << (x) << '\n'
+#define all(x) (x).begin(), (x).end()
+#define UNIQUE(v) v.erase(unique(all(v)), v.end())
+#define SP(num, keta) cout << setprecision(keta) << fixed <<num<< '\n'
+#define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
+#define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
+const long long mod=1e9+7;
+const long double PI = acos(-1);
+void Yes() {cout << "Yes" << '\n'; exit(0);}
+void No() {cout << "No" << '\n'; exit(0);}
 
-bool Count(string s, string t){
-    if(s.size()>t.size()) swap(s, t);
-    for(ll i=0; i+s.size()-1<t.size(); i++){
-        bool ok = true;
-        for(ll j=0; j<s.size(); j++){
-            if(t[i+j] != s[j]){
-                ok = false;
-                break;
-            }
-        }
-        if(ok == true) return true;
+template<class T, class S> inline bool chmax(T &a, const S &b){ 
+    if (a<b){ 
+        a = b; 
+        return 1; 
+    } 
+    return 0; 
+}
+template<class T, class S> inline bool chmin(T &a, const S &b){
+    if (a>b){
+        a = b;
+        return 1; 
+    } 
+    return 0; 
+}
+#define INT(...)                                                                                                                                               \
+    int __VA_ARGS__;                                                                                                                                           \
+    IN(__VA_ARGS__)
+#define LL(...)                                                                                                                                                \
+    ll __VA_ARGS__;                                                                                                                                            \
+    IN(__VA_ARGS__)
+#define STR(...)                                                                                                                                               \
+    string __VA_ARGS__;                                                                                                                                        \
+    IN(__VA_ARGS__)
+#define CHR(...)                                                                                                                                               \
+    char __VA_ARGS__;                                                                                                                                          \
+    IN(__VA_ARGS__)
+#define DBL(...)                                                                                                                                               \
+    double __VA_ARGS__;                                                                                                                                        \
+    IN(__VA_ARGS__)
+template<class T> void scan(T &a) { cin >> a; }
+void IN() {}
+template<class Head, class... Tail> void IN(Head &head, Tail &... tail)
+{
+    scan(head);
+    IN(tail...);
+}
+#define debug(var)  do{std::cout << #var << " : ";view(var);}while(0)
+template<typename T> void view(T e){std::cout << e << std::endl;}
+template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
+template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
+
+void dump() { cerr << '\n'; }
+template <class Head, class... Tail> void dump(Head head, Tail... tail) {
+    cerr << to_string(head) << " ";
+    dump(tail...);
+}
+#define Dump(...) cout<<"  "; \
+cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
+cout<<"   "; \
+dump(__VA_ARGS__)
+
+template<class T, class A> inline T dup(T num, A waru){ return (num%waru == 0)? num/waru : num/waru+1; }
+template<class T> T LCM(T a, T b){ return (a*b)/__gcd(a, b);}
+template<class T>char chr(T number){ return char('0'+number); }//int(0..9)->char('0'..'9')
+ll bai(ll n){ll t=1; rep(i,n) t*=2; return t;}// 2^n
+template<class T>
+vector<T> compress(vector<T> &X){
+    vector<T> Uni = X;
+    sort(all(Uni));
+    UNIQUE(Uni);
+    for(ll i=0; i<(ll)X.size(); i++) X[i]=lb(Uni, X[i]);
+    return X; 
+}
+//デバッグ方法
+//debug(配列、変数など一つだけ);
+//Dump(変数を複数 a, b, c);
+//多次元配列初期化方法
+// vv(int, seq, 5, 5, -1);
+// vv(型, 名前, 縦, 横, 埋める数);
+/* ------------------------------------------------------------------------- */
+#pragma endregion
+
+vector<vector<ll>> t(50, vector<ll>(50));
+vector<vector<ll>> p(50, vector<ll>(50));
+vector<bool> T(250, true);// true->未訪問
+string track="";
+
+void dfs(ll i, ll j){
+    T[t[i][j]] = false; // 訪問
+    if(i-1>=0 && T[t[i-1][j]]){
+        track+='U';
+        dfs(i-1, j);
+    }else if(i+1<50 && T[t[i+1][j]]){
+        track+='D';
+        dfs(i+1, j);
+    }else if(j-1>=0 && T[t[i][j-1]]){
+        track+='L';
+        dfs(i, j-1);
+    }else if(j+1<50 && T[t[i][j+1]]){
+        track+='R';
+        dfs(i, j+1);
     }
-    return false;
 }
 
 int main(){
-
-    string E="yoro", z="rock";
-    ll j = 1, k=0;
-    while(j<min(ll(E.size()), ll(z.size()))){
-        if(E.substr(E.size()-j, j) == z.substr(0, j)) k=j;
-        j++;
-    }
-    string ez=E+z.substr(k, z.size()-k);
     
+    ll si, sj;
+    cin >> si >> sj;
+
+    rep(i,50){
+        rep(j,50){
+            cin >> t[i][j];
+        }
+    }
+    rep(i,50){
+        rep(j,50){
+            cin >> p[i][j];
+        }
+    }
+    dfs(si, sj);
+    cout << track << endl;
+
     return 0;
+
 }

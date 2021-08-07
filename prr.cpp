@@ -98,9 +98,11 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
+using Graph = vector<vector<ll>>;
 
 int main(){
     
     
     return 0;
+
 }
