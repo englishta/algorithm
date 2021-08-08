@@ -98,11 +98,14 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-using Graph = vector<vector<ll>>;
 
 int main(){
-    
-    
+    LL(h, w, n);
+    vll a(n),b(n);
+    rep(i,n) cin >> a[i] >> b[i];
+    auto A = compress(a);
+    auto B = compress(b);
+    rep(i,n) cout << A[i]+1 << " " << B[i]+1 << endl;
     return 0;
 
 }

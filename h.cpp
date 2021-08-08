@@ -98,45 +98,64 @@ vector<T> compress(vector<T> &X){
 /* ------------------------------------------------------------------------- */
 #pragma endregion
 
-vector<vector<ll>> t(50, vector<ll>(50));
-vector<vector<ll>> p(50, vector<ll>(50));
-vector<bool> T(250, true);// true->未訪問
-string track="";
 
-void dfs(ll i, ll j){
-    T[t[i][j]] = false; // 訪問
-    if(i-1>=0 && T[t[i-1][j]]){
-        track+='U';
-        dfs(i-1, j);
-    }else if(i+1<50 && T[t[i+1][j]]){
-        track+='D';
-        dfs(i+1, j);
-    }else if(j-1>=0 && T[t[i][j-1]]){
-        track+='L';
-        dfs(i, j-1);
-    }else if(j+1<50 && T[t[i][j+1]]){
-        track+='R';
-        dfs(i, j+1);
+ll t[50][50];
+ll p[50][50];
+
+
+pair<ll, string> dfs(ll i, ll j, string track, ll score, char c, vector<bool> used){
+
+    if(used[t[i][j]] == false) return make_pair(score, track);
+    used[t[i][j]] = false; // 訪問
+    if(c!='a') track+=c;
+    score+=p[i][j];
+    ll best_score=-1;
+    string best_track;
+
+    if(i-1>=0){
+        auto e = dfs(i-1, j, track, score, 'U', used);
+        if(e.first>best_score){
+            best_score = e.first;
+            best_track = e.second;
+        }
     }
+    if(i+1<50){
+        auto e = dfs(i+1, j, track, score, 'D', used);
+        if(e.first>best_score){
+            best_score = e.first;
+            best_track = e.second;
+        }
+    }
+    if(j-1>=0){
+        auto e = dfs(i, j-1, track, score, 'L', used);
+        if(e.first>best_score){
+            best_score = e.first;
+            best_track = e.second;
+        }
+    }
+    if(j+1<50){
+        auto e = dfs(i, j+1, track, score, 'R', used);
+        if(e.first>best_score){
+            best_score = e.first;
+            best_track = e.second;
+        }
+    }
+    return make_pair(best_score, best_track);
+    
 }
 
 int main(){
     
     ll si, sj;
     cin >> si >> sj;
+    vector<bool> used(250, true);// true->未訪問
 
-    rep(i,50){
-        rep(j,50){
-            cin >> t[i][j];
-        }
-    }
-    rep(i,50){
-        rep(j,50){
-            cin >> p[i][j];
-        }
-    }
-    dfs(si, sj);
-    cout << track << endl;
+    rep(i,50) rep(j,50) cin >> t[i][j];
+    rep(i,50) rep(j,50) cin >> p[i][j];
+
+    auto e = dfs(si, sj, "", 0, 'a', used);
+    string ans = e.second;
+    cout << ans << endl;
 
     return 0;
 
