@@ -1,105 +1,101 @@
-#pragma region Macros
 #include<bits/stdc++.h>
-//#include<atcoder/all>
-//using namespace atcoder;
 using namespace std;
 using ll = long long;
-#define endk '\n'
-#define pf(a, e) a.insert(a.begin(), e)
-#define pb push_back
-#define eb emplace_back
-#define vi vector<int>
-#define vll vector<ll>
+using pll = std::pair<ll, ll>;
 #define rep(i,n) for(ll i=0; i<(n); i++)
-#define Rep(i, j, n) for(ll i=j; i<(n); i++)
-#define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
-#define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
-#define drop(s) cout << s << endk, exit(0)
-#define print(x) cout << (x) << '\n'
 #define all(x) (x).begin(), (x).end()
-#define UNIQUE(v) v.erase(unique(all(v)), v.end())
-#define SP(num, keta) cout << setprecision(keta) << fixed <<num<< '\n'
 #define lb(c, x) distance((c).begin(), lower_bound(all(c), (x)))
-#define ub(c, x) distance((c).begin(), upper_bound(all(c), (x)))
-const long long mod=1e9+7;
-const long double PI = acos(-1);
-void Yes() {cout << "Yes" << '\n'; exit(0);}
-void No() {cout << "No" << '\n'; exit(0);}
 
-template<class T, class S> inline bool chmax(T &a, const S &b){ 
-    if (a<b){ 
-        a = b; 
-        return 1; 
-    } 
-    return 0; 
+vector<vector<char>> rotate90(vector<vector<char>> s){
+    ll h = s.size(), w = s[0].size();
+    vector<vector<char>> r(w, vector<char>(h)); 
+    for(ll i=0; i<w; i++){
+        for(ll j=0; j<h; j++){
+            r[i][j] = s[h-1-j][i];
+        }
+    }
+    return r;
 }
-template<class T, class S> inline bool chmin(T &a, const S &b){
-    if (a>b){
-        a = b;
-        return 1; 
-    } 
-    return 0; 
-}
-#define INT(...)                                                                                                                                               \
-    int __VA_ARGS__;                                                                                                                                           \
-    IN(__VA_ARGS__)
-#define LL(...)                                                                                                                                                \
-    ll __VA_ARGS__;                                                                                                                                            \
-    IN(__VA_ARGS__)
-#define STR(...)                                                                                                                                               \
-    string __VA_ARGS__;                                                                                                                                        \
-    IN(__VA_ARGS__)
-#define CHR(...)                                                                                                                                               \
-    char __VA_ARGS__;                                                                                                                                          \
-    IN(__VA_ARGS__)
-#define DBL(...)                                                                                                                                               \
-    double __VA_ARGS__;                                                                                                                                        \
-    IN(__VA_ARGS__)
-template<class T> void scan(T &a) { cin >> a; }
-void IN() {}
-template<class Head, class... Tail> void IN(Head &head, Tail &... tail)
-{
-    scan(head);
-    IN(tail...);
-}
-#define debug(var)  do{std::cout << #var << " : ";view(var);}while(0)
-template<typename T> void view(T e){std::cout << e << std::endl;}
-template<typename T> void view(const std::vector<T>& v){for(const auto& e : v){ std::cout << e << " "; } std::cout << std::endl;}
-template<typename T> void view(const std::vector<std::vector<T> >& vv){ for(const auto& v : vv){ view(v); } }
 
-void dump() { cerr << '\n'; }
-template <class Head, class... Tail> void dump(Head head, Tail... tail) {
-    cerr << to_string(head) << " ";
-    dump(tail...);
+// sを固定，tを平行移動させてsの#群と一致させられるか
+bool trans(vector<vector<char>> s, vector<vector<char>> t){
+    ll sW = s[0].size(), sH = s.size();
+    ll tW = t[0].size(), tH = t.size();
+    ll cnt_sharp = 0;
+    for(ll i=0; i<sH; i++)for(ll j=0; j<sW; j++){
+        if(s[i][j] == '#') cnt_sharp++;
+    }
+    for(ll I=0; I<sH; I++){
+        for(ll J=0; J<sW; J++){
+            ll cnt = 0;
+            bool ok = true; 
+            for(ll i=I; i<min(sH, I+tH); i++){
+                for(ll j=J; j<min(sW, J+tW); j++){
+                    if(s[i][j] == '#'){
+                        if(t[i-I][j-J] == '.') ok = false;
+                        cnt++;
+                    }
+                }
+            }
+            if(cnt == cnt_sharp && ok) return true;
+        }
+    }
+    for(ll I=0; I<tH; I++){
+        for(ll J=0; J<tW; J++){
+            ll cnt = 0;
+            bool ok = true;
+            for(ll i=I; i<min(tH, I+sH); i++){
+                for(ll j=J; j<min(tW, J+sW); j++){
+                    if(t[i][j] == '#'){
+                        if(s[i-I][j-J] == '.') ok = false;
+                        cnt++;
+                    }
+                }
+            }
+            if(cnt == cnt_sharp && ok) return true;
+        }
+    }
+    return false;
 }
-#define Dump(...) cout<<"  "; \
-cout<<#__VA_ARGS__<<" :["<<__LINE__<<":"<<__FUNCTION__<<"]"<<endl; \
-cout<<"   "; \
-dump(__VA_ARGS__)
-
-template<class T, class A> inline T dup(T num, A waru){
-    return (num%waru == 0)? num/waru : num/waru+1; 
-}
-template<class T> T LCM(T a, T b){ return (a*b)/__gcd(a, b);}
-
-template<class T>
-vector<T> compress(vector<T> &X){
-    vector<T> Uni = X;
-    sort(all(Uni));
-    UNIQUE(Uni);
-    for(ll i=0; i<(ll)X.size(); i++) X[i]=lb(Uni, X[i]);
-    return X; 
-}
-//デバッグ方法
-//debug(配列、変数など一つだけ);
-//Dump(変数を複数 a, b, c);
-//多次元配列初期化方法
-// vv(int, seq, 5, 5, -1);
-// vv(型, 名前, 縦, 横, 埋める数);
-/* ------------------------------------------------------------------------- */
-#pragma endregion
 
 int main() {
+    ll n; cin >> n;
+    vector<vector<char>> s(n, vector<char>(n));
+    vector<vector<char>> t(n, vector<char>(n));
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<n; j++){
+            cin >> s[i][j];
+        }
+    }
+    for(ll i=0; i<n; i++){
+        for(ll j=0; j<n; j++){
+            cin >> t[i][j];
+        }
+    }
+    if(trans(s, t)){
+        cout << "Yes" << "\n";
+        return 0;
+    }
+    vector<vector<char>> t1 = rotate90(t);
+
+    if(trans(s, t1)){
+        cout << "Yes" << "\n";
+        return 0;
+    }
+    vector<vector<char>> t2 = rotate90(t1);
+
+    if(trans(s, t2)){
+        cout << "Yes" << "\n";
+        return 0;
+    }
+    vector<vector<char>> t3 = rotate90(t2);
+
+    if(trans(s, t3)){
+        cout << "Yes" << "\n";
+        return 0;
+    }
     
+    cout << "No" << "\n";
+
     return 0;
 }

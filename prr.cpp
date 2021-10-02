@@ -4,7 +4,7 @@
 //using namespace atcoder;
 using namespace std;
 using ll = long long;
-#define endk '\n'
+using Pll = pair<ll, ll>;
 #define pf(a, e) a.insert(a.begin(), e)
 #define pb push_back
 #define eb emplace_back
@@ -14,7 +14,7 @@ using ll = long long;
 #define Rep(i, j, n) for(ll i=j; i<(n); i++)
 #define vv(type, name, h, ...) vector<vector<type>> name(h, vector<type>(__VA_ARGS__))
 #define vvv(type, name, h, w, ...) vector<vector<vector<type>>> name(h, vector<vector<type>>(w, vector<type>(__VA_ARGS__)))
-#define drop(s) cout << s << endk, exit(0)
+#define drop(s) cout << s << endl, exit(0)
 #define print(x) cout << (x) << '\n'
 #define all(x) (x).begin(), (x).end()
 #define UNIQUE(v) v.erase(unique(all(v)), v.end())
@@ -81,31 +81,12 @@ template<class T, class A> inline T dup(T num, A waru){ return (num%waru == 0)? 
 template<class T> T LCM(T a, T b){ return (a*b)/__gcd(a, b);}
 template<class T>char chr(T number){ return char('0'+number); }//int(0..9)->char('0'..'9')
 ll bai(ll n){ll t=1; rep(i,n) t*=2; return t;}// 2^n
-template<class T>
-vector<T> compress(vector<T> &X){
-    vector<T> Uni = X;
-    sort(all(Uni));
-    UNIQUE(Uni);
-    for(ll i=0; i<(ll)X.size(); i++) X[i]=lb(Uni, X[i]);
-    return X; 
-}
-//デバッグ方法
-//debug(配列、変数など一つだけ);
-//Dump(変数を複数 a, b, c);
-//多次元配列初期化方法
-// vv(int, seq, 5, 5, -1);
-// vv(型, 名前, 縦, 横, 埋める数);
-/* ------------------------------------------------------------------------- */
+
 #pragma endregion
 
 
 int main(){
-    LL(h, w, n);
-    vll a(n),b(n);
-    rep(i,n) cin >> a[i] >> b[i];
-    auto A = compress(a);
-    auto B = compress(b);
-    rep(i,n) cout << A[i]+1 << " " << B[i]+1 << endl;
+    
+    
     return 0;
-
 }

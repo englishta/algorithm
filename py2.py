@@ -1,120 +1,73 @@
-# 再帰降下型構文解析
-# https://dai1741.github.io/maximum-algo-2012/docs/parsing/
+import linecache
+line_number = 1 #行番号
+lineIndex = -1
+end = len(open('sample.c').readlines()) #ファイルの行数
 
-# BNF
-# expr->加減式，term->乗除式，factor->(式)，number->数
-# expr := <term> | <expr> + <term> | <expr> - <term>
-# term := <factor> | <term> * <factor> | <term> / <factor>
-# factor := (<expr>) | <number>
-# number := [0 - 9]*
-import re
+def nextChar():
+    global line_number
+    global lineIndex
 
-i = 0
-
-def expr(s):
-  global i
-  val = term(s)
-  while i<len(s) and (s[i] == '+' or s[i] == '-'):
-    op = s[i]
-    i+=1
-    val2 = term(s)
-    if op == '+': val += val2
-    else: val -= val2
-
-  return val
- 
-
-def term(s):
-  global i
-  val = factor(s)
-  while i<len(s) and (s[i] == '*' or s[i] == '/'):
-    op = s[i]
-    i+=1
-    val2 = factor(s)
-    if op == '*': val *= val2
-    else: val //= val2
-  return val
-    
-
-def factor(s):
-  global i
-  if s[i].isdigit():
-    return number(s)
-  i+=1 # (を読み飛ばす
-  ret = expr(s)
-  i+=1 # )を読み飛ばす
-  return ret
-
-
-def number(s):
-  global i
-  n = int(s[i])
-  i+=1
-  while i<len(s) and s[i].isdigit():
-    n = n*10 + int(s[i])
-    i+=1
-  return n
-
-def Calculate(st):
-  global i
-  i=0
-  st = st.replace(" ", "")
-  return expr(st)
-
-
-# --------------<is_str func>--------
-def is_str(v):
-    return type(v) is str
-
-# --------------<deformate func>--------
-def search_var(Str, t, d):
-    q = len(t)
-    n = len(Str)
-    S = ""
-    i = 0
-    while i < n:
-        if i<=n-q and Str[i:i+q] == t:
-            if (i+q<n and Str[i+q] == t[0]) or (i-1>=0 and Str[i-1] == t[q-1]):
-                S+=Str[i]
-                i+=1
-            else:
-                S+=str(d[t])
-                i+=q
+    line = linecache.getline('sample.c', int(line_number))
+    if lineIndex == -1:
+        if line_number<=end:
+            lineIndex = 0
         else:
-            S+=Str[i]
-            i+=1
-    return S
+            print("end of file")
+            exit()
+    ch = line[lineIndex]
+    lineIndex+=1
+    if ch == '\n':
+        lineIndex = -1
+        line_number+=1
+        return ' '
+    return ch
 
-def deformate(Str, d):
-    for var in d.keys():
-        Str = search_var(Str, var, d)
-    return Str
+def error():
+    return "Error"
 
-def Scan1(String, d):
-    for Str in String.split(","):
-        var = ""
-        Str = Str.replace(" ", "").replace(";", "")
-        Str = re.sub(r"(int|double)", "", Str)
-        for e in Str:
-            if e == '=': break
-            var+=e
-        if not Str.count("="):
-            d[Str] = "yet"
-            continue
-        
-        Str= re.sub(r".+=", '', Str)
-        Str = deformate(Str, d)
+def state5():
+    global lineIndex
+    lineIndex-=1
 
-        if bool(re.search(r'[a-zA-Z_]', Str)):
-            Error_word = re.sub(r'[0-9\(\)\*\+\-\/.]', "", Str)
-            if Error_word.count("yet"):
-                print("値が代入されていない変数が使われています！")
-            else:
-                print("宣言されていない変数名が使われています -->", Error_word)
-                for e in d.keys():
-                    if e.count(Error_word):
-                        print(Error_word, "ではなく", e, "ではありませんか？")
-        else:
-            Num = Calculate(Str)
-            print(var, "<--", Str,"=", Num)
-            d[var] = Num
+def state4(s): #区切り記号
+    ch = nextChar()
+    state5()
+    return s
+
+def state3(s): #数字
+    ch = nextChar()
+    if ch.isdigit():
+        s+=ch
+        return state3(s)
+    else:
+        state5()
+        return s
+
+def state2(s): #名前
+    ch = nextChar()
+    if ch.isalpha() or ch.isdigit():
+        s+=ch
+        return state2(s)
+    else:
+        state5()
+        return s
+
+def state1(s):
+    ch = nextChar()
+    while ch == ' ':
+        ch = nextChar() #単語間の空白文字を読み飛ばす
+    s+=ch
+    if ch.isalpha(): #名前のとき
+        return state2(s)
+    elif ch.isdigit(): #数字のとき
+        return state3(s)
+    elif ch == ',' or ch == ';': #区切り記号
+        return state4(s)
+    else:
+        return error()
+
+if __name__ == '__main__':
+    while True:
+        ans = state1("")
+        if ans == "Error": continue
+        print(ans)
